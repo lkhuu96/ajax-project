@@ -1,6 +1,16 @@
 var $ul = document.querySelector('ul');
 var xmlObject = new XMLHttpRequest();
-loadXML('attack on titan');
+var $form = document.querySelector('form');
+
+$form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  if ($form.elements.search.value < 1) {
+    return;
+  }
+  loadXML($form.elements.search.value);
+  $form.reset();
+
+});
 
 function loadXML(search) {
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
@@ -26,7 +36,11 @@ function createList(anime) {
   var createDate = document.createElement('p');
   var createGenre = document.createElement('p');
 
-  createTitle.textContent = anime.title;
+  if (anime.title.length > 60) {
+    createTitle.textContent = anime.title.slice(0, 60) + '...';
+  } else {
+    createTitle.textContent = anime.title;
+  }
   createScore.textContent = 'Score: ' + anime.score;
   createDate.textContent = 'Air Date: ' + anime.aired.string;
   createGenre.textContent = 'Genre: ' + 'Action, Drama, Fantasy, Mystery';

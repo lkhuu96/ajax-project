@@ -22,10 +22,12 @@
       <div class="row justify-center align-center">
         <i class="home-button fa-solid fa-house-chimney"></i>
         <div class="column-full">
-          <div class="row search-bar align-center space-between">
-            <input class="column-full" type="text" placeholder="Search Anime">
-            <i class="font-size-1dot3 home-button dark-blue fa-solid fa-magnifying-glass"></i>
-          </div>
+          <form action="submit">
+            <div class="row search-bar align-center space-between">
+              <input class="column-full" name="search" type="text" placeholder="Search Anime">
+              <button type="submit"><i class="font-size-1dot3 home-button dark-blue fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -44,7 +46,16 @@
       <!--anime list-->
       <div class="column-full">
         <ul>
-          <!-- <li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+<!-- <li>
             <div class="row white-bg align-center">
               <div class="column-twenty">
                 <div class="row art-container">
@@ -59,14 +70,3 @@
               </div>
             </div>
           </li> -->
-        </ul>
-      </div>
-
-
-
-    </div>
-  </main>
-  <script src="js/data.js"></script>
-  <script src="js/main.js"></script>
-</body>
-</html>
