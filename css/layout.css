@@ -12,6 +12,10 @@
   margin: auto;
 }
 
-.column-fifth {
+.column-twenty {
   flex-basis: 20%;
+}
+
+.column-sixty {
+  flex-basis: 60%;
 }

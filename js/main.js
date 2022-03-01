@@ -14,9 +14,11 @@ function loadXML(search) {
 
 function createList(anime) {
   var createLi = document.createElement('li');
-  var createRow = document.createElement('div');
+  var createListRow = document.createElement('div');
+  var createImgCol = document.createElement('div');
+  var createImgRow = document.createElement('div');
   var createImg = document.createElement('img');
-  var createCol = document.createElement('div');
+  var createInfoCol = document.createElement('div');
   var createTitle = document.createElement('h2');
   var createScore = document.createElement('p');
   var createDate = document.createElement('p');
@@ -27,21 +29,27 @@ function createList(anime) {
   createDate.textContent = 'Air Date: ' + anime.aired.string;
   createGenre.textContent = 'Genre: ' + 'Action, Drama, Fantasy, Mystery';
 
-  createCol.appendChild(createTitle);
-  createCol.appendChild(createScore);
-  createCol.appendChild(createDate);
-  createCol.appendChild(createGenre);
-  createCol.className = 'column-full';
+  createInfoCol.appendChild(createTitle);
+  createInfoCol.appendChild(createScore);
+  createInfoCol.appendChild(createDate);
+  createInfoCol.appendChild(createGenre);
+  createInfoCol.className = 'column-sixty list-info';
 
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
   createImg.className = 'list-art';
 
-  createRow.appendChild(createImg);
-  createRow.appendChild(createCol);
-  createRow.className = 'row white-bg list-info';
+  createImgRow.appendChild(createImg);
+  createImgRow.className = 'row art-container';
 
-  createLi.appendChild(createRow);
-  createLi.setAttribute('id', '1');
+  createImgCol.appendChild(createImgRow);
+  createImgCol.className = 'column-twenty';
+
+  createListRow.appendChild(createImgCol);
+  createListRow.appendChild(createInfoCol);
+  createListRow.className = 'row white-bg align-center';
+
+  createLi.appendChild(createListRow);
+  createLi.setAttribute('id', anime.mal_id);
   return createLi;
 }

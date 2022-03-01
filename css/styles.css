@@ -20,10 +20,20 @@ ul {
   padding: 0;
 }
 
+li > div {
+  margin-bottom: 2em;
+}
+
 div.list-info > div {
   font-weight: 600;
   margin: 2% 5%;
   font-size: 0.9rem;
+  width: 100%;
+}
+
+.list-art {
+  width: 100%;
+  object-fit: cover;
 }
 
 .column-full h2 {
@@ -51,14 +61,14 @@ div.list-info > div {
   border-radius: 5px;
 }
 
-.list-art {
-  width: 20%;
-  object-fit: cover;
+.art-container {
+  height: 12em;
+  width: 100%;
 }
 
 .list-info {
-  margin-bottom: 4%;
-  max-height: 170px;
+  margin: auto 3%;
+  max-width: 600%;
 }
 
 .dark-blue {
