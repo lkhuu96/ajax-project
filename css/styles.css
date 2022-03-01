@@ -35,6 +35,9 @@ input:focus {
 
 .search-bar {
   background-color: white;
+  padding: 0.4rem;
+  margin: auto 0.5rem;
+  border-radius: 5px;
 }
 
 .dark-blue {
@@ -45,10 +48,22 @@ input:focus {
   font-size: 2rem;
 }
 
+.font-size-1dot5 {
+  font-size: 1.3rem;
+}
+
 .font-300 {
   font-weight: 400;
 }
 
 .space-between {
   justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
 }
