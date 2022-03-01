@@ -12,6 +12,11 @@ header {
   text-align: center;
 }
 
+.home-button {
+  color: #9ad0ec;
+  font-size: 3rem;
+}
+
 .dark-blue {
   color: #0b5a82;
 }
