@@ -1,0 +1,21 @@
+body {
+  background-color: #b0b0b0;
+  font-family: Roboto, sans-serif;
+}
+
+.welcome {
+  color: #0b5a82;
+  text-align: center;
+}
+
+.welcome-size {
+  font-size: 5rem;
+}
+
+.font-size-3 {
+  font-size: 2rem;
+}
+
+.font-300 {
+  font-weight: 400;
+}
