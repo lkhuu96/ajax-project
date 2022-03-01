@@ -3,6 +3,7 @@ var xmlObject = new XMLHttpRequest();
 var $form = document.querySelector('form');
 var $message = document.querySelector('.message');
 var $welcome = document.querySelector('.welcome');
+var $viewMore = document.querySelector('#view-more');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -10,7 +11,6 @@ $form.addEventListener('submit', function (event) {
   if (search < 1) {
     return;
   }
-
   data.prevResultLength = data.anime.length;
   $welcome.classList.add('hidden');
   $message.classList.remove('hidden');
@@ -22,16 +22,32 @@ $form.addEventListener('submit', function (event) {
   $form.reset();
 });
 
+$viewMore.addEventListener('click', viewMore);
+
 function loadXML(search) {
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.anime = xmlObject.response.data;
-    for (var i = 0; i < data.anime.length; i++) {
+    for (var i = 0; i < data.view; i++) {
       $ul.appendChild(createList(data.anime[i]));
     }
   });
   xmlObject.send();
+}
+
+function viewMore(event) {
+  if (data.anime.length < data.view + 6) {
+    $viewMore.classList.add('hidden');
+    for (var i = data.view; i < data.anime.length; i++) {
+      $ul.appendChild(createList(data.anime[i]));
+    }
+  } else {
+    for (var x = data.view; x < data.view + 6; x++) {
+      $ul.appendChild(createList(data.anime[x]));
+    }
+  }
+  data.view += 6;
 }
 
 function createList(anime) {

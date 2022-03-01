@@ -1,7 +1,7 @@
 /* exported data */
 
 var data = {
-  id: 0,
+  view: 6,
   anime: [],
   prevResultLength: 0
 };

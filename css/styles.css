@@ -43,6 +43,11 @@ div.list-info > div {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 button {
   border: none;
   background: none;
