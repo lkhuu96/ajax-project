@@ -7,6 +7,22 @@ header {
   background-color: #0b5a82;
 }
 
+input {
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: rgb(53, 53, 53);
+}
+
+#nav-bar {
+  padding: 1rem 0;
+}
+
 .welcome {
   font-size: 3rem;
   text-align: center;
@@ -14,7 +30,11 @@ header {
 
 .home-button {
   color: #9ad0ec;
-  font-size: 3rem;
+  font-size: 2rem;
+}
+
+.search-bar {
+  background-color: white;
 }
 
 .dark-blue {
@@ -27,4 +47,8 @@ header {
 
 .font-300 {
   font-weight: 400;
+}
+
+.space-between {
+  justify-content: space-between;
 }
