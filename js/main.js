@@ -1,4 +1,16 @@
 var $ul = document.querySelector('ul');
+var xmlObject = new XMLHttpRequest();
+loadXML('attack on titan');
+
+function loadXML(search) {
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search);
+  xmlObject.responseType = 'json';
+  xmlObject.addEventListener('load', function () {
+    data.anime = xmlObject.response.data;
+    $ul.appendChild(createList(data.anime[1]));
+  });
+  xmlObject.send();
+}
 
 function createList(anime) {
   var createLi = document.createElement('li');
@@ -10,9 +22,9 @@ function createList(anime) {
   var createDate = document.createElement('p');
   var createGenre = document.createElement('p');
 
-  createTitle.textContent = 'Shingeki no Kyojin';
-  createScore.textContent = 'Score: ' + '8.52';
-  createDate.textContent = 'Air Date: ' + 'Apr 7, 2013 to Sep 29, 2013';
+  createTitle.textContent = anime.title;
+  createScore.textContent = 'Score: ' + anime.score;
+  createDate.textContent = 'Air Date: ' + anime.aired.string;
   createGenre.textContent = 'Genre: ' + 'Action, Drama, Fantasy, Mystery';
 
   createCol.appendChild(createTitle);
@@ -21,8 +33,8 @@ function createList(anime) {
   createCol.appendChild(createGenre);
   createCol.className = 'column-full';
 
-  createImg.setAttribute('src', 'https://cdn.myanimelist.net/images/anime/10/47347.jpg');
-  createImg.setAttribute('alt', 'Shingeki no Kyojin');
+  createImg.setAttribute('src', anime.images.webp.image_url);
+  createImg.setAttribute('alt', anime.title);
   createImg.className = 'list-art';
 
   createRow.appendChild(createImg);
@@ -30,8 +42,6 @@ function createList(anime) {
   createRow.className = 'row white-bg list-info';
 
   createLi.appendChild(createRow);
-
+  createLi.setAttribute('id', '1');
   return createLi;
 }
-
-$ul.appendChild(createList());

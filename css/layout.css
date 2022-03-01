@@ -9,4 +9,9 @@
 
 .column-full {
   flex-basis: 100%;
+  margin: auto;
+}
+
+.column-fifth {
+  flex-basis: 20%;
 }

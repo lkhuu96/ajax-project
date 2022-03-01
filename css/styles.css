@@ -22,7 +22,12 @@ ul {
 
 div.list-info > div {
   font-weight: 600;
-  margin-left: 2%;
+  margin: 2% 5%;
+  font-size: 0.9rem;
+}
+
+.column-full h2 {
+  margin: auto;
 }
 
 ::placeholder {
@@ -48,10 +53,12 @@ div.list-info > div {
 
 .list-art {
   width: 20%;
+  object-fit: cover;
 }
 
 .list-info {
   margin-bottom: 4%;
+  max-height: 170px;
 }
 
 .dark-blue {
@@ -84,6 +91,10 @@ div.list-info > div {
 
 .align-center {
   align-items: center;
+}
+
+.align-between {
+  align-content: space-between;
 }
 
 .hidden {
