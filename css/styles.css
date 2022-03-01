@@ -43,6 +43,16 @@ div.list-info > div {
   width: 100%;
 }
 
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+#nav-bar {
+  padding: 1rem;
+}
+
 .list-art {
   width: 100%;
   height: 12em;
@@ -54,8 +64,12 @@ div.list-info > div {
 }
 
 .welcome {
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
+}
+
+.message {
+  margin: 1rem;
 }
 
 .home-button {
@@ -107,6 +121,10 @@ div.list-info > div {
   justify-content: center;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .align-center {
   align-items: center;
 }
@@ -117,8 +135,4 @@ div.list-info > div {
 
 .hidden {
   display: none;
-}
-
-#nav-bar {
-  padding: 1rem;
 }

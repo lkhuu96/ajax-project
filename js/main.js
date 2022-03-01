@@ -1,15 +1,25 @@
 var $ul = document.querySelector('ul');
 var xmlObject = new XMLHttpRequest();
 var $form = document.querySelector('form');
+var $message = document.querySelector('.message');
+var $welcome = document.querySelector('.welcome');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
-  if ($form.elements.search.value < 1) {
+  var search = $form.elements.search.value;
+  if (search < 1) {
     return;
   }
-  loadXML($form.elements.search.value);
-  $form.reset();
 
+  data.prevResultLength = data.anime.length;
+  $welcome.classList.add('hidden');
+  $message.classList.remove('hidden');
+  $message.textContent = `Search Results for "${search}"`;
+  for (var i = 0; i < data.prevResultLength; i++) {
+    $ul.removeChild(document.querySelector('li'));
+  }
+  loadXML(search);
+  $form.reset();
 });
 
 function loadXML(search) {

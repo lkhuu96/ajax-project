@@ -2,5 +2,6 @@
 
 var data = {
   id: 0,
-  anime: []
+  anime: [],
+  prevResultLength: 0
 };
