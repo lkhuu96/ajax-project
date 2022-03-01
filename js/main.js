@@ -7,7 +7,9 @@ function loadXML(search) {
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.anime = xmlObject.response.data;
-    $ul.appendChild(createList(data.anime[1]));
+    for (var i = 0; i < data.anime.length; i++) {
+      $ul.appendChild(createList(data.anime[i]));
+    }
   });
   xmlObject.send();
 }
