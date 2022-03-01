@@ -3,7 +3,7 @@ var xmlObject = new XMLHttpRequest();
 loadXML('attack on titan');
 
 function loadXML(search) {
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search);
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.anime = xmlObject.response.data;
