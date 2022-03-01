@@ -3,16 +3,20 @@ body {
   font-family: Roboto, sans-serif;
 }
 
+header {
+  background-color: #0b5a82;
+}
+
 .welcome {
-  color: #0b5a82;
+  font-size: 3rem;
   text-align: center;
 }
 
-.welcome-size {
-  font-size: 5rem;
+.dark-blue {
+  color: #0b5a82;
 }
 
-.font-size-3 {
+.font-size-2 {
   font-size: 2rem;
 }
 
