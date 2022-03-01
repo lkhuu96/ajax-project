@@ -15,12 +15,18 @@ input:focus {
   outline: none;
 }
 
-::placeholder {
-  color: rgb(53, 53, 53);
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-#nav-bar {
-  padding: 1rem 0;
+div.list-info > div {
+  font-weight: 600;
+  margin-left: 2%;
+}
+
+::placeholder {
+  color: rgb(53, 53, 53);
 }
 
 .welcome {
@@ -40,15 +46,27 @@ input:focus {
   border-radius: 5px;
 }
 
+.list-art {
+  width: 20%;
+}
+
+.list-info {
+  margin-bottom: 4%;
+}
+
 .dark-blue {
   color: #0b5a82;
+}
+
+.white-bg {
+  background-color: white;
 }
 
 .font-size-2 {
   font-size: 2rem;
 }
 
-.font-size-1dot5 {
+.font-size-1dot3 {
   font-size: 1.3rem;
 }
 
@@ -66,4 +84,12 @@ input:focus {
 
 .align-center {
   align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+#nav-bar {
+  padding: 1rem 0;
 }
