@@ -26,7 +26,7 @@
 }
 
 .column-forty {
-  flex-basis: 48%;
+  width: 45%;
 }
 
 .column-eighty {
@@ -55,7 +55,7 @@
 
 @media screen and (min-width: 700px) {
   .container {
-    max-width: 900px;
+    max-width: 800px;
   }
 
   .column-seventy {
@@ -84,7 +84,6 @@
 
   #info-card {
     order: 3;
-    width: 50%;
   }
 
   #synopsis {
