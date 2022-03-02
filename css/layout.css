@@ -5,17 +5,36 @@
 
 .row {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .column-full {
-  flex-basis: 100%;
+  width: 100%;
   margin: auto;
+}
+
+.column-fifty {
+  width: 100%;
 }
 
 .column-twenty {
   width: 20%;
 }
 
-.column-sixty {
-  flex-basis: 60%;
+.column-eighty {
+  flex-basis: 80%;
+}
+
+@media screen and (min-width: 700px) {
+  .container {
+    max-width: 900px;
+  }
+
+  .column-fifty {
+    width: 70%;
+  }
+
+  .row {
+    flex-wrap: nowrap;
+  }
 }

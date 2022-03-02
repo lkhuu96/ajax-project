@@ -1,5 +1,4 @@
 var $ul = document.querySelector('ul');
-var xmlObject = new XMLHttpRequest();
 var $form = document.querySelector('form');
 var $message = document.querySelector('.message');
 var $welcome = document.querySelector('.welcome');
@@ -11,12 +10,15 @@ $form.addEventListener('submit', function (event) {
   if (search < 1) {
     return;
   }
-  data.prevResultLength = data.anime.length;
   $welcome.classList.add('hidden');
   $message.classList.remove('hidden');
   $message.textContent = `Search Results for "${search}"`;
-  for (var i = 0; i < data.prevResultLength; i++) {
-    $ul.removeChild(document.querySelector('li'));
+  $viewMore.classList.remove('hidden');
+  var $allLi = document.querySelectorAll('li');
+  if ($allLi.length > 0) {
+    for (var i = 0; i < $allLi.length; i++) {
+      $ul.removeChild($allLi[i]);
+    }
   }
   loadXML(search);
   $form.reset();
@@ -25,11 +27,12 @@ $form.addEventListener('submit', function (event) {
 $viewMore.addEventListener('click', viewMore);
 
 function loadXML(search) {
+  var xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.anime = xmlObject.response.data;
-    for (var i = 0; i < data.view; i++) {
+    for (var i = 0; i < 6; i++) {
       $ul.appendChild(createList(data.anime[i]));
     }
   });
@@ -37,6 +40,7 @@ function loadXML(search) {
 }
 
 function viewMore(event) {
+  event.preventDefault();
   if (data.anime.length < data.view + 6) {
     $viewMore.classList.add('hidden');
     for (var i = data.view; i < data.anime.length; i++) {
@@ -56,26 +60,48 @@ function createList(anime) {
   var createImgCol = document.createElement('div');
   var createImgRow = document.createElement('div');
   var createImg = document.createElement('img');
-  var createInfoCol = document.createElement('div');
+  var createInfoCol1 = document.createElement('div');
+  var createInfoCol2 = document.createElement('div');
+  var createCol80 = document.createElement('div');
+  var createSynRow = document.createElement('div');
   var createTitle = document.createElement('h2');
   var createScore = document.createElement('p');
   var createDate = document.createElement('p');
   var createGenre = document.createElement('p');
+  var createSyn = document.createElement('p');
 
-  if (anime.title.length > 60) {
-    createTitle.textContent = anime.title.slice(0, 60) + '...';
+  if (anime.title.length > 40) {
+    createTitle.textContent = anime.title.slice(0, 40) + '...';
   } else {
     createTitle.textContent = anime.title;
   }
   createScore.textContent = 'Score: ' + anime.score;
   createDate.textContent = 'Air Date: ' + anime.aired.string;
-  createGenre.textContent = 'Genre: ' + 'Action, Drama, Fantasy, Mystery';
+  var genres = [];
+  for (var i = 0; i < anime.genres.length; i++) {
+    genres.push(anime.genres[i].name);
+  }
+  createGenre.textContent = 'Genre: ' + genres.join(', ');
+  createSyn.textContent = anime.synopsis.slice(0, 250);
+  if (anime.synopsis.length > 250) {
+    createSyn.textContent += '...';
+  }
+  createSyn.setAttribute('id', 'list-description');
+  createInfoCol1.appendChild(createTitle);
+  createInfoCol1.appendChild(createSyn);
+  createInfoCol1.className = 'column-fifty list-info';
 
-  createInfoCol.appendChild(createTitle);
-  createInfoCol.appendChild(createScore);
-  createInfoCol.appendChild(createDate);
-  createInfoCol.appendChild(createGenre);
-  createInfoCol.className = 'column-sixty list-info';
+  createInfoCol2.appendChild(createScore);
+  createInfoCol2.appendChild(createDate);
+  createInfoCol2.appendChild(createGenre);
+  createInfoCol2.className = 'column-fifty list-info';
+
+  createSynRow.appendChild(createInfoCol1);
+  createSynRow.appendChild(createInfoCol2);
+  createSynRow.className = 'row align-center space-between';
+
+  createCol80.appendChild(createSynRow);
+  createCol80.className = 'column-eighty';
 
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
@@ -88,7 +114,7 @@ function createList(anime) {
   createImgCol.className = 'column-twenty';
 
   createListRow.appendChild(createImgCol);
-  createListRow.appendChild(createInfoCol);
+  createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
 
   createLi.appendChild(createListRow);

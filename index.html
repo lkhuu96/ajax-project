@@ -21,10 +21,10 @@
     <div class="container">
       <div class="row justify-center align-center">
         <i class="home-button fa-solid fa-house-chimney"></i>
-        <div class="column-full">
+        <div class="column-full search-bar">
           <form action="submit">
-            <div class="row search-bar align-center space-between">
-              <input class="column-full" name="search" type="text" placeholder="Search Anime">
+            <div class="row  align-center space-between">
+              <input class="column-eighty" name="search" type="text" placeholder="Search Anime">
               <button type="submit"><i class="font-size-1dot3 home-button dark-blue fa-solid fa-magnifying-glass"></i></button>
             </div>
           </form>
@@ -44,28 +44,36 @@
       <!--anime list-->
       <div class="column-full">
         <ul>
-        </ul>
-      </div>
-      <a id="view-more" href="#"><h4 class=" dark-blue text-center">View More</h4></a>
-    </div>
-  </main>
-  <script src="js/data.js"></script>
-  <script src="js/main.js"></script>
-</body>
-</html>
-
-<!-- <li>
+          <!-- <li>
             <div class="row white-bg align-center">
               <div class="column-twenty">
                 <div class="row art-container">
                   <img class="list-art" src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" alt="">
                 </div>
               </div>
-              <div class="column-sixty list-info">
-                <h2>Shingeki no Kyojin Final Season Part 2</h2>
-                <p>Score: 8.52</p>
-                <p>Air date: Apr 7, 2013 to Sep 29, 2013</p>
-                <p>Genre: Action, Drama, Fantasy, Mystery</p>
+              <div class="column-eighty">
+                <div class="row align-center space-between">
+                  <div class="column-fifty list-info">
+                    <h2>Shingeki no Kyojin Final Season Part 2</h2>
+                    <p id="list-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat soluta animi quisquam
+                      laboriosam blanditiis porro inventore. Magni, recusandae rem iusto delectus esse consequatur dolore inventore
+                      debitis aperiam natus dolores numquam.</p>
+                  </div>
+                  <div class="column-fifty list-info">
+                    <p>Score: 8.52</p>
+                    <p>Air date: Apr 7, 2013 to Sep 29, 2013</p>
+                    <p>Genre: Action, Drama, Fantasy, Mystery</p>
+                  </div>
+                </div>
               </div>
             </div>
           </li> -->
+        </ul>
+      </div>
+      <a id="view-more" class="hidden" href="#"><h4 class="dark-blue text-center">View More</h4></a>
+    </div>
+  </main>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
