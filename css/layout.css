@@ -13,12 +13,20 @@
   margin: auto;
 }
 
-.column-fifty {
+.column-seventy {
   width: 100%;
+}
+
+.column-fifty {
+  width: 50%;
 }
 
 .column-twenty {
   width: 20%;
+}
+
+.column-forty {
+  width: 45%;
 }
 
 .column-eighty {
@@ -30,7 +38,7 @@
     max-width: 900px;
   }
 
-  .column-fifty {
+  .column-seventy {
     width: 70%;
   }
 
