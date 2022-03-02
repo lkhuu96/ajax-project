@@ -69,10 +69,6 @@ button {
   text-align: center;
 }
 
-.home-button {
-  color: #9ad0ec;
-}
-
 .search-bar {
   max-width: 70%;
   background-color: white;
@@ -88,6 +84,10 @@ button {
 
 .dark-blue {
   color: #0b5a82;
+}
+
+.light-blue {
+  color: #9ad0ec;
 }
 
 .white-bg {
