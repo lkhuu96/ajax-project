@@ -1,0 +1,40 @@
+.container {
+  max-width: 575px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column-full {
+  width: 100%;
+  margin: auto;
+}
+
+.column-fifty {
+  width: 100%;
+}
+
+.column-twenty {
+  width: 20%;
+}
+
+.column-eighty {
+  flex-basis: 80%;
+}
+
+@media screen and (min-width: 700px) {
+  .container {
+    max-width: 900px;
+  }
+
+  .column-fifty {
+    width: 70%;
+  }
+
+  .row {
+    flex-wrap: nowrap;
+  }
+}
