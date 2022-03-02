@@ -104,7 +104,7 @@ function createList(anime) {
   createSyn.setAttribute('id', 'list-description');
   createInfoCol1.appendChild(createTitle);
   createInfoCol1.appendChild(createSyn);
-  createInfoCol1.className = 'column-fifty list-info';
+  createInfoCol1.className = 'column-fifty list-info margin-b-1rem';
 
   createInfoCol2.appendChild(createScore);
   createInfoCol2.appendChild(createDate);
@@ -134,5 +134,6 @@ function createList(anime) {
 
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
+  createLi.className = 'margin-b-1rem';
   return createLi;
 }
