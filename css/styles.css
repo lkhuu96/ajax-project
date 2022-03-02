@@ -22,7 +22,7 @@ ul {
 }
 
 h2 {
-  font-size: 0.7rem;
+  font-size: 1rem;
   margin-top: 0;
   margin-bottom: 0.7rem;
 }
@@ -33,7 +33,7 @@ li {
 
 p {
   margin: 0.3rem auto;
-  font-size: 0.5rem;
+  font-size: 0.7rem;
 }
 
 div.list-info > div {
@@ -60,7 +60,7 @@ button {
 
 .list-art {
   width: 100%;
-  height: 12em;
+  height: 15em;
   object-fit: cover;
 }
 
@@ -88,10 +88,6 @@ button {
   padding: 0.4rem;
   margin: auto 0.5rem;
   border-radius: 5px;
-}
-
-.art-container {
-  max-height: 30em;
 }
 
 .list-info {
@@ -168,10 +164,6 @@ button {
     display: contents;
     font-size: 1.5em;
     font-weight: 500;
-  }
-
-  .art-container {
-    max-height: 50em;
   }
 
   .list-info {

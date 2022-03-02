@@ -3,6 +3,7 @@ var $form = document.querySelector('form');
 var $message = document.querySelector('.message');
 var $welcome = document.querySelector('.welcome');
 var $viewMore = document.querySelector('#view-more');
+var $homeButton = document.querySelector('.fa-house-chimney');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -10,20 +11,19 @@ $form.addEventListener('submit', function (event) {
   if (search < 1) {
     return;
   }
-  $welcome.classList.add('hidden');
-  $message.classList.remove('hidden');
-  $message.textContent = `Search Results for "${search}"`;
-  $viewMore.classList.remove('hidden');
+  hideHome(search);
   var $allLi = document.querySelectorAll('li');
-  if ($allLi.length > 0) {
-    for (var i = 0; i < $allLi.length; i++) {
-      $ul.removeChild($allLi[i]);
-    }
-  }
+  clearList($allLi);
   loadXML(search);
   $form.reset();
 });
-
+$homeButton.addEventListener('click', function (event) {
+  var $allLi = document.querySelectorAll('li');
+  clearList($allLi);
+  $welcome.classList.remove('hidden');
+  $message.classList.add('hidden');
+  $viewMore.classList.add('hidden');
+});
 $viewMore.addEventListener('click', viewMore);
 
 function loadXML(search) {
@@ -39,6 +39,13 @@ function loadXML(search) {
   xmlObject.send();
 }
 
+function hideHome(search) {
+  $welcome.classList.add('hidden');
+  $message.classList.remove('hidden');
+  $message.textContent = `Search Results for "${search}"`;
+  $viewMore.classList.remove('hidden');
+}
+
 function viewMore(event) {
   event.preventDefault();
   if (data.anime.length < data.view + 6) {
@@ -52,6 +59,14 @@ function viewMore(event) {
     }
   }
   data.view += 6;
+}
+
+function clearList(nodeList) {
+  if (nodeList.length > 0) {
+    for (var i = 0; i < nodeList.length; i++) {
+      $ul.removeChild(nodeList[i]);
+    }
+  }
 }
 
 function createList(anime) {
