@@ -23,7 +23,6 @@ h2 {
 
 p {
   margin: 0.3rem auto;
-  font-size: 0.7rem;
   white-space: pre-line;
 }
 
@@ -40,12 +39,7 @@ div.rating-card > h4 {
 div.rating > p {
   font-weight: 600;
   line-height: 2rem;
-}
-
-div#cover-art > img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+  font-size: 1rem;
 }
 
 a {
@@ -64,14 +58,13 @@ button {
 }
 
 .list-art {
+  object-fit: cover;
   width: 100%;
   min-height: 100%;
-  object-fit: cover;
 }
 
 .list-info {
   margin: 0 1rem;
-  max-height: 15em;
 }
 
 .search-bar {
@@ -82,13 +75,14 @@ button {
   border-radius: 5px;
 }
 
-.video-container {
-  width: 100%;
+.synopsis-text {
+  padding: 1rem;
+  font-size: 0.8rem;
 }
 
 .rating-card {
   border: solid 1px #0b5a82;
-  width: 35%;
+  width: 25%;
 }
 
 .details {
@@ -180,6 +174,7 @@ button {
     margin: 10% auto;
     line-height: 1.4em;
     font-weight: 700;
+    font-size: 1rem;
   }
 
   h2 {
@@ -208,12 +203,6 @@ button {
 
   .list-info {
     max-height: 30em;
-  }
-
-  .list-art {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 
   .rating-card {
@@ -246,5 +235,6 @@ button {
     font-weight: 500;
     margin: auto;
     min-height: 15rem;
+    padding: 1rem;
   }
 }

@@ -17,28 +17,17 @@
   width: 100%;
 }
 
-.column-fifty {
-  width: 50%;
-}
-
 .column-twenty {
   width: 20%;
-}
-
-.column-forty {
-  width: 45%;
 }
 
 .column-eighty {
   flex-basis: 80%;
 }
 
-.column-full-mobile {
-  width: 100%;
-}
-
 #cover-art {
   order: 1;
+  flex-basis: 48%;
 }
 
 #info-card {
@@ -49,10 +38,6 @@
 #synopsis {
   order: 3;
   flex-basis: 100%;
-}
-
-#video {
-  order: 4;
 }
 
 @media screen and (min-width: 700px) {
@@ -76,13 +61,9 @@
     flex-wrap: wrap-reverse;
   }
 
-  .column-full-mobile {
-    width: 50%;
-  }
-
   #cover-art {
     order: 3;
-    flex-basis: 40%;
+    flex-basis: 48%;
   }
 
   #info-card {
@@ -93,9 +74,5 @@
   #synopsis {
     order: 2;
     width: 60%;
-  }
-
-  #video {
-    order: 2;
   }
 }
