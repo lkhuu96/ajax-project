@@ -13,7 +13,7 @@
   margin: auto;
 }
 
-.column-fifty {
+.column-seventy {
   width: 100%;
 }
 
@@ -25,16 +25,54 @@
   flex-basis: 80%;
 }
 
-@media screen and (min-width: 700px) {
+#cover-art {
+  order: 1;
+  flex-basis: 48%;
+}
+
+#info-card {
+  order: 2;
+  flex-basis: 48%;
+}
+
+#synopsis {
+  order: 3;
+  flex-basis: 100%;
+}
+
+@media screen and (min-width: 764px) {
   .container {
-    max-width: 900px;
+    max-width: 800px;
   }
 
-  .column-fifty {
-    width: 70%;
+  .column-seventy {
+    flex-basis: 70%;
+  }
+
+  .column {
+    flex-direction: column;
   }
 
   .row {
     flex-wrap: nowrap;
+  }
+
+  .flex-wrap {
+    flex-wrap: wrap-reverse;
+  }
+
+  #cover-art {
+    order: 3;
+    width: 35%;
+  }
+
+  #info-card {
+    order: 1;
+    width: 60%;
+  }
+
+  #synopsis {
+    order: 2;
+    width: 60%;
   }
 }
