@@ -38,8 +38,7 @@ div.rating-card > h4 {
 
 div.rating > p {
   font-weight: 600;
-  line-height: 2rem;
-  font-size: 1rem;
+  margin: 2rem auto;
 }
 
 a {
@@ -125,14 +124,6 @@ button {
   margin: 0;
 }
 
-.margin-half {
-  margin: 0.5em 0;
-}
-
-.gap {
-  column-gap: 4%;
-}
-
 .font-size-2 {
   font-size: 2rem;
 }
@@ -141,7 +132,7 @@ button {
   font-size: 1.3rem;
 }
 
-.font-300 {
+.font-400 {
   font-weight: 400;
 }
 
@@ -171,7 +162,7 @@ button {
 
 @media screen and (min-width: 700px) {
   p {
-    margin: 10% auto;
+    margin: 1.5rem auto;
     line-height: 1.4em;
     font-weight: 700;
     font-size: 1rem;
@@ -222,7 +213,7 @@ button {
   }
 
   div.rating > p {
-    margin: 0.2rem 0;
+    margin: 0.5rem 0;
     font-size: 1rem;
   }
 
