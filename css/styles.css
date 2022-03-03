@@ -1,6 +1,5 @@
 body {
   font-family: Roboto, sans-serif;
-  background-color: #b0b0b0;
 }
 
 input {
@@ -15,6 +14,12 @@ ul {
   list-style-type: none;
   padding: 0 2rem;
   font-size: 0.5rem;
+}
+
+h1,
+.message {
+  margin-top: 0;
+  padding: 3rem 0 0;
 }
 
 h2 {
@@ -43,6 +48,10 @@ button {
   cursor: pointer;
 }
 
+li {
+  margin-top: 1rem;
+}
+
 li > div {
   height: 9rem;
 }
@@ -61,7 +70,11 @@ div.rating > p {
   color: rgb(53, 53, 53);
 }
 
-.full-height {
+#nav-bar {
+  max-height: 65px;
+}
+
+.height-100 {
   height: 100%;
 }
 
@@ -84,7 +97,6 @@ div.rating > p {
 }
 
 .synopsis-text {
-  padding: 1rem;
   font-size: 0.9rem;
 }
 
@@ -132,10 +144,6 @@ div.rating > p {
   padding: 1rem;
 }
 
-.margin-b-1rem {
-  margin-bottom: 1rem;
-}
-
 .margin-zero {
   margin: 0;
 }
@@ -177,6 +185,10 @@ div.rating > p {
 }
 
 @media screen and (min-width: 764px) {
+  body {
+    background-color: #b0b0b0;
+  }
+
   p {
     margin: 1.5rem auto;
     line-height: 1.4em;

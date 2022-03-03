@@ -1,12 +1,16 @@
 html,
 body,
 main {
-  height: calc(100% - 67px);
+  height: 100%;
   margin: 0;
 }
 
+main {
+  height: calc(100% - 65px);
+}
+
 .container {
-  max-width: 575px;
+  max-width: 764px;
   margin: 0 auto;
 }
 
@@ -61,7 +65,7 @@ main {
 
 @media screen and (min-width: 764px) {
   .container {
-    max-width: 800px;
+    max-width: 900px;
   }
 
   .column-seventy {

@@ -200,6 +200,5 @@ function createList(anime) {
 
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
-  createLi.className = 'margin-b-1rem';
   return createLi;
 }

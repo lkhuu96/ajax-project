@@ -32,18 +32,17 @@
       </div>
     </div>
   </header>
-  <main class="">
-
-    <div class="container full-height white-bg">
+  <main class="full-height">
+    <div class="container height-100 white-bg">
       <div class="welcome text-center dark-blue font-size-2">
-        <h1 class="margin-zero padding-1rem">Welcome!</h1>
+        <h1 class=""">Welcome!</h1>
         <h3 class="font-400 font-size-1dot3">Please search for anime above</h3>
       </div>
       <h3 class="message dark-blue text-center hidden font-size-2">Search Results for </h3>
       <!--anime list template-->
       <div class="column-full">
-        <ul>
-          <!-- <li id="463" class="margin-b-1rem">
+        <ul class="white-bg margin-zero">
+          <!-- <li id="463" class="">
                   <div class="row white-bg align-center">
                     <div class="column-twenty">
                       <div class="row art-container"><img src="https://cdn.myanimelist.net/images/anime/2/25413.webp"
@@ -67,9 +66,12 @@
                   </div>
                 </li> -->
         </ul>
+        <a id="view-more" class="hidden" href="#">
+          <h4 class="dark-blue text-center white-bg margin-zero padding-1rem">View More</h4>
+        </a>
       </div>
       <!--Anime detail template-->
-      <div id="details" class="hidden">
+      <div id="details" class="hidden ">
         <div class="column-full font-size-1dot3">
           <h1 id="detail-title" class="dark-blue text-center font-size-2"></h1>
         </div>
@@ -79,10 +81,10 @@
           </div>
           <div id="video-container" class="">
             <h3 class="dark-blue">Trailer</h3>
-            <iframe allow="fullscreen" id="video" src="" title=""></iframe>
+            <iframe class="" allow="fullscreen" id="video" src="" title=""></iframe>
           </div>
-          <div id="info-card" class=" white-bg">
-            <div class="row padding-half align-center">
+          <div id="info-card" class="">
+            <div class="row align-center">
               <div class="rating-card text-center">
                 <h4 class="dark-blue-bg white margin-zero">Rating</h4>
                 <h3 id="rating-number" class=""></h3>
@@ -98,13 +100,10 @@
           </div>
           <div id="synopsis" class="">
             <h3 class="dark-blue">Synopsis</h3>
-            <p class="synopsis-text white-bg"></p>
+            <p class="synopsis-text"></p>
           </div>
         </div>
       </div>
-      <a id="view-more" class="hidden" href="#">
-        <h4 class="dark-blue text-center">View More</h4>
-      </a>
     </div>
   </main>
   <script src="js/data.js"></script>
