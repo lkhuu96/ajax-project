@@ -25,6 +25,7 @@ $form.addEventListener('submit', function (event) {
   $details.classList.add('hidden');
   var $allLi = document.querySelectorAll('li');
   clearList($allLi);
+  data.view = 6;
   loadXML(search);
   $form.reset();
 });
@@ -148,14 +149,14 @@ function createList(anime) {
     genres.push(anime.genres[i].name);
   }
   createGenre.textContent = 'Genre: ' + genres.join(', ');
-  createSyn.textContent = anime.synopsis.slice(0, 250);
-  if (anime.synopsis.length > 250) {
+  createSyn.textContent = anime.synopsis.slice(0, 240);
+  if (anime.synopsis.length > 240) {
     createSyn.textContent += '...';
   }
   createSyn.setAttribute('id', 'list-description');
   createInfoCol1.appendChild(createTitle);
   createInfoCol1.appendChild(createSyn);
-  createInfoCol1.className = 'column-seventy list-info margin-b-1rem';
+  createInfoCol1.className = 'column-seventy list-info ';
 
   createInfoCol2.appendChild(createScore);
   createInfoCol2.appendChild(createDate);

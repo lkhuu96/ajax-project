@@ -18,18 +18,22 @@ ul {
 }
 
 h2 {
-  margin-top: 0;
+  font-size: 1rem;
+  margin: 0.5rem 0 1rem;
+}
+
+h2:hover {
+  color: #0b5a82;
+  text-decoration: underline;
 }
 
 p {
-  margin: 0.3rem auto;
+  font-size: 0.7rem;
   white-space: pre-line;
 }
 
-div.list-info > div {
-  font-weight: 600;
-  margin: 2% 5%;
-  width: 100%;
+li > div {
+  height: 9rem;
 }
 
 div.rating-card > h4 {
@@ -38,7 +42,8 @@ div.rating-card > h4 {
 
 div.rating > p {
   font-weight: 600;
-  margin: 2rem auto;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 a {
@@ -59,7 +64,8 @@ button {
 .list-art {
   object-fit: cover;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+  display: block;
 }
 
 .list-info {
@@ -81,7 +87,8 @@ button {
 
 .rating-card {
   border: solid 1px #0b5a82;
-  width: 25%;
+  width: 40%;
+  font-size: 1.7rem;
 }
 
 .details {
@@ -160,17 +167,21 @@ button {
   display: none;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 764px) {
   p {
     margin: 1.5rem auto;
     line-height: 1.4em;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   h2 {
-    font-size: 3em;
-    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    position: relative;
+  }
+
+  li > div {
+    height: 12.5rem;
   }
 
   div.rating-card > h3 {
@@ -194,13 +205,13 @@ button {
 
   .list-info {
     max-height: 30em;
+    margin-left: 1.5rem;
   }
 
   .rating-card {
-    border: solid 1px #0b5a82;
     width: 30%;
-    font-size: 2em;
-    margin: auto 0.3em auto 0.2em;
+    font-size: 2rem;
+    margin-right: 1rem;
   }
 
   .details {
@@ -213,8 +224,12 @@ button {
   }
 
   div.rating > p {
-    margin: 0.5rem 0;
     font-size: 1rem;
+    margin: 0 auto;
+  }
+
+  div.rating > p:nth-child(n+2):nth-child(-n+4) {
+    margin: 0.5rem 0;
   }
 
   div.rating-card > h4 {

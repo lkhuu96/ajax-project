@@ -6,6 +6,7 @@
 .row {
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .column-full {
@@ -22,7 +23,7 @@
 }
 
 .column-eighty {
-  flex-basis: 80%;
+  flex-basis: 75%;
 }
 
 #cover-art {
@@ -40,13 +41,13 @@
   flex-basis: 100%;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 764px) {
   .container {
     max-width: 800px;
   }
 
   .column-seventy {
-    width: 70%;
+    flex-basis: 70%;
   }
 
   .column {
@@ -63,7 +64,7 @@
 
   #cover-art {
     order: 3;
-    flex-basis: 48%;
+    width: 35%;
   }
 
   #info-card {
