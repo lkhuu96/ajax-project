@@ -206,7 +206,8 @@ div.rating > p {
     font-size: 0.8em;
   }
 
-  div#synopsis > h3 {
+  div#synopsis > h3,
+  div#video-container > h3 {
     font-size: 1.5rem;
     margin: 1rem 0;
   }
@@ -246,6 +247,5 @@ div.rating > p {
     font-weight: 500;
     margin: auto;
     min-height: 15rem;
-    padding: 1rem;
   }
 }
