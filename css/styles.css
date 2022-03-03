@@ -1,6 +1,6 @@
 body {
-  background-color: #b0b0b0;
   font-family: Roboto, sans-serif;
+  background-color: #b0b0b0;
 }
 
 input {
@@ -61,6 +61,10 @@ div.rating > p {
   color: rgb(53, 53, 53);
 }
 
+.full-height {
+  height: 100%;
+}
+
 .list-art {
   object-fit: cover;
   width: 100%;
@@ -81,7 +85,7 @@ div.rating > p {
 
 .synopsis-text {
   padding: 1rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .rating-card {
@@ -243,7 +247,6 @@ div.rating > p {
   }
 
   .synopsis-text {
-    font-size: 0.8em;
     font-weight: 500;
     margin: auto;
     min-height: 15rem;
