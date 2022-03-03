@@ -4,7 +4,15 @@ var $message = document.querySelector('.message');
 var $welcome = document.querySelector('.welcome');
 var $viewMore = document.querySelector('#view-more');
 var $homeButton = document.querySelector('.fa-house-chimney');
-
+var $ratingNumber = document.querySelector('#rating-number');
+var $ranking = document.querySelector('#ranking');
+var $popularity = document.querySelector('#popularity');
+var $airDate = document.querySelector('#air-date');
+var $episodes = document.querySelector('#episodes');
+var $genre = document.querySelector('#genre');
+var $synopsis = document.querySelector('.synopsis-text');
+var $art = document.querySelector('#art');
+var $detailTitle = document.querySelector('#detail-title');
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
   var search = $form.elements.search.value;
@@ -17,12 +25,40 @@ $form.addEventListener('submit', function (event) {
   loadXML(search);
   $form.reset();
 });
+
 $homeButton.addEventListener('click', function (event) {
   var $allLi = document.querySelectorAll('li');
   clearList($allLi);
   $welcome.classList.remove('hidden');
-  $message.classList.add('hidden');
-  $viewMore.classList.add('hidden');
+  hideList();
+});
+
+$ul.addEventListener('click', function (event) {
+  var select = data.viewDetails;
+  var animeId = event.target.closest('li').getAttribute('id');
+  if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
+    data.id = parseInt(animeId);
+  }
+  for (var i = 0; i < data.anime.length; i++) {
+    if (data.id === data.anime[i].mal_id) {
+      select = data.anime[i];
+    }
+  }
+  var genres = [];
+  for (var x = 0; x < select.genres.length; x++) {
+    genres.push(select.genres[x].name);
+  }
+  $ratingNumber.textContent = select.score;
+  $ranking.textContent = 'Ranking: #' + select.rank;
+  $popularity.textContent = 'Popularity: #' + select.popularity;
+  $airDate.textContent = 'Air Date: ' + select.aired.string;
+  $episodes.textContent = 'Episodes: ' + select.episodes;
+  $genre.textContent = 'Genre: ' + genres.join(', ');
+  $synopsis.textContent = select.synopsis;
+  $art.setAttribute('src', select.images.jpg.image_url);
+  $art.setAttribute('alt', select.title);
+  $detailTitle.textContent = select.title;
+
 });
 $viewMore.addEventListener('click', viewMore);
 
@@ -69,8 +105,15 @@ function clearList(nodeList) {
   }
 }
 
+function hideList() {
+  $message.classList.add('hidden');
+  $viewMore.classList.add('hidden');
+}
+
 function createList(anime) {
   var createLi = document.createElement('li');
+  var createImgAnchor = document.createElement('a');
+  var createTitleAnchor = document.createElement('a');
   var createListRow = document.createElement('div');
   var createImgCol = document.createElement('div');
   var createImgRow = document.createElement('div');
@@ -86,10 +129,11 @@ function createList(anime) {
   var createSyn = document.createElement('p');
 
   if (anime.title.length > 40) {
-    createTitle.textContent = anime.title.slice(0, 40) + '...';
+    createTitleAnchor.textContent = anime.title.slice(0, 40) + '...';
   } else {
-    createTitle.textContent = anime.title;
+    createTitleAnchor.textContent = anime.title;
   }
+  createTitle.appendChild(createTitleAnchor);
   createScore.textContent = 'Score: ' + anime.score;
   createDate.textContent = 'Air Date: ' + anime.aired.string;
   var genres = [];
@@ -121,9 +165,10 @@ function createList(anime) {
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
   createImg.className = 'list-art';
+  createImgAnchor.appendChild(createImg);
 
-  createImgRow.appendChild(createImg);
-  createImgRow.className = 'row art-container';
+  createImgRow.appendChild(createImgAnchor);
+  createImgRow.className = 'row';
 
   createImgCol.appendChild(createImgRow);
   createImgCol.className = 'column-twenty';

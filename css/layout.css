@@ -43,10 +43,12 @@
 
 #info-card {
   order: 2;
+  flex-basis: 48%;
 }
 
 #synopsis {
   order: 3;
+  flex-basis: 100%;
 }
 
 #video {
@@ -71,7 +73,7 @@
   }
 
   .flex-wrap {
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
   }
 
   .column-full-mobile {
@@ -79,15 +81,18 @@
   }
 
   #cover-art {
-    order: 1;
+    order: 3;
+    flex-basis: 40%;
   }
 
   #info-card {
-    order: 3;
+    order: 1;
+    width: 60%;
   }
 
   #synopsis {
-    order: 4;
+    order: 2;
+    width: 60%;
   }
 
   #video {
