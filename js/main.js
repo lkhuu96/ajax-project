@@ -58,7 +58,7 @@ $ul.addEventListener('click', function (event) {
   $art.setAttribute('src', select.images.jpg.image_url);
   $art.setAttribute('alt', select.title);
   $detailTitle.textContent = select.title;
-
+  hideList();
 });
 $viewMore.addEventListener('click', viewMore);
 
@@ -80,6 +80,13 @@ function hideHome(search) {
   $message.classList.remove('hidden');
   $message.textContent = `Search Results for "${search}"`;
   $viewMore.classList.remove('hidden');
+  $ul.classList.remove('hidden');
+}
+
+function hideList() {
+  $message.classList.add('hidden');
+  $viewMore.classList.add('hidden');
+  $ul.classList.add('hidden');
 }
 
 function viewMore(event) {
@@ -103,11 +110,6 @@ function clearList(nodeList) {
       $ul.removeChild(nodeList[i]);
     }
   }
-}
-
-function hideList() {
-  $message.classList.add('hidden');
-  $viewMore.classList.add('hidden');
 }
 
 function createList(anime) {
