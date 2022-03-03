@@ -50,6 +50,7 @@ $ul.addEventListener('click', function (event) {
         select = data.anime[i];
       }
     }
+    getRecommended(data.id);
     var genres = [];
     for (var x = 0; x < select.genres.length; x++) {
       genres.push(select.genres[x].name);
@@ -86,6 +87,16 @@ function loadXML(search) {
     for (var i = 0; i < 6; i++) {
       $ul.appendChild(createList(data.anime[i]));
     }
+  });
+  xmlObject.send();
+}
+
+function getRecommended(id) {
+  var xmlObject = new XMLHttpRequest();
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
+  xmlObject.responseType = 'json';
+  xmlObject.addEventListener('load', function () {
+    data.recommended = xmlObject.response.data;
   });
   xmlObject.send();
 }
