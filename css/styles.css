@@ -32,6 +32,17 @@ p {
   white-space: pre-line;
 }
 
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 li > div {
   height: 9rem;
 }
@@ -46,17 +57,6 @@ div.rating > p {
   font-size: 1rem;
 }
 
-a {
-  text-decoration: none;
-  cursor: pointer;
-}
-
-button {
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
 ::placeholder {
   color: rgb(53, 53, 53);
 }
@@ -65,7 +65,6 @@ button {
   object-fit: cover;
   width: 100%;
   height: 100%;
-  display: block;
 }
 
 .list-info {
@@ -91,6 +90,12 @@ button {
   font-size: 1.7rem;
 }
 
+.art-container {
+  height: 145px;
+  width: 100%;
+  display: block;
+}
+
 .details {
   max-height: 800px;
 }
@@ -107,12 +112,12 @@ button {
   color: #9ad0ec;
 }
 
-.white-bg {
-  background-color: white;
-}
-
 .white {
   color: white;
+}
+
+.white-bg {
+  background-color: white;
 }
 
 .padding-half {
@@ -188,6 +193,19 @@ button {
     margin: 0.9em auto;
   }
 
+  div.rating > p {
+    font-size: 1rem;
+    margin: 0 auto;
+  }
+
+  div.rating > p:nth-child(n+2):nth-child(-n+4) {
+    margin: 0.5rem 0;
+  }
+
+  div.rating-card > h4 {
+    font-size: 0.8em;
+  }
+
   div#synopsis > h3 {
     font-size: 1.5rem;
     margin: 1rem 0;
@@ -218,22 +236,9 @@ button {
     max-height: 800px;
   }
 
-  .video-container {
-    width: 45%;
-    height: 150px;
-  }
-
-  div.rating > p {
-    font-size: 1rem;
-    margin: 0 auto;
-  }
-
-  div.rating > p:nth-child(n+2):nth-child(-n+4) {
-    margin: 0.5rem 0;
-  }
-
-  div.rating-card > h4 {
-    font-size: 0.8em;
+  .art-container {
+    height: 200px;
+    width: 100%;
   }
 
   .synopsis-text {

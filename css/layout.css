@@ -6,7 +6,6 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
 }
 
 .column-full {
@@ -23,7 +22,7 @@
 }
 
 .column-eighty {
-  flex-basis: 75%;
+  flex-basis: 80%;
 }
 
 #cover-art {

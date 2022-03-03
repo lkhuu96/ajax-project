@@ -52,7 +52,11 @@ $ul.addEventListener('click', function (event) {
     for (var x = 0; x < select.genres.length; x++) {
       genres.push(select.genres[x].name);
     }
-    $ratingNumber.textContent = select.score;
+    if (select.score === null) {
+      $ratingNumber.textContent = 'N/A';
+    } else {
+      $ratingNumber.textContent = select.score;
+    }
     $ranking.textContent = 'Ranking: #' + select.rank;
     $popularity.textContent = 'Popularity: #' + select.popularity;
     $airDate.textContent = 'Air Date: ' + select.aired.string;
@@ -142,7 +146,11 @@ function createList(anime) {
     createTitleAnchor.textContent = anime.title;
   }
   createTitle.appendChild(createTitleAnchor);
-  createScore.textContent = 'Score: ' + anime.score;
+  if (anime.score === null) {
+    createScore.textContent = 'Score: N/A';
+  } else {
+    createScore.textContent = 'Score: ' + anime.score;
+  }
   createDate.textContent = 'Air Date: ' + anime.aired.string;
   var genres = [];
   for (var i = 0; i < anime.genres.length; i++) {
@@ -176,7 +184,7 @@ function createList(anime) {
   createImgAnchor.appendChild(createImg);
 
   createImgRow.appendChild(createImgAnchor);
-  createImgRow.className = 'row';
+  createImgRow.className = 'row art-container';
 
   createImgCol.appendChild(createImgRow);
   createImgCol.className = 'column-twenty';
