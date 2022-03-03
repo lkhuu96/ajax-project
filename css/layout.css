@@ -1,5 +1,16 @@
+html,
+body,
+main {
+  height: 100%;
+  margin: 0;
+}
+
+main {
+  height: calc(100% - 65px);
+}
+
 .container {
-  max-width: 575px;
+  max-width: 764px;
   margin: 0 auto;
 }
 
@@ -40,9 +51,21 @@
   flex-basis: 100%;
 }
 
+#video-container {
+  order: 4;
+  width: 100%;
+  height: 350px;
+}
+
+#video {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 @media screen and (min-width: 764px) {
   .container {
-    max-width: 800px;
+    max-width: 900px;
   }
 
   .column-seventy {
@@ -74,5 +97,11 @@
   #synopsis {
     order: 2;
     width: 60%;
+  }
+
+  #video-container {
+    order: 4;
+    width: 35%;
+    height: 100%;
   }
 }

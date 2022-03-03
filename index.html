@@ -32,43 +32,46 @@
       </div>
     </div>
   </header>
-  <main>
-    <div class="container">
+  <main class="full-height">
+    <div class="container height-100 white-bg">
       <div class="welcome text-center dark-blue font-size-2">
-        <h1 class="">Welcome!</h1>
+        <h1 class=""">Welcome!</h1>
         <h3 class="font-400 font-size-1dot3">Please search for anime above</h3>
       </div>
       <h3 class="message dark-blue text-center hidden font-size-2">Search Results for </h3>
       <!--anime list template-->
       <div class="column-full">
-        <ul>
-          <!-- <li id="463" class="margin-b-1rem">
-            <div class="row white-bg align-center">
-              <div class="column-twenty">
-                <div class="row art-container"><img src="https://cdn.myanimelist.net/images/anime/2/25413.webp"
-                    alt="One Piece Movie 5: Norowareta Seiken" class="list-art"></div>
-              </div>
-              <div class="column-eighty">
-                <div class="row">
-                  <div class="column-seventy list-info">
-                    <h2>One Piece Movie 5: Norowareta Seiken</h2>
-                    <p id="list-description">Luffy and crew go to an island searching for a legendary sword, said to be the most
-                      expensive in the world. Soon attacking marines and beautiful maidens split the crew. Zoro betrays the crew
-                      to help an old friend, Luffy and Usopp wander through a cav...</p>
+        <ul class="white-bg margin-zero">
+          <!-- <li id="463" class="">
+                  <div class="row white-bg align-center">
+                    <div class="column-twenty">
+                      <div class="row art-container"><img src="https://cdn.myanimelist.net/images/anime/2/25413.webp"
+                          alt="One Piece Movie 5: Norowareta Seiken" class="list-art"></div>
+                    </div>
+                    <div class="column-eighty">
+                      <div class="row">
+                        <div class="column-seventy list-info">
+                          <h2>One Piece Movie 5: Norowareta Seiken</h2>
+                          <p id="list-description">Luffy and crew go to an island searching for a legendary sword, said to be the most
+                            expensive in the world. Soon attacking marines and beautiful maidens split the crew. Zoro betrays the crew
+                            to help an old friend, Luffy and Usopp wander through a cav...</p>
+                        </div>
+                        <div class="column-seventy list-info">
+                          <p>Score: 7.17</p>
+                          <p>Air Date: Mar 6, 2004</p>
+                          <p>Genre: Action, Adventure, Comedy, Fantasy</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="column-seventy list-info">
-                    <p>Score: 7.17</p>
-                    <p>Air Date: Mar 6, 2004</p>
-                    <p>Genre: Action, Adventure, Comedy, Fantasy</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li> -->
+                </li> -->
         </ul>
+        <a id="view-more" class="hidden" href="#">
+          <h4 class="dark-blue text-center white-bg margin-zero padding-1rem">View More</h4>
+        </a>
       </div>
       <!--Anime detail template-->
-      <div id="details" class="hidden">
+      <div id="details" class="hidden ">
         <div class="column-full font-size-1dot3">
           <h1 id="detail-title" class="dark-blue text-center font-size-2"></h1>
         </div>
@@ -76,8 +79,12 @@
           <div id="cover-art" class="">
             <img id="art" class="list-art" src="" alt="">
           </div>
-          <div id="info-card" class=" white-bg">
-            <div class="row padding-half align-center">
+          <div id="video-container" class="">
+            <h3 class="dark-blue">Trailer</h3>
+            <iframe class="" allow="fullscreen" id="video" src="" title=""></iframe>
+          </div>
+          <div id="info-card" class="">
+            <div class="row align-center">
               <div class="rating-card text-center">
                 <h4 class="dark-blue-bg white margin-zero">Rating</h4>
                 <h3 id="rating-number" class=""></h3>
@@ -93,11 +100,10 @@
           </div>
           <div id="synopsis" class="">
             <h3 class="dark-blue">Synopsis</h3>
-            <p class="synopsis-text white-bg"></p>
+            <p class="synopsis-text"></p>
           </div>
         </div>
       </div>
-      <a id="view-more" class="hidden" href="#"><h4 class="dark-blue text-center">View More</h4></a>
     </div>
   </main>
   <script src="js/data.js"></script>

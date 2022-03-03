@@ -14,7 +14,7 @@ var $synopsis = document.querySelector('.synopsis-text');
 var $art = document.querySelector('#art');
 var $detailTitle = document.querySelector('#detail-title');
 var $details = document.querySelector('#details');
-
+var $video = document.querySelector('#video');
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
   var search = $form.elements.search.value;
@@ -22,6 +22,7 @@ $form.addEventListener('submit', function (event) {
     return;
   }
   hideHome(search);
+  $video.setAttribute('src', '');
   $details.classList.add('hidden');
   var $allLi = document.querySelectorAll('li');
   clearList($allLi);
@@ -35,6 +36,7 @@ $homeButton.addEventListener('click', function (event) {
   clearList($allLi);
   $welcome.classList.remove('hidden');
   hideList();
+  $video.setAttribute('src', '');
   $details.classList.add('hidden');
 });
 
@@ -57,6 +59,8 @@ $ul.addEventListener('click', function (event) {
     } else {
       $ratingNumber.textContent = select.score;
     }
+    $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
+    $video.setAttribute('title', select.title);
     $ranking.textContent = 'Ranking: #' + select.rank;
     $popularity.textContent = 'Popularity: #' + select.popularity;
     $airDate.textContent = 'Air Date: ' + select.aired.string;
@@ -70,6 +74,7 @@ $ul.addEventListener('click', function (event) {
     $details.classList.remove('hidden');
   }
 });
+
 $viewMore.addEventListener('click', viewMore);
 
 function loadXML(search) {
@@ -195,6 +200,5 @@ function createList(anime) {
 
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
-  createLi.className = 'margin-b-1rem';
   return createLi;
 }
