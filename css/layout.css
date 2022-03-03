@@ -40,8 +40,12 @@
   flex-basis: 100%;
 }
 
-#video {
+#video-container {
   order: 4;
+}
+
+.relative {
+  position: absolute;
 }
 
 @media screen and (min-width: 764px) {
@@ -78,5 +82,13 @@
   #synopsis {
     order: 2;
     width: 60%;
+  }
+
+  #video-container {
+    order: 4;
+  }
+
+  #video {
+    z-index: -3;
   }
 }

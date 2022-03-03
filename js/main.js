@@ -14,6 +14,8 @@ var $synopsis = document.querySelector('.synopsis-text');
 var $art = document.querySelector('#art');
 var $detailTitle = document.querySelector('#detail-title');
 var $details = document.querySelector('#details');
+var $video = document.querySelector('#video');
+var $videoImage = document.querySelector('#video-image');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -57,6 +59,9 @@ $ul.addEventListener('click', function (event) {
     } else {
       $ratingNumber.textContent = select.score;
     }
+    $video.setAttribute('src', select.trailer.embed_url);
+    $video.setAttribute('title', select.title);
+    $videoImage.setAttribute('src', select.trailer.images.image_url);
     $ranking.textContent = 'Ranking: #' + select.rank;
     $popularity.textContent = 'Popularity: #' + select.popularity;
     $airDate.textContent = 'Air Date: ' + select.aired.string;
@@ -70,6 +75,7 @@ $ul.addEventListener('click', function (event) {
     $details.classList.remove('hidden');
   }
 });
+
 $viewMore.addEventListener('click', viewMore);
 
 function loadXML(search) {
