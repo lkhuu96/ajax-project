@@ -142,33 +142,20 @@ function cycleCarousel(event) {
   if (event.target.tagName !== 'I') {
     return;
   }
-
   var $columnCarousel = document.querySelectorAll('.column-carousel');
-  var start = data.carStart;
+  clearList($columnCarousel, $recommended);
   if (event.target.getAttribute('id') === 'left') {
-    data.carStart -= 1;
+    data.carStart -= 4;
     if (data.carStart < 0) {
-      data.carStart = data.recommended.length - 1;
+      data.carStart = (data.recommended.length) + data.carStart;
     }
-    clearList($columnCarousel, $recommended);
-    for (var z = 0; z < 5; z++) {
-      if (start === data.recommended.length) {
-        start = 0;
-      }
-      $recommended.appendChild(createCarousel(data.recommended[start++]));
-    }
+    redisplayCarousel();
   } else if (event.target.getAttribute('id') === 'right') {
-    clearList($columnCarousel, $recommended);
-    data.carStart += 1;
-    if (data.carStart === data.recommended.length) {
-      data.carStart = 0;
+    data.carStart += 4;
+    if (data.carStart > data.recommended.length - 1) {
+      data.carStart = data.carStart - (data.recommended.length);
     }
-    for (var y = 0; y < 5; y++) {
-      if (start === data.recommended.length) {
-        start = 0;
-      }
-      $recommended.appendChild(createCarousel(data.recommended[start++]));
-    }
+    redisplayCarousel();
   }
 }
 
@@ -189,6 +176,16 @@ function createCarousel(anime) {
   createDiv.appendChild(createImg);
   createDiv.className = 'column-carousel';
   return createDiv;
+}
+
+function redisplayCarousel() {
+  var start = data.carStart;
+  for (var y = 0; y < 5; y++) {
+    if (start === data.recommended.length) {
+      start = 0;
+    }
+    $recommended.appendChild(createCarousel(data.recommended[start++]));
+  }
 }
 
 function createList(anime) {
