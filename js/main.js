@@ -45,7 +45,14 @@ $homeButton.addEventListener('click', function (event) {
 $ul.addEventListener('click', function (event) {
   var animeId = event.target.closest('li').getAttribute('id');
   if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
-    loadDetails(animeId);
+    var select = data.viewDetails;
+    data.id = parseInt(animeId);
+    for (var i = 0; i < data.anime.length; i++) {
+      if (data.id === data.anime[i].mal_id) {
+        select = data.anime[i];
+      }
+    }
+    loadDetails(animeId, select);
   }
 });
 
@@ -66,14 +73,7 @@ function loadXML(search) {
   xmlObject.send();
 }
 
-function loadDetails(animeId) {
-  var select = data.viewDetails;
-  data.id = parseInt(animeId);
-  for (var i = 0; i < data.anime.length; i++) {
-    if (data.id === data.anime[i].mal_id) {
-      select = data.anime[i];
-    }
-  }
+function loadDetails(animeId, select) {
   var genres = [];
   for (var x = 0; x < select.genres.length; x++) {
     genres.push(select.genres[x].name);
@@ -99,7 +99,6 @@ function loadDetails(animeId) {
   $details.classList.remove('hidden');
 }
 
-// finding recommended animes, need to search for id
 function getRecommendedList(id) {
   var xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
@@ -109,6 +108,17 @@ function getRecommendedList(id) {
     for (var y = 0; y < 5; y++) {
       $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
     }
+  });
+  xmlObject.send();
+}
+
+function getRecommendedDetails(id) {
+  var xmlObject = new XMLHttpRequest();
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
+  xmlObject.responseType = 'json';
+  xmlObject.addEventListener('load', function () {
+    data.viewDetails = xmlObject.response.data;
+    loadDetails(id, data.viewDetails);
   });
   xmlObject.send();
 }
@@ -161,7 +171,9 @@ function carousel(event) {
       redisplayCarousel();
     }
   } else {
-    loadDetails(parseInt(id));
+    data.id = id;
+    clearLists();
+    getRecommendedDetails(id);
   }
 }
 
