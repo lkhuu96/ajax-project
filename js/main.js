@@ -15,6 +15,9 @@ var $art = document.querySelector('#art');
 var $detailTitle = document.querySelector('#detail-title');
 var $details = document.querySelector('#details');
 var $video = document.querySelector('#video');
+var $chevron = document.querySelector('#carousel');
+var $recommended = document.querySelector('#recommended');
+
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
   var search = $form.elements.search.value;
@@ -25,7 +28,7 @@ $form.addEventListener('submit', function (event) {
   $video.setAttribute('src', '');
   $details.classList.add('hidden');
   var $allLi = document.querySelectorAll('li');
-  clearList($allLi);
+  clearList($allLi, $ul);
   data.view = 6;
   loadXML(search);
   $form.reset();
@@ -50,7 +53,6 @@ $ul.addEventListener('click', function (event) {
         select = data.anime[i];
       }
     }
-    getRecommended(data.id);
     var genres = [];
     for (var x = 0; x < select.genres.length; x++) {
       genres.push(select.genres[x].name);
@@ -60,21 +62,24 @@ $ul.addEventListener('click', function (event) {
     } else {
       $ratingNumber.textContent = select.score;
     }
-    $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
-    $video.setAttribute('title', select.title);
+    $detailTitle.textContent = select.title;
+    $art.setAttribute('src', select.images.jpg.image_url);
+    $art.setAttribute('alt', select.title);
     $ranking.textContent = 'Ranking: #' + select.rank;
     $popularity.textContent = 'Popularity: #' + select.popularity;
     $airDate.textContent = 'Air Date: ' + select.aired.string;
     $episodes.textContent = 'Episodes: ' + select.episodes;
     $genre.textContent = 'Genre: ' + genres.join(', ');
     $synopsis.textContent = select.synopsis;
-    $art.setAttribute('src', select.images.jpg.image_url);
-    $art.setAttribute('alt', select.title);
-    $detailTitle.textContent = select.title;
+    $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
+    $video.setAttribute('title', select.title);
+    getRecommended(data.id);
     hideList();
     $details.classList.remove('hidden');
   }
 });
+
+$chevron.addEventListener('click', cycleCarousel);
 
 $viewMore.addEventListener('click', viewMore);
 
@@ -97,6 +102,9 @@ function getRecommended(id) {
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.recommended = xmlObject.response.data;
+    for (var y = 0; y < 5; y++) {
+      $recommended.appendChild(createCarousel(data.recommended[y]));
+    }
   });
   xmlObject.send();
 }
@@ -130,12 +138,41 @@ function viewMore(event) {
   data.view += 6;
 }
 
-function clearList(nodeList) {
-  if (nodeList.length > 0) {
-    for (var i = 0; i < nodeList.length; i++) {
-      $ul.removeChild(nodeList[i]);
+function cycleCarousel(event) {
+  if (event.target.tagName !== 'I') {
+    return;
+  }
+  var $columnCarousel = document.querySelectorAll('.column-carousel');
+  // if (event.target.getAttribute('id') === 'left') {
+
+  // } else
+  if (event.target.getAttribute('id') === 'right') {
+    data.carStart += 1;
+    data.carEnd += 1;
+    clearList($columnCarousel, $recommended);
+    for (var y = data.carStart; y < data.carEnd; y++) {
+      $recommended.appendChild(createCarousel(data.recommended[y]));
     }
   }
+}
+
+function clearList(nodeList, target) {
+  if (nodeList.length > 0) {
+    for (var i = 0; i < nodeList.length; i++) {
+      target.removeChild(nodeList[i]);
+    }
+  }
+}
+
+function createCarousel(anime) {
+  var createDiv = document.createElement('div');
+  var createImg = document.createElement('img');
+  createImg.setAttribute('src', anime.entry.images.jpg.image_url);
+  createImg.setAttribute('alt', anime.entry.title);
+  createImg.className = 'list-art';
+  createDiv.appendChild(createImg);
+  createDiv.className = 'column-carousel';
+  return createDiv;
 }
 
 function createList(anime) {
