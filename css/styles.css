@@ -195,6 +195,7 @@ div.rating > p {
   position: absolute;
 }
 
+.favorite-button,
 .add-button {
   top: 0;
   right: 0;
@@ -204,13 +205,6 @@ div.rating > p {
 
 .add-button:hover {
   background-color: #9ad0ec;
-}
-
-.favorite-button {
-  top: 0;
-  right: 0;
-  padding: 0.2rem 0;
-  width: 100px;
 }
 
 .icon-margin {

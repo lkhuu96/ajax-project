@@ -29,18 +29,18 @@ $form.addEventListener('submit', function (event) {
     return;
   }
   hideHome(search);
+  clearLists();
+  loadXML(search);
   $video.setAttribute('src', '');
   $details.classList.add('hidden');
-  clearLists();
   data.view = 6;
-  loadXML(search);
   $form.reset();
 });
 
 $homeButton.addEventListener('click', function (event) {
   clearLists();
-  $welcome.classList.remove('hidden');
   hideList();
+  $welcome.classList.remove('hidden');
   $video.setAttribute('src', '');
   $details.classList.add('hidden');
 });
@@ -194,9 +194,9 @@ function viewMore(event) {
 }
 
 function carousel(event) {
-  event.preventDefault();
   var id = event.target.getAttribute('mal_id');
   if (event.target.tagName === 'I') {
+    event.preventDefault();
     clearLists();
     if (event.target.getAttribute('id') === 'prev') {
       data.firstCarouselItem -= 4;
@@ -253,6 +253,7 @@ function createCarousel(anime) {
   createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
   createAnchor.appendChild(createEmptyDiv);
   createAnchor.appendChild(createImg);
+  createAnchor.setAttribute('href', '#');
   createDiv.appendChild(createAnchor);
   createDiv.appendChild(createTitle);
   createDiv.setAttribute('mal_id', anime.entry.mal_id);
@@ -292,6 +293,8 @@ function createList(anime) {
   } else {
     createTitleAnchor.textContent = anime.title;
   }
+  createTitleAnchor.setAttribute('href', '#');
+  createTitleAnchor.className = 'dark-blue';
   createTitle.appendChild(createTitleAnchor);
   if (anime.score === null) {
     createScore.textContent = 'Score: N/A';
@@ -325,6 +328,7 @@ function createList(anime) {
   createImg.setAttribute('alt', anime.title);
   createImg.className = 'object-cover hw-100';
   createImgAnchor.appendChild(createImg);
+  createImgAnchor.setAttribute('href', '#');
   createImgRow.appendChild(createImgAnchor);
   createImgRow.className = 'row art-container';
   createImgCol.appendChild(createImgRow);
