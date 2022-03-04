@@ -19,6 +19,7 @@ var $chevron = document.querySelectorAll('.chevron');
 var $carousel = document.querySelector('#carousel');
 var $right = document.querySelector('#right');
 var $recommendedList = document.querySelector('#recommended-list');
+var $addButton = document.querySelector('.add-button');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -56,6 +57,8 @@ $ul.addEventListener('click', function (event) {
     loadDetails(animeId, select);
   }
 });
+
+$addButton.addEventListener('click', addToFavorites);
 
 $carousel.addEventListener('click', carousel);
 
@@ -99,6 +102,11 @@ function loadDetails(animeId, select) {
 
   hideList();
   $details.classList.remove('hidden');
+}
+
+function addToFavorites(event) {
+  event.preventDefault();
+  $addButton.classList.add('hidden');
 }
 
 function getRecommendedList(id) {
