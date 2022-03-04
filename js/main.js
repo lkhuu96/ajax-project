@@ -18,6 +18,7 @@ var $video = document.querySelector('#video');
 var $chevron = document.querySelectorAll('.chevron');
 var $carousel = document.querySelector('#carousel');
 var $right = document.querySelector('#right');
+var $recommendedList = document.querySelector('#recommended-list');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -106,15 +107,23 @@ function getRecommendedList(id) {
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.recommended = xmlObject.response.data;
-    if (data.recommended.length < 6) {
+    $recommendedList.textContent = 'Recommended';
+    $carousel.classList.remove('hidden');
+    if (data.recommended.length === 0) {
+      $recommendedList.textContent = 'No Recommended Anime to Display';
+      $carousel.classList.add('hidden');
+    } else if (data.recommended.length < 6) {
       $chevron[0].classList.add('hidden');
       $chevron[1].classList.add('hidden');
+      for (var y = 0; y < 5; y++) {
+        $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
+      }
     } else {
       $chevron[0].classList.remove('hidden');
       $chevron[1].classList.remove('hidden');
-    }
-    for (var y = 0; y < 5; y++) {
-      $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
+      for (var z = 0; z < 5; z++) {
+        $carousel.insertBefore(createCarousel(data.recommended[z]), $right);
+      }
     }
   });
   xmlObject.send();
