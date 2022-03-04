@@ -67,12 +67,20 @@ $viewMore.addEventListener('click', viewMore);
 
 function loadXML(search) {
   var xmlObject = new XMLHttpRequest();
+  var stop = 6;
+  $viewMore.classList.add('hidden');
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.anime = xmlObject.response.data;
-    for (var i = 0; i < 6; i++) {
+    if (data.anime.length < stop) {
+      stop = data.anime.length;
+    }
+    for (var i = 0; i < stop; i++) {
       $ul.appendChild(createList(data.anime[i]));
+    }
+    if (data.anime.length > 6) {
+      $viewMore.classList.remove('hidden');
     }
   });
   xmlObject.send();
@@ -102,8 +110,8 @@ function loadDetails(animeId, select) {
   getRecommendedList(data.id);
   $addButton.setAttribute('mal_id', data.id);
   $addButton.classList.remove('hidden');
-  for (var i = 0; i < favorites.length; i++) {
-    if (favorites[i] === data.id) {
+  for (var i = 0; i < favorites.favorites.length; i++) {
+    if (favorites.favorites[i] === parseInt(data.id)) {
       $addButton.classList.add('hidden');
     }
   }
@@ -115,7 +123,7 @@ function addToFavorites(event) {
   event.preventDefault();
   var animeId = event.target.closest('.add-button').getAttribute('mal_id');
   $addButton.classList.add('hidden');
-  favorites.push(parseInt(animeId));
+  favorites.favorites.push(parseInt(animeId));
 }
 
 function getRecommendedList(id) {
@@ -161,7 +169,6 @@ function hideHome(search) {
   $welcome.classList.add('hidden');
   $message.classList.remove('hidden');
   $message.textContent = `Search Results for "${search}"`;
-  $viewMore.classList.remove('hidden');
   $ul.classList.remove('hidden');
 }
 

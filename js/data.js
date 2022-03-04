@@ -9,14 +9,14 @@ var data = {
   recommended: []
 };
 
-var favorites = [];
+var favorites = { favorites: [] };
 
 var previousFavoritesJSON = localStorage.getItem('ajax-project-anime-favorites');
 if (previousFavoritesJSON !== null) {
-  data = JSON.parse(previousFavoritesJSON);
+  favorites = JSON.parse(previousFavoritesJSON);
 }
 
-window.addEventListener('beforeUnload', function (events) {
-  var favoritesJSON = JSON.stringify(data);
+window.addEventListener('beforeunload', function (events) {
+  var favoritesJSON = JSON.stringify(favorites);
   localStorage.setItem('ajax-project-anime-favorites', favoritesJSON);
 });
