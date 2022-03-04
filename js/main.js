@@ -170,7 +170,7 @@ function carousel(event) {
       }
       redisplayCarousel();
     }
-  } else {
+  } else if (id) {
     data.id = id;
     clearLists();
     getRecommendedDetails(id);
@@ -197,6 +197,7 @@ function createCarousel(anime) {
   var createEmptyDiv = document.createElement('div');
   var createImg = document.createElement('img');
   var createTitle = document.createElement('h3');
+  var createAnchor = document.createElement('a');
   createImg.setAttribute('src', anime.entry.images.jpg.image_url);
   createImg.setAttribute('alt', anime.entry.title);
   createImg.className = 'list-art';
@@ -209,9 +210,11 @@ function createCarousel(anime) {
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
   createEmptyDiv.className = 'shadow';
   createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
-  createDiv.appendChild(createEmptyDiv);
-  createDiv.appendChild(createImg);
+  createAnchor.appendChild(createEmptyDiv);
+  createAnchor.appendChild(createImg);
+  createDiv.appendChild(createAnchor);
   createDiv.appendChild(createTitle);
+  createDiv.setAttribute('mal_id', anime.entry.mal_id);
   createDiv.className = 'column-carousel art-container relative';
   return createDiv;
 }
