@@ -10,3 +10,13 @@ var data = {
 };
 
 var favorites = [];
+
+var previousFavoritesJSON = localStorage.getItem('ajax-project-anime-favorites');
+if (previousFavoritesJSON !== null) {
+  data = JSON.parse(previousFavoritesJSON);
+}
+
+window.addEventListener('beforeUnload', function (events) {
+  var favoritesJSON = JSON.stringify(data);
+  localStorage.setItem('ajax-project-anime-favorites', favoritesJSON);
+});

@@ -100,6 +100,7 @@ function loadDetails(animeId, select) {
   $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
   $video.setAttribute('title', select.title);
   getRecommendedList(data.id);
+  $addButton.setAttribute('mal_id', data.id);
   $addButton.classList.remove('hidden');
   for (var i = 0; i < favorites.length; i++) {
     if (favorites[i] === data.id) {
