@@ -5,6 +5,6 @@ var data = {
   anime: [],
   id: null,
   viewDetails: {},
-  carStart: 0,
+  firstCarouselItem: 0,
   recommended: []
 };

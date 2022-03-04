@@ -175,15 +175,15 @@ function carousel(event) {
   if (event.target.tagName === 'I') {
     clearLists();
     if (event.target.getAttribute('id') === 'prev') {
-      data.carStart -= 4;
-      if (data.carStart < 0) {
-        data.carStart = (data.recommended.length) + data.carStart;
+      data.firstCarouselItem -= 4;
+      if (data.firstCarouselItem < 0) {
+        data.firstCarouselItem = (data.recommended.length) + data.firstCarouselItem;
       }
       redisplayCarousel();
     } else if (event.target.getAttribute('id') === 'next') {
-      data.carStart += 4;
-      if (data.carStart > data.recommended.length - 1) {
-        data.carStart = data.carStart - (data.recommended.length);
+      data.firstCarouselItem += 4;
+      if (data.firstCarouselItem > data.recommended.length - 1) {
+        data.firstCarouselItem = data.firstCarouselItem - (data.recommended.length);
       }
       redisplayCarousel();
     }
@@ -237,7 +237,7 @@ function createCarousel(anime) {
 }
 
 function redisplayCarousel() {
-  var start = data.carStart;
+  var start = data.firstCarouselItem;
   for (var y = 0; y < 5; y++) {
     if (start === data.recommended.length) {
       start = 0;
