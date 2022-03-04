@@ -112,6 +112,11 @@ div.rating > p {
   display: block;
 }
 
+.chevron {
+  color: #0b5a82;
+  font-size: 5rem;
+}
+
 .details {
   max-height: 800px;
 }

@@ -37,7 +37,7 @@ main {
 }
 
 .column-carousel {
-  flex-basis: calc(100% / 6);
+  flex-basis: calc(100% / 7);
 }
 
 #cover-art {
