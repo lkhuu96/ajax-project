@@ -140,7 +140,7 @@ function getRecommendedList(id) {
     } else if (data.recommended.length < 6) {
       $chevron[0].classList.add('hidden');
       $chevron[1].classList.add('hidden');
-      for (var y = 0; y < 5; y++) {
+      for (var y = 0; y < data.recommended.length; y++) {
         $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
       }
     } else {
