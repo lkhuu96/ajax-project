@@ -83,7 +83,7 @@
             <h3 class="dark-blue text-center">Trailer</h3>
             <iframe class="hw-100" allow="fullscreen" id="video" src="" title=""></iframe>
           </div>
-          <div id="info-card" class="">
+          <div id="info-card" class="relative">
             <div class="row align-center">
               <div class="rating-card text-center">
                 <h4 class="dark-blue-bg white margin-zero">Rating</h4>
@@ -95,6 +95,20 @@
                 <p id="air-date"></p>
                 <p id="episodes"></p>
                 <p id="genre"></p>
+              </div>
+              <div class="absolute favorite-button green-bg">
+                <div class="row space-evenly white">
+                  <i class="fa-solid fa fa-check icon-margin"></i>
+                  <p class="margin-zero">In Favorites</p>
+                </div>
+              </div>
+              <div mal_id="" class="absolute add-button dark-blue-bg">
+                <a href="" class="white">
+                  <div class="row space-evenly">
+                    <i class="fa-solid fa fa-plus icon-margin"></i>
+                    <p class="margin-zero">Add Favorite</p>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -113,6 +127,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </main>
   <script src="js/data.js"></script>

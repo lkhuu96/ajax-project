@@ -1,3 +1,4 @@
+/* global favorites data */
 var $ul = document.querySelector('ul');
 var $form = document.querySelector('form');
 var $message = document.querySelector('.message');
@@ -19,6 +20,7 @@ var $chevron = document.querySelectorAll('.chevron');
 var $carousel = document.querySelector('#carousel');
 var $right = document.querySelector('#right');
 var $recommendedList = document.querySelector('#recommended-list');
+var $addButton = document.querySelector('.add-button');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -27,18 +29,18 @@ $form.addEventListener('submit', function (event) {
     return;
   }
   hideHome(search);
+  clearLists();
+  loadXML(search);
   $video.setAttribute('src', '');
   $details.classList.add('hidden');
-  clearLists();
   data.view = 6;
-  loadXML(search);
   $form.reset();
 });
 
 $homeButton.addEventListener('click', function (event) {
   clearLists();
-  $welcome.classList.remove('hidden');
   hideList();
+  $welcome.classList.remove('hidden');
   $video.setAttribute('src', '');
   $details.classList.add('hidden');
 });
@@ -57,18 +59,28 @@ $ul.addEventListener('click', function (event) {
   }
 });
 
+$addButton.addEventListener('click', addToFavorites);
+
 $carousel.addEventListener('click', carousel);
 
 $viewMore.addEventListener('click', viewMore);
 
 function loadXML(search) {
   var xmlObject = new XMLHttpRequest();
+  var stop = 6;
+  $viewMore.classList.add('hidden');
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.anime = xmlObject.response.data;
-    for (var i = 0; i < 6; i++) {
+    if (data.anime.length < stop) {
+      stop = data.anime.length;
+    }
+    for (var i = 0; i < stop; i++) {
       $ul.appendChild(createList(data.anime[i]));
+    }
+    if (data.anime.length > 6) {
+      $viewMore.classList.remove('hidden');
     }
   });
   xmlObject.send();
@@ -96,9 +108,22 @@ function loadDetails(animeId, select) {
   $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
   $video.setAttribute('title', select.title);
   getRecommendedList(data.id);
-
+  $addButton.setAttribute('mal_id', data.id);
+  $addButton.classList.remove('hidden');
+  for (var i = 0; i < favorites.favorites.length; i++) {
+    if (favorites.favorites[i] === parseInt(data.id)) {
+      $addButton.classList.add('hidden');
+    }
+  }
   hideList();
   $details.classList.remove('hidden');
+}
+
+function addToFavorites(event) {
+  event.preventDefault();
+  var animeId = event.target.closest('.add-button').getAttribute('mal_id');
+  $addButton.classList.add('hidden');
+  favorites.favorites.push(parseInt(animeId));
 }
 
 function getRecommendedList(id) {
@@ -115,7 +140,7 @@ function getRecommendedList(id) {
     } else if (data.recommended.length < 6) {
       $chevron[0].classList.add('hidden');
       $chevron[1].classList.add('hidden');
-      for (var y = 0; y < 5; y++) {
+      for (var y = 0; y < data.recommended.length; y++) {
         $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
       }
     } else {
@@ -129,7 +154,7 @@ function getRecommendedList(id) {
   xmlObject.send();
 }
 
-function getRecommendedDetails(id) {
+function getDetailsById(id) {
   var xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
   xmlObject.responseType = 'json';
@@ -144,7 +169,6 @@ function hideHome(search) {
   $welcome.classList.add('hidden');
   $message.classList.remove('hidden');
   $message.textContent = `Search Results for "${search}"`;
-  $viewMore.classList.remove('hidden');
   $ul.classList.remove('hidden');
 }
 
@@ -170,9 +194,9 @@ function viewMore(event) {
 }
 
 function carousel(event) {
-  event.preventDefault();
   var id = event.target.getAttribute('mal_id');
   if (event.target.tagName === 'I') {
+    event.preventDefault();
     clearLists();
     if (event.target.getAttribute('id') === 'prev') {
       data.firstCarouselItem -= 4;
@@ -190,7 +214,7 @@ function carousel(event) {
   } else if (id) {
     data.id = id;
     clearLists();
-    getRecommendedDetails(id);
+    getDetailsById(id);
   }
 }
 
@@ -229,6 +253,7 @@ function createCarousel(anime) {
   createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
   createAnchor.appendChild(createEmptyDiv);
   createAnchor.appendChild(createImg);
+  createAnchor.setAttribute('href', '#');
   createDiv.appendChild(createAnchor);
   createDiv.appendChild(createTitle);
   createDiv.setAttribute('mal_id', anime.entry.mal_id);
@@ -268,6 +293,8 @@ function createList(anime) {
   } else {
     createTitleAnchor.textContent = anime.title;
   }
+  createTitleAnchor.setAttribute('href', '#');
+  createTitleAnchor.className = 'dark-blue';
   createTitle.appendChild(createTitleAnchor);
   if (anime.score === null) {
     createScore.textContent = 'Score: N/A';
@@ -301,6 +328,7 @@ function createList(anime) {
   createImg.setAttribute('alt', anime.title);
   createImg.className = 'object-cover hw-100';
   createImgAnchor.appendChild(createImg);
+  createImgAnchor.setAttribute('href', '#');
   createImgRow.appendChild(createImgAnchor);
   createImgRow.className = 'row art-container';
   createImgCol.appendChild(createImgRow);

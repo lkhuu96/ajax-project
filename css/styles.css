@@ -127,6 +127,10 @@ div.rating > p {
   color: #9ad0ec;
 }
 
+.green-bg {
+  background-color: rgb(0, 147, 59);
+}
+
 .white {
   color: white;
 }
@@ -175,12 +179,36 @@ div.rating > p {
   align-items: center;
 }
 
+.space-evenly {
+  justify-content: space-evenly;
+}
+
 .hidden {
   display: none;
 }
 
 .relative {
   position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.favorite-button,
+.add-button {
+  top: 0;
+  right: 0;
+  padding: 0.2rem 0;
+  width: 100px;
+}
+
+.add-button:hover {
+  background-color: #9ad0ec;
+}
+
+.icon-margin {
+  margin-right: 0.3rem;
 }
 
 .recommended-title {
