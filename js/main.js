@@ -15,7 +15,7 @@ var $art = document.querySelector('#art');
 var $detailTitle = document.querySelector('#detail-title');
 var $details = document.querySelector('#details');
 var $video = document.querySelector('#video');
-var $chevron = document.querySelector('#carousel');
+var $chevron = document.querySelectorAll('.chevron');
 var $carousel = document.querySelector('#carousel');
 var $right = document.querySelector('#right');
 
@@ -56,7 +56,7 @@ $ul.addEventListener('click', function (event) {
   }
 });
 
-$chevron.addEventListener('click', carousel);
+$carousel.addEventListener('click', carousel);
 
 $viewMore.addEventListener('click', viewMore);
 
@@ -95,6 +95,7 @@ function loadDetails(animeId, select) {
   $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
   $video.setAttribute('title', select.title);
   getRecommendedList(data.id);
+
   hideList();
   $details.classList.remove('hidden');
 }
@@ -105,6 +106,13 @@ function getRecommendedList(id) {
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     data.recommended = xmlObject.response.data;
+    if (data.recommended.length < 6) {
+      $chevron[0].classList.add('hidden');
+      $chevron[1].classList.add('hidden');
+    } else {
+      $chevron[0].classList.remove('hidden');
+      $chevron[1].classList.remove('hidden');
+    }
     for (var y = 0; y < 5; y++) {
       $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
     }
