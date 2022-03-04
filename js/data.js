@@ -4,5 +4,7 @@ var data = {
   view: 6,
   anime: [],
   id: null,
-  viewDetails: {}
+  viewDetails: {},
+  firstCarouselItem: 0,
+  recommended: []
 };

@@ -74,14 +74,8 @@ div.rating > p {
   max-height: 65px;
 }
 
-.height-100 {
-  height: 100%;
-}
-
-.list-art {
+.object-cover {
   object-fit: cover;
-  width: 100%;
-  height: 100%;
 }
 
 .list-info {
@@ -112,8 +106,13 @@ div.rating > p {
   display: block;
 }
 
+.chevron {
+  color: #0b5a82;
+  font-size: 2rem;
+}
+
 .details {
-  max-height: 800px;
+  margin-bottom: 3rem;
 }
 
 .dark-blue {
@@ -178,6 +177,25 @@ div.rating > p {
 
 .hidden {
   display: none;
+}
+
+.relative {
+  position: relative;
+}
+
+.recommended-title {
+  font-size: 0.8rem;
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  margin-bottom: 1rem;
+  color: white;
+  width: 100%;
+}
+
+.shadow {
+  position: absolute;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.637));
 }
 
 #list-description {
@@ -250,7 +268,7 @@ div.rating > p {
   }
 
   .details {
-    max-height: 800px;
+    max-height: 900px;
   }
 
   .art-container {
@@ -261,6 +279,12 @@ div.rating > p {
   .synopsis-text {
     font-weight: 500;
     margin: auto;
-    min-height: 15rem;
+    padding-right: 1rem;
+    min-height: 20rem;
+  }
+
+  .chevron {
+    color: #0b5a82;
+    font-size: 3rem;
   }
 }

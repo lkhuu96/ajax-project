@@ -15,6 +15,11 @@ var $art = document.querySelector('#art');
 var $detailTitle = document.querySelector('#detail-title');
 var $details = document.querySelector('#details');
 var $video = document.querySelector('#video');
+var $chevron = document.querySelectorAll('.chevron');
+var $carousel = document.querySelector('#carousel');
+var $right = document.querySelector('#right');
+var $recommendedList = document.querySelector('#recommended-list');
+
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
   var search = $form.elements.search.value;
@@ -24,16 +29,14 @@ $form.addEventListener('submit', function (event) {
   hideHome(search);
   $video.setAttribute('src', '');
   $details.classList.add('hidden');
-  var $allLi = document.querySelectorAll('li');
-  clearList($allLi);
+  clearLists();
   data.view = 6;
   loadXML(search);
   $form.reset();
 });
 
 $homeButton.addEventListener('click', function (event) {
-  var $allLi = document.querySelectorAll('li');
-  clearList($allLi);
+  clearLists();
   $welcome.classList.remove('hidden');
   hideList();
   $video.setAttribute('src', '');
@@ -41,39 +44,20 @@ $homeButton.addEventListener('click', function (event) {
 });
 
 $ul.addEventListener('click', function (event) {
-  var select = data.viewDetails;
   var animeId = event.target.closest('li').getAttribute('id');
   if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
+    var select = data.viewDetails;
     data.id = parseInt(animeId);
     for (var i = 0; i < data.anime.length; i++) {
       if (data.id === data.anime[i].mal_id) {
         select = data.anime[i];
       }
     }
-    var genres = [];
-    for (var x = 0; x < select.genres.length; x++) {
-      genres.push(select.genres[x].name);
-    }
-    if (select.score === null) {
-      $ratingNumber.textContent = 'N/A';
-    } else {
-      $ratingNumber.textContent = select.score;
-    }
-    $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
-    $video.setAttribute('title', select.title);
-    $ranking.textContent = 'Ranking: #' + select.rank;
-    $popularity.textContent = 'Popularity: #' + select.popularity;
-    $airDate.textContent = 'Air Date: ' + select.aired.string;
-    $episodes.textContent = 'Episodes: ' + select.episodes;
-    $genre.textContent = 'Genre: ' + genres.join(', ');
-    $synopsis.textContent = select.synopsis;
-    $art.setAttribute('src', select.images.jpg.image_url);
-    $art.setAttribute('alt', select.title);
-    $detailTitle.textContent = select.title;
-    hideList();
-    $details.classList.remove('hidden');
+    loadDetails(animeId, select);
   }
 });
+
+$carousel.addEventListener('click', carousel);
 
 $viewMore.addEventListener('click', viewMore);
 
@@ -86,6 +70,72 @@ function loadXML(search) {
     for (var i = 0; i < 6; i++) {
       $ul.appendChild(createList(data.anime[i]));
     }
+  });
+  xmlObject.send();
+}
+
+function loadDetails(animeId, select) {
+  var genres = [];
+  for (var x = 0; x < select.genres.length; x++) {
+    genres.push(select.genres[x].name);
+  }
+  if (select.score === null) {
+    $ratingNumber.textContent = 'N/A';
+  } else {
+    $ratingNumber.textContent = select.score;
+  }
+  $detailTitle.textContent = select.title;
+  $art.setAttribute('src', select.images.jpg.image_url);
+  $art.setAttribute('alt', select.title);
+  $ranking.textContent = 'Ranking: #' + select.rank;
+  $popularity.textContent = 'Popularity: #' + select.popularity;
+  $airDate.textContent = 'Air Date: ' + select.aired.string;
+  $episodes.textContent = 'Episodes: ' + select.episodes;
+  $genre.textContent = 'Genre: ' + genres.join(', ');
+  $synopsis.textContent = select.synopsis;
+  $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
+  $video.setAttribute('title', select.title);
+  getRecommendedList(data.id);
+
+  hideList();
+  $details.classList.remove('hidden');
+}
+
+function getRecommendedList(id) {
+  var xmlObject = new XMLHttpRequest();
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
+  xmlObject.responseType = 'json';
+  xmlObject.addEventListener('load', function () {
+    data.recommended = xmlObject.response.data;
+    $recommendedList.textContent = 'Recommended';
+    $carousel.classList.remove('hidden');
+    if (data.recommended.length === 0) {
+      $recommendedList.textContent = 'No Recommended Anime to Display';
+      $carousel.classList.add('hidden');
+    } else if (data.recommended.length < 6) {
+      $chevron[0].classList.add('hidden');
+      $chevron[1].classList.add('hidden');
+      for (var y = 0; y < 5; y++) {
+        $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
+      }
+    } else {
+      $chevron[0].classList.remove('hidden');
+      $chevron[1].classList.remove('hidden');
+      for (var z = 0; z < 5; z++) {
+        $carousel.insertBefore(createCarousel(data.recommended[z]), $right);
+      }
+    }
+  });
+  xmlObject.send();
+}
+
+function getRecommendedDetails(id) {
+  var xmlObject = new XMLHttpRequest();
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
+  xmlObject.responseType = 'json';
+  xmlObject.addEventListener('load', function () {
+    data.viewDetails = xmlObject.response.data;
+    loadDetails(id, data.viewDetails);
   });
   xmlObject.send();
 }
@@ -119,11 +169,80 @@ function viewMore(event) {
   data.view += 6;
 }
 
-function clearList(nodeList) {
+function carousel(event) {
+  event.preventDefault();
+  var id = event.target.getAttribute('mal_id');
+  if (event.target.tagName === 'I') {
+    clearLists();
+    if (event.target.getAttribute('id') === 'prev') {
+      data.firstCarouselItem -= 4;
+      if (data.firstCarouselItem < 0) {
+        data.firstCarouselItem = (data.recommended.length) + data.firstCarouselItem;
+      }
+      redisplayCarousel();
+    } else if (event.target.getAttribute('id') === 'next') {
+      data.firstCarouselItem += 4;
+      if (data.firstCarouselItem > data.recommended.length - 1) {
+        data.firstCarouselItem = data.firstCarouselItem - (data.recommended.length);
+      }
+      redisplayCarousel();
+    }
+  } else if (id) {
+    data.id = id;
+    clearLists();
+    getRecommendedDetails(id);
+  }
+}
+
+function clearLists() {
+  var $allLi = document.querySelectorAll('li');
+  loopLists($allLi, $ul);
+  var $columnCarousel = document.querySelectorAll('.column-carousel');
+  loopLists($columnCarousel, $carousel);
+}
+
+function loopLists(nodeList, target) {
   if (nodeList.length > 0) {
     for (var i = 0; i < nodeList.length; i++) {
-      $ul.removeChild(nodeList[i]);
+      target.removeChild(nodeList[i]);
     }
+  }
+}
+
+function createCarousel(anime) {
+  var createDiv = document.createElement('div');
+  var createEmptyDiv = document.createElement('div');
+  var createImg = document.createElement('img');
+  var createTitle = document.createElement('h3');
+  var createAnchor = document.createElement('a');
+  createImg.setAttribute('src', anime.entry.images.jpg.image_url);
+  createImg.setAttribute('alt', anime.entry.title);
+  createImg.className = 'object-cover hw-100';
+  if (anime.entry.title.length > 20) {
+    createTitle.textContent = anime.entry.title.slice(0, 20) + '...';
+  } else {
+    createTitle.textContent = anime.entry.title;
+  }
+  createTitle.className = 'recommended-title';
+  createTitle.setAttribute('mal_id', anime.entry.mal_id);
+  createEmptyDiv.className = 'shadow hw-100';
+  createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
+  createAnchor.appendChild(createEmptyDiv);
+  createAnchor.appendChild(createImg);
+  createDiv.appendChild(createAnchor);
+  createDiv.appendChild(createTitle);
+  createDiv.setAttribute('mal_id', anime.entry.mal_id);
+  createDiv.className = 'column-carousel art-container relative';
+  return createDiv;
+}
+
+function redisplayCarousel() {
+  var start = data.firstCarouselItem;
+  for (var y = 0; y < 5; y++) {
+    if (start === data.recommended.length) {
+      start = 0;
+    }
+    $carousel.insertBefore(createCarousel(data.recommended[start++]), $right);
   }
 }
 
@@ -144,7 +263,6 @@ function createList(anime) {
   var createDate = document.createElement('p');
   var createGenre = document.createElement('p');
   var createSyn = document.createElement('p');
-
   if (anime.title.length > 40) {
     createTitleAnchor.textContent = anime.title.slice(0, 40) + '...';
   } else {
@@ -170,34 +288,26 @@ function createList(anime) {
   createInfoCol1.appendChild(createTitle);
   createInfoCol1.appendChild(createSyn);
   createInfoCol1.className = 'column-seventy list-info ';
-
   createInfoCol2.appendChild(createScore);
   createInfoCol2.appendChild(createDate);
   createInfoCol2.appendChild(createGenre);
   createInfoCol2.className = 'column-seventy list-info';
-
   createSynRow.appendChild(createInfoCol1);
   createSynRow.appendChild(createInfoCol2);
   createSynRow.className = 'row';
-
   createCol80.appendChild(createSynRow);
   createCol80.className = 'column-eighty';
-
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
-  createImg.className = 'list-art';
+  createImg.className = 'object-cover hw-100';
   createImgAnchor.appendChild(createImg);
-
   createImgRow.appendChild(createImgAnchor);
   createImgRow.className = 'row art-container';
-
   createImgCol.appendChild(createImgRow);
   createImgCol.className = 'column-twenty';
-
   createListRow.appendChild(createImgCol);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
-
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
   return createLi;
