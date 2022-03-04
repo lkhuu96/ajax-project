@@ -217,7 +217,7 @@ function createCarousel(anime) {
   var createAnchor = document.createElement('a');
   createImg.setAttribute('src', anime.entry.images.jpg.image_url);
   createImg.setAttribute('alt', anime.entry.title);
-  createImg.className = 'list-art';
+  createImg.className = 'object-cover hw-100';
   if (anime.entry.title.length > 20) {
     createTitle.textContent = anime.entry.title.slice(0, 20) + '...';
   } else {
@@ -225,7 +225,7 @@ function createCarousel(anime) {
   }
   createTitle.className = 'recommended-title';
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
-  createEmptyDiv.className = 'shadow';
+  createEmptyDiv.className = 'shadow hw-100';
   createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
   createAnchor.appendChild(createEmptyDiv);
   createAnchor.appendChild(createImg);
@@ -299,7 +299,7 @@ function createList(anime) {
   createCol80.className = 'column-eighty';
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
-  createImg.className = 'list-art';
+  createImg.className = 'object-cover hw-100';
   createImgAnchor.appendChild(createImg);
   createImgRow.appendChild(createImgAnchor);
   createImgRow.className = 'row art-container';

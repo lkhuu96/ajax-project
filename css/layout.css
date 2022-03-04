@@ -36,6 +36,15 @@ main {
   flex-basis: 80%;
 }
 
+.height-100 {
+  height: 100%;
+}
+
+.hw-100 {
+  height: 100%;
+  width: 100%;
+}
+
 .column-carousel {
   flex-basis: calc(100% / 6);
 }
@@ -62,8 +71,6 @@ main {
 }
 
 #video {
-  width: 100%;
-  height: 100%;
   border: none;
 }
 
