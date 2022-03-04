@@ -183,6 +183,24 @@ div.rating > p {
   position: relative;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.add-button {
+  top: 0;
+  right: 0;
+  padding: 0.2rem 0.3rem;
+}
+
+.add-button:hover {
+  background-color: #9ad0ec;
+}
+
+.fa-plus {
+  margin-right: 0.3rem;
+}
+
 .recommended-title {
   font-size: 0.8rem;
   position: absolute;
