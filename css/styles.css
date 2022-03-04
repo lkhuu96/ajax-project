@@ -114,11 +114,11 @@ div.rating > p {
 
 .chevron {
   color: #0b5a82;
-  font-size: 5rem;
+  font-size: 2rem;
 }
 
 .details {
-  max-height: 800px;
+  margin-bottom: 3rem;
 }
 
 .dark-blue {
@@ -183,6 +183,29 @@ div.rating > p {
 
 .hidden {
   display: none;
+}
+
+.relative {
+  position: relative;
+}
+
+.recommended-title {
+  font-size: 0.8rem;
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  margin: 0;
+  color: white;
+  width: 100%;
+}
+
+.shadow {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.637));
 }
 
 #list-description {
@@ -255,7 +278,7 @@ div.rating > p {
   }
 
   .details {
-    max-height: 800px;
+    max-height: 900px;
   }
 
   .art-container {
@@ -266,6 +289,11 @@ div.rating > p {
   .synopsis-text {
     font-weight: 500;
     margin: auto;
-    min-height: 15rem;
+    min-height: 20rem;
+  }
+
+  .chevron {
+    color: #0b5a82;
+    font-size: 5rem;
   }
 }

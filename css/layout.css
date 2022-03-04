@@ -37,7 +37,7 @@ main {
 }
 
 .column-carousel {
-  flex-basis: calc(100% / 7);
+  flex-basis: calc(100% / 6);
 }
 
 #cover-art {
@@ -106,6 +106,10 @@ main {
   #video-container {
     order: 4;
     width: 35%;
-    height: 100%;
+    height: 200px;
+  }
+
+  .column-carousel {
+    flex-basis: calc(100% / 6);
   }
 }

@@ -16,7 +16,8 @@ var $detailTitle = document.querySelector('#detail-title');
 var $details = document.querySelector('#details');
 var $video = document.querySelector('#video');
 var $chevron = document.querySelector('#carousel');
-var $recommended = document.querySelector('#recommended');
+var $carousel = document.querySelector('#carousel');
+var $right = document.querySelector('#right');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -29,6 +30,8 @@ $form.addEventListener('submit', function (event) {
   $details.classList.add('hidden');
   var $allLi = document.querySelectorAll('li');
   clearList($allLi, $ul);
+  var $columnCarousel = document.querySelectorAll('.column-carousel');
+  clearList($columnCarousel, $carousel);
   data.view = 6;
   loadXML(search);
   $form.reset();
@@ -36,7 +39,9 @@ $form.addEventListener('submit', function (event) {
 
 $homeButton.addEventListener('click', function (event) {
   var $allLi = document.querySelectorAll('li');
-  clearList($allLi);
+  clearList($allLi, $ul);
+  var $columnCarousel = document.querySelectorAll('.column-carousel');
+  clearList($columnCarousel, $carousel);
   $welcome.classList.remove('hidden');
   hideList();
   $video.setAttribute('src', '');
@@ -103,7 +108,7 @@ function getRecommended(id) {
   xmlObject.addEventListener('load', function () {
     data.recommended = xmlObject.response.data;
     for (var y = 0; y < 5; y++) {
-      $recommended.appendChild(createCarousel(data.recommended[y]));
+      $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
     }
   });
   xmlObject.send();
@@ -143,7 +148,7 @@ function cycleCarousel(event) {
     return;
   }
   var $columnCarousel = document.querySelectorAll('.column-carousel');
-  clearList($columnCarousel, $recommended);
+  clearList($columnCarousel, $carousel);
   if (event.target.getAttribute('id') === 'left') {
     data.carStart -= 4;
     if (data.carStart < 0) {
@@ -169,12 +174,23 @@ function clearList(nodeList, target) {
 
 function createCarousel(anime) {
   var createDiv = document.createElement('div');
+  var createEmptyDiv = document.createElement('div');
   var createImg = document.createElement('img');
+  var createTitle = document.createElement('h3');
   createImg.setAttribute('src', anime.entry.images.jpg.image_url);
   createImg.setAttribute('alt', anime.entry.title);
   createImg.className = 'list-art';
+  if (anime.entry.title.length > 20) {
+    createTitle.textContent = anime.entry.title.slice(0, 20) + '...';
+  } else {
+    createTitle.textContent = anime.entry.title;
+  }
+  createTitle.className = 'recommended-title';
+  createEmptyDiv.className = 'shadow';
+  createDiv.appendChild(createEmptyDiv);
   createDiv.appendChild(createImg);
-  createDiv.className = 'column-carousel';
+  createDiv.appendChild(createTitle);
+  createDiv.className = 'column-carousel art-container relative';
   return createDiv;
 }
 
@@ -184,7 +200,7 @@ function redisplayCarousel() {
     if (start === data.recommended.length) {
       start = 0;
     }
-    $recommended.appendChild(createCarousel(data.recommended[start++]));
+    $carousel.insertBefore(createCarousel(data.recommended[start++]), $right);
   }
 }
 
@@ -205,7 +221,6 @@ function createList(anime) {
   var createDate = document.createElement('p');
   var createGenre = document.createElement('p');
   var createSyn = document.createElement('p');
-
   if (anime.title.length > 40) {
     createTitleAnchor.textContent = anime.title.slice(0, 40) + '...';
   } else {
@@ -231,34 +246,26 @@ function createList(anime) {
   createInfoCol1.appendChild(createTitle);
   createInfoCol1.appendChild(createSyn);
   createInfoCol1.className = 'column-seventy list-info ';
-
   createInfoCol2.appendChild(createScore);
   createInfoCol2.appendChild(createDate);
   createInfoCol2.appendChild(createGenre);
   createInfoCol2.className = 'column-seventy list-info';
-
   createSynRow.appendChild(createInfoCol1);
   createSynRow.appendChild(createInfoCol2);
   createSynRow.className = 'row';
-
   createCol80.appendChild(createSynRow);
   createCol80.className = 'column-eighty';
-
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
   createImg.className = 'list-art';
   createImgAnchor.appendChild(createImg);
-
   createImgRow.appendChild(createImgAnchor);
   createImgRow.className = 'row art-container';
-
   createImgCol.appendChild(createImgRow);
   createImgCol.className = 'column-twenty';
-
   createListRow.appendChild(createImgCol);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
-
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
   return createLi;
