@@ -1,4 +1,4 @@
-/* exported data */
+/* exported data favorites */
 
 var data = {
   view: 6,
@@ -8,3 +8,5 @@ var data = {
   firstCarouselItem: 0,
   recommended: []
 };
+
+var favorites = [];

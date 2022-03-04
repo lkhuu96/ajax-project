@@ -1,3 +1,4 @@
+/* global favorites data */
 var $ul = document.querySelector('ul');
 var $form = document.querySelector('form');
 var $message = document.querySelector('.message');
@@ -99,14 +100,21 @@ function loadDetails(animeId, select) {
   $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
   $video.setAttribute('title', select.title);
   getRecommendedList(data.id);
-
+  $addButton.classList.remove('hidden');
+  for (var i = 0; i < favorites.length; i++) {
+    if (favorites[i] === data.id) {
+      $addButton.classList.add('hidden');
+    }
+  }
   hideList();
   $details.classList.remove('hidden');
 }
 
 function addToFavorites(event) {
   event.preventDefault();
+  var animeId = event.target.closest('.add-button').getAttribute('mal_id');
   $addButton.classList.add('hidden');
+  favorites.push(parseInt(animeId));
 }
 
 function getRecommendedList(id) {
@@ -137,7 +145,7 @@ function getRecommendedList(id) {
   xmlObject.send();
 }
 
-function getRecommendedDetails(id) {
+function getDetailsById(id) {
   var xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
   xmlObject.responseType = 'json';
@@ -198,7 +206,7 @@ function carousel(event) {
   } else if (id) {
     data.id = id;
     clearLists();
-    getRecommendedDetails(id);
+    getDetailsById(id);
   }
 }
 
