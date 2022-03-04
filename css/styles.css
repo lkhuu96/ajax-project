@@ -194,9 +194,10 @@ div.rating > p {
   position: absolute;
   text-align: center;
   bottom: 0;
-  margin: 0;
+  margin-bottom: 1rem;
   color: white;
   width: 100%;
+  display: content;
 }
 
 .shadow {
@@ -289,11 +290,12 @@ div.rating > p {
   .synopsis-text {
     font-weight: 500;
     margin: auto;
+    padding-right: 1rem;
     min-height: 20rem;
   }
 
   .chevron {
     color: #0b5a82;
-    font-size: 5rem;
+    font-size: 3rem;
   }
 }

@@ -28,20 +28,14 @@ $form.addEventListener('submit', function (event) {
   hideHome(search);
   $video.setAttribute('src', '');
   $details.classList.add('hidden');
-  var $allLi = document.querySelectorAll('li');
-  clearList($allLi, $ul);
-  var $columnCarousel = document.querySelectorAll('.column-carousel');
-  clearList($columnCarousel, $carousel);
+  clearLists();
   data.view = 6;
   loadXML(search);
   $form.reset();
 });
 
 $homeButton.addEventListener('click', function (event) {
-  var $allLi = document.querySelectorAll('li');
-  clearList($allLi, $ul);
-  var $columnCarousel = document.querySelectorAll('.column-carousel');
-  clearList($columnCarousel, $carousel);
+  clearLists();
   $welcome.classList.remove('hidden');
   hideList();
   $video.setAttribute('src', '');
@@ -49,42 +43,13 @@ $homeButton.addEventListener('click', function (event) {
 });
 
 $ul.addEventListener('click', function (event) {
-  var select = data.viewDetails;
   var animeId = event.target.closest('li').getAttribute('id');
   if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
-    data.id = parseInt(animeId);
-    for (var i = 0; i < data.anime.length; i++) {
-      if (data.id === data.anime[i].mal_id) {
-        select = data.anime[i];
-      }
-    }
-    var genres = [];
-    for (var x = 0; x < select.genres.length; x++) {
-      genres.push(select.genres[x].name);
-    }
-    if (select.score === null) {
-      $ratingNumber.textContent = 'N/A';
-    } else {
-      $ratingNumber.textContent = select.score;
-    }
-    $detailTitle.textContent = select.title;
-    $art.setAttribute('src', select.images.jpg.image_url);
-    $art.setAttribute('alt', select.title);
-    $ranking.textContent = 'Ranking: #' + select.rank;
-    $popularity.textContent = 'Popularity: #' + select.popularity;
-    $airDate.textContent = 'Air Date: ' + select.aired.string;
-    $episodes.textContent = 'Episodes: ' + select.episodes;
-    $genre.textContent = 'Genre: ' + genres.join(', ');
-    $synopsis.textContent = select.synopsis;
-    $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
-    $video.setAttribute('title', select.title);
-    getRecommended(data.id);
-    hideList();
-    $details.classList.remove('hidden');
+    loadDetails(animeId);
   }
 });
 
-$chevron.addEventListener('click', cycleCarousel);
+$chevron.addEventListener('click', carousel);
 
 $viewMore.addEventListener('click', viewMore);
 
@@ -101,7 +66,41 @@ function loadXML(search) {
   xmlObject.send();
 }
 
-function getRecommended(id) {
+function loadDetails(animeId) {
+  var select = data.viewDetails;
+  data.id = parseInt(animeId);
+  for (var i = 0; i < data.anime.length; i++) {
+    if (data.id === data.anime[i].mal_id) {
+      select = data.anime[i];
+    }
+  }
+  var genres = [];
+  for (var x = 0; x < select.genres.length; x++) {
+    genres.push(select.genres[x].name);
+  }
+  if (select.score === null) {
+    $ratingNumber.textContent = 'N/A';
+  } else {
+    $ratingNumber.textContent = select.score;
+  }
+  $detailTitle.textContent = select.title;
+  $art.setAttribute('src', select.images.jpg.image_url);
+  $art.setAttribute('alt', select.title);
+  $ranking.textContent = 'Ranking: #' + select.rank;
+  $popularity.textContent = 'Popularity: #' + select.popularity;
+  $airDate.textContent = 'Air Date: ' + select.aired.string;
+  $episodes.textContent = 'Episodes: ' + select.episodes;
+  $genre.textContent = 'Genre: ' + genres.join(', ');
+  $synopsis.textContent = select.synopsis;
+  $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
+  $video.setAttribute('title', select.title);
+  getRecommendedList(data.id);
+  hideList();
+  $details.classList.remove('hidden');
+}
+
+// finding recommended animes, need to search for id
+function getRecommendedList(id) {
   var xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
   xmlObject.responseType = 'json';
@@ -143,28 +142,37 @@ function viewMore(event) {
   data.view += 6;
 }
 
-function cycleCarousel(event) {
-  if (event.target.tagName !== 'I') {
-    return;
-  }
-  var $columnCarousel = document.querySelectorAll('.column-carousel');
-  clearList($columnCarousel, $carousel);
-  if (event.target.getAttribute('id') === 'left') {
-    data.carStart -= 4;
-    if (data.carStart < 0) {
-      data.carStart = (data.recommended.length) + data.carStart;
+function carousel(event) {
+  event.preventDefault();
+  var id = event.target.getAttribute('mal_id');
+  if (event.target.tagName === 'I') {
+    clearLists();
+    if (event.target.getAttribute('id') === 'prev') {
+      data.carStart -= 4;
+      if (data.carStart < 0) {
+        data.carStart = (data.recommended.length) + data.carStart;
+      }
+      redisplayCarousel();
+    } else if (event.target.getAttribute('id') === 'next') {
+      data.carStart += 4;
+      if (data.carStart > data.recommended.length - 1) {
+        data.carStart = data.carStart - (data.recommended.length);
+      }
+      redisplayCarousel();
     }
-    redisplayCarousel();
-  } else if (event.target.getAttribute('id') === 'right') {
-    data.carStart += 4;
-    if (data.carStart > data.recommended.length - 1) {
-      data.carStart = data.carStart - (data.recommended.length);
-    }
-    redisplayCarousel();
+  } else {
+    loadDetails(parseInt(id));
   }
 }
 
-function clearList(nodeList, target) {
+function clearLists() {
+  var $allLi = document.querySelectorAll('li');
+  loopLists($allLi, $ul);
+  var $columnCarousel = document.querySelectorAll('.column-carousel');
+  loopLists($columnCarousel, $carousel);
+}
+
+function loopLists(nodeList, target) {
   if (nodeList.length > 0) {
     for (var i = 0; i < nodeList.length; i++) {
       target.removeChild(nodeList[i]);
@@ -186,7 +194,9 @@ function createCarousel(anime) {
     createTitle.textContent = anime.entry.title;
   }
   createTitle.className = 'recommended-title';
+  createTitle.setAttribute('mal_id', anime.entry.mal_id);
   createEmptyDiv.className = 'shadow';
+  createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
   createDiv.appendChild(createEmptyDiv);
   createDiv.appendChild(createImg);
   createDiv.appendChild(createTitle);
