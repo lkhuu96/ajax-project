@@ -49,14 +49,17 @@ $homeButton.addEventListener('click', function (event) {
 $ul.addEventListener('click', function (event) {
   var animeId = event.target.closest('li').getAttribute('id');
   if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
-    var select = data.viewDetails;
+
     data.id = parseInt(animeId);
-    for (var i = 0; i < data.anime.length; i++) {
-      if (data.id === data.anime[i].mal_id) {
-        select = data.anime[i];
-      }
-    }
-    loadDetails(animeId, select);
+    // var select = data.viewDetails;
+    // for (var i = 0; i < data.anime.length; i++) {
+    //   if (data.id === data.anime[i].mal_id) {
+    //     select = data.anime[i];
+    //   }
+    // }
+    // loadDetails(animeId, select);
+
+    getDetailsById(data.id, loadDetails, data.viewDetails);
   }
 });
 
@@ -150,13 +153,13 @@ function getRecommendedList(id) {
   xmlObject.send();
 }
 
-function getDetailsById(id) {
+function getDetailsById(id, callback, saveWhere) {
   var xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
-    data.viewDetails = xmlObject.response.data;
-    loadDetails(id, data.viewDetails);
+    saveWhere = xmlObject.response.data;
+    callback(id, saveWhere);
   });
   xmlObject.send();
 }
@@ -168,26 +171,21 @@ function addToFavorites(event) {
   favorites.favorites.push(parseInt(animeId));
 }
 
+function addToFavList(id, viewDetails) {
+  $ul.appendChild(createList(viewDetails));
+}
+
 function viewFavorites() {
   var fav = favorites.favorites;
-
+  clearLists();
+  hideHome();
   $viewMore.classList.add('hidden');
   $details.classList.add('hidden');
   $message.textContent = 'Favorite List';
+  data.anime = [];
   for (var i = 0; i < fav.length; i++) {
-    searchAnimeById(fav[i]);
+    getDetailsById(fav[i], addToFavList, favorites.favView);
   }
-}
-
-function searchAnimeById(id) {
-  var xmlObject = new XMLHttpRequest();
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
-  xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
-    data.viewDetails = xmlObject.response.data;
-    $ul.appendChild(createList(data.viewDetails));
-  });
-  xmlObject.send();
 }
 
 function hideHome(search) {
@@ -239,7 +237,7 @@ function carousel(event) {
   } else if (id) {
     data.id = id;
     clearLists();
-    getDetailsById(id);
+    getDetailsById(id, loadDetails, data.viewDetails);
   }
 }
 

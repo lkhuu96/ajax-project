@@ -11,7 +11,7 @@ var data = {
 
 var favorites = {
   favorites: [],
-  list: []
+  favView: {}
 };
 
 var previousFavoritesJSON = localStorage.getItem('ajax-project-anime-favorites');
