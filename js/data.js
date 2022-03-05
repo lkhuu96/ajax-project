@@ -1,24 +1,15 @@
-/* exported data favorites */
-
+/* exported data */
 var data = {
-  view: 6,
-  anime: [],
-  id: null,
-  viewDetails: {},
-  firstCarouselItem: 0,
-  recommended: []
+  favorites: [],
+  favoriteDetails: {}
 };
 
-var favorites = {
-  favorites: []
-};
-
-var previousFavoritesJSON = localStorage.getItem('ajax-project-anime-favorites');
-if (previousFavoritesJSON !== null) {
-  favorites = JSON.parse(previousFavoritesJSON);
+var previousDataJSON = localStorage.getItem('ajax-project-anime-favorites');
+if (previousDataJSON !== null) {
+  data = JSON.parse(previousDataJSON);
 }
 
 window.addEventListener('beforeunload', function (events) {
-  var favoritesJSON = JSON.stringify(favorites);
-  localStorage.setItem('ajax-project-anime-favorites', favoritesJSON);
+  var dataJSON = JSON.stringify(data);
+  localStorage.setItem('ajax-project-anime-favorites', dataJSON);
 });
