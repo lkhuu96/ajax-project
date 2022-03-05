@@ -21,6 +21,7 @@ var $carousel = document.querySelector('#carousel');
 var $right = document.querySelector('#right');
 var $recommendedList = document.querySelector('#recommended-list');
 var $addButton = document.querySelector('.add-button');
+var $favListButton = document.querySelector('.fa-list');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -60,6 +61,8 @@ $ul.addEventListener('click', function (event) {
 });
 
 $addButton.addEventListener('click', addToFavorites);
+
+$favListButton.addEventListener('click', viewFavorites);
 
 $carousel.addEventListener('click', carousel);
 
@@ -119,13 +122,6 @@ function loadDetails(animeId, select) {
   $details.classList.remove('hidden');
 }
 
-function addToFavorites(event) {
-  event.preventDefault();
-  var animeId = event.target.closest('.add-button').getAttribute('mal_id');
-  $addButton.classList.add('hidden');
-  favorites.favorites.push(parseInt(animeId));
-}
-
 function getRecommendedList(id) {
   var xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
@@ -161,6 +157,35 @@ function getDetailsById(id) {
   xmlObject.addEventListener('load', function () {
     data.viewDetails = xmlObject.response.data;
     loadDetails(id, data.viewDetails);
+  });
+  xmlObject.send();
+}
+
+function addToFavorites(event) {
+  event.preventDefault();
+  var animeId = event.target.closest('.add-button').getAttribute('mal_id');
+  $addButton.classList.add('hidden');
+  favorites.favorites.push(parseInt(animeId));
+}
+
+function viewFavorites() {
+  var fav = favorites.favorites;
+
+  $viewMore.classList.add('hidden');
+  $details.classList.add('hidden');
+  $message.textContent = 'Favorite List';
+  for (var i = 0; i < fav.length; i++) {
+    searchAnimeById(fav[i]);
+  }
+}
+
+function searchAnimeById(id) {
+  var xmlObject = new XMLHttpRequest();
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
+  xmlObject.responseType = 'json';
+  xmlObject.addEventListener('load', function () {
+    data.viewDetails = xmlObject.response.data;
+    $ul.appendChild(createList(data.viewDetails));
   });
   xmlObject.send();
 }

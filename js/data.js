@@ -9,7 +9,10 @@ var data = {
   recommended: []
 };
 
-var favorites = { favorites: [] };
+var favorites = {
+  favorites: [],
+  list: []
+};
 
 var previousFavoritesJSON = localStorage.getItem('ajax-project-anime-favorites');
 if (previousFavoritesJSON !== null) {
