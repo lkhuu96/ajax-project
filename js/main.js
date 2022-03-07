@@ -1,4 +1,10 @@
-/* global favorites data */
+/* global data */
+var searchView = 6;
+var animeList = [];
+var animeId = null;
+var animeDetails = {};
+var firstCarouselItem = 0;
+var recommendedList = [];
 var $ul = document.querySelector('ul');
 var $form = document.querySelector('form');
 var $message = document.querySelector('.message');
@@ -21,6 +27,7 @@ var $carousel = document.querySelector('#carousel');
 var $right = document.querySelector('#right');
 var $recommendedList = document.querySelector('#recommended-list');
 var $addButton = document.querySelector('.add-button');
+var $favListButton = document.querySelector('.fa-list');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -31,9 +38,8 @@ $form.addEventListener('submit', function (event) {
   hideHome(search);
   clearLists();
   loadXML(search);
-  $video.setAttribute('src', '');
-  $details.classList.add('hidden');
-  data.view = 6;
+  hideDetails();
+  searchView = 6;
   $form.reset();
 });
 
@@ -41,29 +47,75 @@ $homeButton.addEventListener('click', function (event) {
   clearLists();
   hideList();
   $welcome.classList.remove('hidden');
-  $video.setAttribute('src', '');
-  $details.classList.add('hidden');
+  hideDetails();
 });
 
 $ul.addEventListener('click', function (event) {
-  var animeId = event.target.closest('li').getAttribute('id');
+  var idNum = event.target.closest('li').getAttribute('id');
   if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
-    var select = data.viewDetails;
-    data.id = parseInt(animeId);
-    for (var i = 0; i < data.anime.length; i++) {
-      if (data.id === data.anime[i].mal_id) {
-        select = data.anime[i];
-      }
-    }
-    loadDetails(animeId, select);
+    animeId = parseInt(idNum);
+    getDetailsById(animeId, loadDetails, animeDetails);
   }
 });
 
-$addButton.addEventListener('click', addToFavorites);
+$addButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  var idNum = event.target.closest('.add-button').getAttribute('mal_id');
+  $addButton.classList.add('hidden');
+  getDetailsById(idNum, addToFavList, data.favoriteDetails);
+});
 
-$carousel.addEventListener('click', carousel);
+$favListButton.addEventListener('click', function (event) {
+  clearLists();
+  hideHome();
+  $viewMore.classList.add('hidden');
+  hideDetails();
+  $message.textContent = 'Favorite List';
+  animeList = [];
+  for (var i = 0; i < data.favorites.length; i++) {
+    $ul.appendChild(createList(data.favorites[i]));
+  }
+});
 
-$viewMore.addEventListener('click', viewMore);
+$carousel.addEventListener('click', function (event) {
+  var id = event.target.getAttribute('mal_id');
+  if (event.target.tagName === 'I') {
+    event.preventDefault();
+    clearLists();
+    if (event.target.getAttribute('id') === 'prev') {
+      firstCarouselItem -= 4;
+      if (firstCarouselItem < 0) {
+        firstCarouselItem = (recommendedList.length) + firstCarouselItem;
+      }
+      redisplayCarousel();
+    } else if (event.target.getAttribute('id') === 'next') {
+      firstCarouselItem += 4;
+      if (firstCarouselItem > recommendedList.length - 1) {
+        firstCarouselItem = firstCarouselItem - (recommendedList.length);
+      }
+      redisplayCarousel();
+    }
+  } else if (id) {
+    animeId = id;
+    clearLists();
+    getDetailsById(id, loadDetails, animeDetails);
+  }
+});
+
+$viewMore.addEventListener('click', function (event) {
+  event.preventDefault();
+  if (animeList.length < searchView + 6) {
+    $viewMore.classList.add('hidden');
+    for (var i = searchView; i < animeList.length; i++) {
+      $ul.appendChild(createList(animeList[i]));
+    }
+  } else {
+    for (var x = searchView; x < searchView + 6; x++) {
+      $ul.appendChild(createList(animeList[x]));
+    }
+  }
+  searchView += 6;
+});
 
 function loadXML(search) {
   var xmlObject = new XMLHttpRequest();
@@ -72,16 +124,55 @@ function loadXML(search) {
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
-    data.anime = xmlObject.response.data;
-    if (data.anime.length < stop) {
-      stop = data.anime.length;
+    animeList = xmlObject.response.data;
+    if (animeList.length < stop) {
+      stop = animeList.length;
     }
     for (var i = 0; i < stop; i++) {
-      $ul.appendChild(createList(data.anime[i]));
+      $ul.appendChild(createList(animeList[i]));
     }
-    if (data.anime.length > 6) {
+    if (animeList.length > 6) {
       $viewMore.classList.remove('hidden');
     }
+  });
+  xmlObject.send();
+}
+
+function getRecommendedList(id) {
+  var xmlObject = new XMLHttpRequest();
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
+  xmlObject.responseType = 'json';
+  xmlObject.addEventListener('load', function () {
+    recommendedList = xmlObject.response.data;
+    $recommendedList.textContent = 'Recommended';
+    $carousel.classList.remove('hidden');
+    if (recommendedList.length === 0) {
+      $recommendedList.textContent = 'No Recommended Anime to Display';
+      $carousel.classList.add('hidden');
+    } else if (recommendedList.length < 6) {
+      $chevron[0].classList.add('hidden');
+      $chevron[1].classList.add('hidden');
+      for (var y = 0; y < recommendedList.length; y++) {
+        $carousel.insertBefore(createCarousel(recommendedList[y]), $right);
+      }
+    } else {
+      $chevron[0].classList.remove('hidden');
+      $chevron[1].classList.remove('hidden');
+      for (var z = 0; z < 5; z++) {
+        $carousel.insertBefore(createCarousel(recommendedList[z]), $right);
+      }
+    }
+  });
+  xmlObject.send();
+}
+
+function getDetailsById(id, callback, saveWhere) {
+  var xmlObject = new XMLHttpRequest();
+  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
+  xmlObject.responseType = 'json';
+  xmlObject.addEventListener('load', function () {
+    saveWhere = xmlObject.response.data;
+    callback(id, saveWhere);
   });
   xmlObject.send();
 }
@@ -107,11 +198,11 @@ function loadDetails(animeId, select) {
   $synopsis.textContent = select.synopsis;
   $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
   $video.setAttribute('title', select.title);
-  getRecommendedList(data.id);
-  $addButton.setAttribute('mal_id', data.id);
+  getRecommendedList(animeId);
+  $addButton.setAttribute('mal_id', animeId);
   $addButton.classList.remove('hidden');
-  for (var i = 0; i < favorites.favorites.length; i++) {
-    if (favorites.favorites[i] === parseInt(data.id)) {
+  for (var i = 0; i < data.favorites.length; i++) {
+    if (data.favorites[i].mal_id === parseInt(animeId)) {
       $addButton.classList.add('hidden');
     }
   }
@@ -119,50 +210,8 @@ function loadDetails(animeId, select) {
   $details.classList.remove('hidden');
 }
 
-function addToFavorites(event) {
-  event.preventDefault();
-  var animeId = event.target.closest('.add-button').getAttribute('mal_id');
-  $addButton.classList.add('hidden');
-  favorites.favorites.push(parseInt(animeId));
-}
-
-function getRecommendedList(id) {
-  var xmlObject = new XMLHttpRequest();
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
-  xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
-    data.recommended = xmlObject.response.data;
-    $recommendedList.textContent = 'Recommended';
-    $carousel.classList.remove('hidden');
-    if (data.recommended.length === 0) {
-      $recommendedList.textContent = 'No Recommended Anime to Display';
-      $carousel.classList.add('hidden');
-    } else if (data.recommended.length < 6) {
-      $chevron[0].classList.add('hidden');
-      $chevron[1].classList.add('hidden');
-      for (var y = 0; y < data.recommended.length; y++) {
-        $carousel.insertBefore(createCarousel(data.recommended[y]), $right);
-      }
-    } else {
-      $chevron[0].classList.remove('hidden');
-      $chevron[1].classList.remove('hidden');
-      for (var z = 0; z < 5; z++) {
-        $carousel.insertBefore(createCarousel(data.recommended[z]), $right);
-      }
-    }
-  });
-  xmlObject.send();
-}
-
-function getDetailsById(id) {
-  var xmlObject = new XMLHttpRequest();
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
-  xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
-    data.viewDetails = xmlObject.response.data;
-    loadDetails(id, data.viewDetails);
-  });
-  xmlObject.send();
+function addToFavList(id, favList) {
+  data.favorites.push(favList);
 }
 
 function hideHome(search) {
@@ -178,44 +227,9 @@ function hideList() {
   $ul.classList.add('hidden');
 }
 
-function viewMore(event) {
-  event.preventDefault();
-  if (data.anime.length < data.view + 6) {
-    $viewMore.classList.add('hidden');
-    for (var i = data.view; i < data.anime.length; i++) {
-      $ul.appendChild(createList(data.anime[i]));
-    }
-  } else {
-    for (var x = data.view; x < data.view + 6; x++) {
-      $ul.appendChild(createList(data.anime[x]));
-    }
-  }
-  data.view += 6;
-}
-
-function carousel(event) {
-  var id = event.target.getAttribute('mal_id');
-  if (event.target.tagName === 'I') {
-    event.preventDefault();
-    clearLists();
-    if (event.target.getAttribute('id') === 'prev') {
-      data.firstCarouselItem -= 4;
-      if (data.firstCarouselItem < 0) {
-        data.firstCarouselItem = (data.recommended.length) + data.firstCarouselItem;
-      }
-      redisplayCarousel();
-    } else if (event.target.getAttribute('id') === 'next') {
-      data.firstCarouselItem += 4;
-      if (data.firstCarouselItem > data.recommended.length - 1) {
-        data.firstCarouselItem = data.firstCarouselItem - (data.recommended.length);
-      }
-      redisplayCarousel();
-    }
-  } else if (id) {
-    data.id = id;
-    clearLists();
-    getDetailsById(id);
-  }
+function hideDetails() {
+  $details.classList.add('hidden');
+  $video.setAttribute('src', '');
 }
 
 function clearLists() {
@@ -262,12 +276,12 @@ function createCarousel(anime) {
 }
 
 function redisplayCarousel() {
-  var start = data.firstCarouselItem;
+  var start = firstCarouselItem;
   for (var y = 0; y < 5; y++) {
-    if (start === data.recommended.length) {
+    if (start === recommendedList.length) {
       start = 0;
     }
-    $carousel.insertBefore(createCarousel(data.recommended[start++]), $right);
+    $carousel.insertBefore(createCarousel(recommendedList[start++]), $right);
   }
 }
 
