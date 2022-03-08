@@ -5,6 +5,7 @@ var animeId = null;
 var animeDetails = {};
 var firstCarouselItem = 0;
 var recommendedList = [];
+var $body = document.querySelector('body');
 var $ul = document.querySelector('ul');
 var $form = document.querySelector('form');
 var $message = document.querySelector('.message');
@@ -61,6 +62,7 @@ $ul.addEventListener('click', function (event) {
     if (anchorEdit === 'dark-blue absolute edit-button') {
       event.preventDefault();
       $modalBg.classList.remove('hidden');
+      $body.classList.add('overflow');
       return;
     }
     getDetailsById(animeId, loadDetails, animeDetails);
@@ -131,17 +133,18 @@ $viewMore.addEventListener('click', function (event) {
 $cancel.addEventListener('click', function (event) {
   event.preventDefault();
   $modalBg.classList.add('hidden');
+  $body.classList.remove('overflow');
 });
 
 $remove.addEventListener('click', function (event) {
   event.preventDefault();
-
   for (var i = 0; i < data.favorites.length; i++) {
     if (data.favorites[i].mal_id === animeId) {
       var $li = document.querySelectorAll('li');
       $ul.removeChild($li[i]);
       data.favorites.splice(i, 1);
-      return;
+      $modalBg.classList.add('hidden');
+      $body.classList.remove('overflow');
     }
   }
 });
