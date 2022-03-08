@@ -28,6 +28,8 @@ var $right = document.querySelector('#right');
 var $recommendedList = document.querySelector('#recommended-list');
 var $addButton = document.querySelector('.add-button');
 var $favListButton = document.querySelector('.fa-list');
+var $cancel = document.querySelector('#cancel-button');
+var $modalBg = document.querySelector('.modal-bg');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -53,12 +55,12 @@ $homeButton.addEventListener('click', function (event) {
 $ul.addEventListener('click', function (event) {
   var idNum = event.target.closest('li').getAttribute('id');
   if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
+    animeId = parseInt(idNum);
     var anchorId = event.target.closest('a').getAttribute('id', 'edit-button');
     if (anchorId === 'edit-button') {
       event.preventDefault();
       return;
     }
-    animeId = parseInt(idNum);
     getDetailsById(animeId, loadDetails, animeDetails);
   }
 });
@@ -122,6 +124,11 @@ $viewMore.addEventListener('click', function (event) {
     }
   }
   searchView += 6;
+});
+
+$cancel.addEventListener('click', function (event) {
+  event.preventDefault();
+  $modalBg.classList.add('hidden');
 });
 
 function loadXML(search) {
