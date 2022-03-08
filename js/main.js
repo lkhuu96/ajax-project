@@ -59,6 +59,7 @@ $ul.addEventListener('click', function (event) {
     var anchorId = event.target.closest('a').getAttribute('id', 'edit-button');
     if (anchorId === 'edit-button') {
       event.preventDefault();
+      $modalBg.classList.remove('hidden');
       return;
     }
     getDetailsById(animeId, loadDetails, animeDetails);
