@@ -135,9 +135,12 @@ $cancel.addEventListener('click', function (event) {
 
 $remove.addEventListener('click', function (event) {
   event.preventDefault();
+
   for (var i = 0; i < data.favorites.length; i++) {
     if (data.favorites[i].mal_id === animeId) {
-      // console.log(data.favorites[i].title);
+      var $li = document.querySelectorAll('li');
+      $ul.removeChild($li[i]);
+      data.favorites.splice(i, 1);
       return;
     }
   }
