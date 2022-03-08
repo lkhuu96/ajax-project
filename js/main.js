@@ -53,6 +53,11 @@ $homeButton.addEventListener('click', function (event) {
 $ul.addEventListener('click', function (event) {
   var idNum = event.target.closest('li').getAttribute('id');
   if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
+    var anchorId = event.target.closest('a').getAttribute('id', 'edit-button');
+    if (anchorId === 'edit-button') {
+      event.preventDefault();
+      return;
+    }
     animeId = parseInt(idNum);
     getDetailsById(animeId, loadDetails, animeDetails);
   }
@@ -74,6 +79,8 @@ $favListButton.addEventListener('click', function (event) {
   animeList = [];
   for (var i = 0; i < data.favorites.length; i++) {
     $ul.appendChild(createList(data.favorites[i]));
+    var $editButton = document.querySelector('#edit-button');
+    $editButton.classList.remove('hidden');
   }
 });
 
@@ -352,10 +359,10 @@ function createList(anime) {
   createListRow.appendChild(createImgCol);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
-  createEdit.textContent = 'edit';
-  createEditAnchor.appendChild(createEdit);
-  createEditAnchor.className = 'dark-blue absolute';
+  createEditAnchor.textContent = 'edit';
+  createEditAnchor.className = 'dark-blue absolute hidden';
   createEditAnchor.setAttribute('id', 'edit-button');
+  createEdit.appendChild(createEditAnchor);
   createLi.appendChild(createEditAnchor);
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
