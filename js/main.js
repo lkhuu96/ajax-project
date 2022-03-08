@@ -30,6 +30,7 @@ var $addButton = document.querySelector('.add-button');
 var $favListButton = document.querySelector('.fa-list');
 var $cancel = document.querySelector('#cancel-button');
 var $modalBg = document.querySelector('.modal-bg');
+var $remove = document.querySelector('#remove-button');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -56,8 +57,8 @@ $ul.addEventListener('click', function (event) {
   var idNum = event.target.closest('li').getAttribute('id');
   if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
     animeId = parseInt(idNum);
-    var anchorId = event.target.closest('a').getAttribute('id', 'edit-button');
-    if (anchorId === 'edit-button') {
+    var anchorEdit = event.target.closest('a').getAttribute('class', 'edit-button');
+    if (anchorEdit === 'dark-blue absolute edit-button') {
       event.preventDefault();
       $modalBg.classList.remove('hidden');
       return;
@@ -82,8 +83,8 @@ $favListButton.addEventListener('click', function (event) {
   animeList = [];
   for (var i = 0; i < data.favorites.length; i++) {
     $ul.appendChild(createList(data.favorites[i]));
-    var $editButton = document.querySelector('#edit-button');
-    $editButton.classList.remove('hidden');
+    var $editButton = document.querySelectorAll('.edit-button');
+    $editButton[i].classList.remove('hidden');
   }
 });
 
@@ -130,6 +131,16 @@ $viewMore.addEventListener('click', function (event) {
 $cancel.addEventListener('click', function (event) {
   event.preventDefault();
   $modalBg.classList.add('hidden');
+});
+
+$remove.addEventListener('click', function (event) {
+  event.preventDefault();
+  for (var i = 0; i < data.favorites.length; i++) {
+    if (data.favorites[i].mal_id === animeId) {
+      // console.log(data.favorites[i].title);
+      return;
+    }
+  }
 });
 
 function loadXML(search) {
@@ -368,8 +379,7 @@ function createList(anime) {
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
   createEditAnchor.textContent = 'edit';
-  createEditAnchor.className = 'dark-blue absolute hidden';
-  createEditAnchor.setAttribute('id', 'edit-button');
+  createEditAnchor.className = 'dark-blue absolute hidden edit-button';
   createEdit.appendChild(createEditAnchor);
   createLi.appendChild(createEditAnchor);
   createLi.appendChild(createListRow);

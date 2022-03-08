@@ -235,7 +235,7 @@ div.modal > h3 {
   display: none;
 }
 
-#edit-button {
+.edit-button {
   right: 0;
   font-size: 1rem;
   font-weight: 600;
