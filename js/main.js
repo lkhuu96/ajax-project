@@ -57,12 +57,12 @@ $homeButton.addEventListener('click', function (event) {
 $ul.addEventListener('click', function (event) {
   var idNum = event.target.closest('li').getAttribute('id');
   var anchorEdit = event.target.closest('a').getAttribute('class', 'edit-button');
+  animeId = parseInt(idNum);
   if (anchorEdit === 'dark-blue absolute edit-button') {
     event.preventDefault();
     $modalBg.classList.remove('hidden');
     $body.classList.add('overflow');
   } else if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
-    animeId = parseInt(idNum);
     getDetailsById(animeId, loadDetails, animeDetails);
   }
 });
