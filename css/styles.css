@@ -230,6 +230,11 @@ div.rating > p {
   display: none;
 }
 
+#edit-button {
+  right: 0;
+  font-size: 4rem;
+}
+
 @media screen and (min-width: 764px) {
   body {
     background-color: #b0b0b0;

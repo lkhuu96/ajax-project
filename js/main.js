@@ -302,6 +302,8 @@ function createList(anime) {
   var createDate = document.createElement('p');
   var createGenre = document.createElement('p');
   var createSyn = document.createElement('p');
+  var createEdit = document.createElement('p');
+  var createEditAnchor = document.createElement('a');
   if (anime.title.length > 40) {
     createTitleAnchor.textContent = anime.title.slice(0, 40) + '...';
   } else {
@@ -350,7 +352,13 @@ function createList(anime) {
   createListRow.appendChild(createImgCol);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
+  createEdit.textContent = 'edit';
+  createEditAnchor.appendChild(createEdit);
+  createEditAnchor.className = 'dark-blue absolute';
+  createEditAnchor.setAttribute('id', 'edit-button');
+  createLi.appendChild(createEditAnchor);
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
+  createLi.setAttribute('class', 'relative');
   return createLi;
 }
