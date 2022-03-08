@@ -237,7 +237,7 @@ div.modal > h3 {
 
 .edit-button {
   right: 0;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
@@ -274,6 +274,10 @@ div.modal > h3 {
   font-size: 1rem;
   margin: 0;
   font-weight: 400;
+}
+
+.fa-trash-can:hover {
+  color: #9ad0ec;
 }
 
 @media screen and (min-width: 764px) {

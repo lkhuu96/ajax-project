@@ -56,15 +56,13 @@ $homeButton.addEventListener('click', function (event) {
 
 $ul.addEventListener('click', function (event) {
   var idNum = event.target.closest('li').getAttribute('id');
-  if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
+  var anchorEdit = event.target.closest('a').getAttribute('class', 'edit-button');
+  if (anchorEdit === 'dark-blue absolute edit-button') {
+    event.preventDefault();
+    $modalBg.classList.remove('hidden');
+    $body.classList.add('overflow');
+  } else if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
     animeId = parseInt(idNum);
-    var anchorEdit = event.target.closest('a').getAttribute('class', 'edit-button');
-    if (anchorEdit === 'dark-blue absolute edit-button') {
-      event.preventDefault();
-      $modalBg.classList.remove('hidden');
-      $body.classList.add('overflow');
-      return;
-    }
     getDetailsById(animeId, loadDetails, animeDetails);
   }
 });
@@ -334,8 +332,8 @@ function createList(anime) {
   var createDate = document.createElement('p');
   var createGenre = document.createElement('p');
   var createSyn = document.createElement('p');
-  var createEdit = document.createElement('p');
   var createEditAnchor = document.createElement('a');
+  var createTrashIcon = document.createElement('i');
   if (anime.title.length > 40) {
     createTitleAnchor.textContent = anime.title.slice(0, 40) + '...';
   } else {
@@ -384,9 +382,9 @@ function createList(anime) {
   createListRow.appendChild(createImgCol);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
-  createEditAnchor.textContent = 'edit';
+  createTrashIcon.className = 'fa-solid fa-trash-can';
+  createEditAnchor.appendChild(createTrashIcon);
   createEditAnchor.className = 'dark-blue absolute hidden edit-button';
-  createEdit.appendChild(createEditAnchor);
   createLi.appendChild(createEditAnchor);
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
