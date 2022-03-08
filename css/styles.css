@@ -66,6 +66,11 @@ div.rating > p {
   font-size: 1rem;
 }
 
+div.modal > h3 {
+  margin-top: 0;
+  margin-bottom: 3rem;
+}
+
 ::placeholder {
   color: rgb(53, 53, 53);
 }
@@ -234,6 +239,37 @@ div.rating > p {
   right: 0;
   font-size: 1rem;
   font-weight: 600;
+}
+
+.modal-bg {
+  background-color: rgba(0, 0, 0, 0.459);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.modal {
+  background-color: #b0b0b0;
+  padding: 2.5rem;
+}
+
+#cancel-button {
+  border: solid 1px #0b5a82;
+  padding: 0 1rem;
+  font-size: 1rem;
+  margin: 0;
+}
+
+#remove-button {
+  background-color: rgb(202, 0, 0);
+  border: solid 1px rgb(202, 0, 0);
+  color: white;
+  padding: 0 1rem;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 400;
 }
 
 @media screen and (min-width: 764px) {
