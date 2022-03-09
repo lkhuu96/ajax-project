@@ -30,7 +30,7 @@ var $recommendedList = document.querySelector('#recommended-list');
 var $addButton = document.querySelector('.add-button');
 var $favListButton = document.querySelector('.fa-list');
 var $cancel = document.querySelector('#cancel-button');
-var $modalBg = document.querySelector('.modal-bg');
+var $modalBg = document.querySelector('.modal-shadow');
 var $remove = document.querySelector('#remove-button');
 
 $form.addEventListener('submit', function (event) {
@@ -155,6 +155,9 @@ function loadXML(search) {
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     animeList = xmlObject.response.data;
+    if (animeList.length === 0) {
+      $message.textContent = `No Results for "${search}"`;
+    }
     if (animeList.length < stop) {
       stop = animeList.length;
     }
@@ -295,14 +298,16 @@ function createCarousel(anime) {
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
   createEmptyDiv.className = 'shadow hw-100';
   createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
-  createAnchor.appendChild(createEmptyDiv);
-  createAnchor.appendChild(createImg);
+  createDiv.appendChild(createEmptyDiv);
+  createDiv.appendChild(createImg);
+  createAnchor.setAttribute('mal_id', anime.entry.mal_id);
+  createAnchor.className = 'column-carousel relative';
+  createDiv.className = ' art-container';
   createAnchor.setAttribute('href', '#');
-  createDiv.appendChild(createAnchor);
-  createDiv.appendChild(createTitle);
-  createDiv.setAttribute('mal_id', anime.entry.mal_id);
-  createDiv.className = 'column-carousel art-container relative';
-  return createDiv;
+  createAnchor.appendChild(createDiv);
+  createAnchor.appendChild(createTitle);
+
+  return createAnchor;
 }
 
 function redisplayCarousel() {
@@ -320,7 +325,6 @@ function createList(anime) {
   var createImgAnchor = document.createElement('a');
   var createTitleAnchor = document.createElement('a');
   var createListRow = document.createElement('div');
-  var createImgCol = document.createElement('div');
   var createImgRow = document.createElement('div');
   var createImg = document.createElement('img');
   var createInfoCol1 = document.createElement('div');
@@ -375,11 +379,10 @@ function createList(anime) {
   createImg.className = 'object-cover hw-100';
   createImgAnchor.appendChild(createImg);
   createImgAnchor.setAttribute('href', '#');
+  createImgAnchor.className = 'column-twenty';
   createImgRow.appendChild(createImgAnchor);
   createImgRow.className = 'row art-container';
-  createImgCol.appendChild(createImgRow);
-  createImgCol.className = 'column-twenty';
-  createListRow.appendChild(createImgCol);
+  createListRow.appendChild(createImgAnchor);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
   createTrashIcon.className = 'fa-solid fa-trash-can';

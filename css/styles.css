@@ -136,7 +136,7 @@ div.modal > h3 {
   background-color: rgb(0, 147, 59);
 }
 
-.white {
+.white-color {
   color: white;
 }
 
@@ -241,7 +241,7 @@ div.modal > h3 {
   font-weight: 600;
 }
 
-.modal-bg {
+.modal-shadow {
   background-color: rgba(0, 0, 0, 0.459);
   position: fixed;
   top: 0;

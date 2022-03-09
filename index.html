@@ -23,7 +23,7 @@
         <div class="column-full search-bar">
           <form action="submit">
             <div class="row align-center space-between">
-              <input class="column-eighty" name="search" type="text" placeholder="Search Anime">
+              <input type="text" class="column-eighty" name="search" placeholder="Search Anime">
               <button type="submit"><i class="font-size-1dot3 home-button dark-blue fa-solid fa-magnifying-glass"></i></button>
             </div>
           </form>
@@ -61,7 +61,7 @@
           <div id="info-card" class="relative">
             <div class="row align-center">
               <div class="rating-card text-center">
-                <h4 class="dark-blue-bg white margin-zero">Rating</h4>
+                <h4 class="dark-blue-bg white-color margin-zero">Rating</h4>
                 <h3 id="rating-number" class=""></h3>
               </div>
               <div class="column-full rating">
@@ -71,20 +71,16 @@
                 <p id="episodes"></p>
                 <p id="genre"></p>
               </div>
-              <div class="absolute favorite-button green-bg">
-                <div class="row space-evenly white">
-                  <i class="fa-solid fa fa-check icon-margin"></i>
-                  <p class="margin-zero">In Favorites</p>
+              <div class="row space-evenly white-color absolute favorite-button green-bg">
+                <i class="fa-solid fa fa-check icon-margin"></i>
+                <p class="margin-zero">In Favorites</p>
+              </div>
+              <a href="" mal_id="" class="absolute add-button dark-blue-bg white-color">
+                <div class="row space-evenly">
+                  <i class="fa-solid fa fa-plus icon-margin"></i>
+                  <p class="margin-zero">Add Favorite</p>
                 </div>
-              </div>
-              <div mal_id="" class="absolute add-button dark-blue-bg">
-                <a href="" class="white">
-                  <div class="row space-evenly">
-                    <i class="fa-solid fa fa-plus icon-margin"></i>
-                    <p class="margin-zero">Add Favorite</p>
-                  </div>
-                </a>
-              </div>
+              </a>
             </div>
           </div>
           <div id="synopsis" class="">
@@ -102,7 +98,7 @@
           </div>
         </div>
       </div>
-      <div class="row modal-bg hw-100 justify-center align-center hidden">
+      <div class="row modal-shadow hw-100 justify-center align-center hidden">
         <div class="modal">
           <h3 class="dark-blue">Remove From Favorites?</h3>
           <div class="row space-between">
