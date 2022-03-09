@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body >
   <header id="nav-bar" class="dark-blue-bg">
     <div class="container padding-1rem">
       <div class="row space-between align-center">
@@ -39,38 +39,13 @@
         <h3 class="font-400 font-size-1dot3">Please search for anime above</h3>
       </div>
       <h3 class="message dark-blue text-center hidden font-size-2">Search Results for </h3>
-      <!--anime list template-->
       <div class="column-full">
         <ul class="white-bg margin-zero">
-          <!-- <li id="463" class="">
-                  <div class="row white-bg align-center">
-                    <div class="column-twenty">
-                      <div class="row art-container"><img src="https://cdn.myanimelist.net/images/anime/2/25413.webp"
-                          alt="One Piece Movie 5: Norowareta Seiken" class="object-cover hw-100"></div>
-                    </div>
-                    <div class="column-eighty">
-                      <div class="row">
-                        <div class="column-seventy list-info">
-                          <h2>One Piece Movie 5: Norowareta Seiken</h2>
-                          <p id="list-description">Luffy and crew go to an island searching for a legendary sword, said to be the most
-                            expensive in the world. Soon attacking marines and beautiful maidens split the crew. Zoro betrays the crew
-                            to help an old friend, Luffy and Usopp wander through a cav...</p>
-                        </div>
-                        <div class="column-seventy list-info">
-                          <p>Score: 7.17</p>
-                          <p>Air Date: Mar 6, 2004</p>
-                          <p>Genre: Action, Adventure, Comedy, Fantasy</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li> -->
         </ul>
         <a id="view-more" class="hidden" href="#">
           <h4 class="dark-blue text-center white-bg margin-zero padding-1rem">View More</h4>
         </a>
       </div>
-      <!--Anime detail template-->
       <div id="details" class="hidden white-bg">
         <div class="column-full font-size-1dot3">
           <h1 id="detail-title" class="dark-blue text-center font-size-2"></h1>
@@ -127,7 +102,19 @@
           </div>
         </div>
       </div>
-
+      <div class="row modal-bg hw-100 justify-center align-center hidden">
+        <div class="modal">
+          <h3 class="dark-blue">Remove From Favorites?</h3>
+          <div class="row space-between">
+            <a href="">
+              <p id="cancel-button" class="dark-blue">Cancel</p>
+            </a>
+            <a href="">
+              <p id="remove-button">Remove</p>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <script src="js/data.js"></script>
