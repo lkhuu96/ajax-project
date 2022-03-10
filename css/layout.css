@@ -23,21 +23,26 @@ main {
   flex-wrap: wrap;
 }
 
+.no-wrap {
+  flex-wrap: nowrap;
+}
+
 .column-full {
-  width: 100%;
+  flex-basis: 100%;
   margin: auto;
 }
 
-.column-seventy {
+.column-list-description,
+.column-sub-info {
   width: 100%;
 }
 
-.column-twenty {
-  width: 20%;
+.column-thirty {
+  width: 30%;
 }
 
-.column-eighty {
-  flex-basis: 80%;
+.column-seventy {
+  flex-basis: 70%;
 }
 
 .column-carousel {
@@ -54,15 +59,14 @@ main {
 }
 
 .art-container {
-  height: 145px;
-  width: 100%;
+  height: 10rem;
   display: block;
 }
 
-#cover-art {
+#detail-art-container {
   order: 1;
   flex-basis: 48%;
-  min-height: 25rem;
+  height: 25rem;
 }
 
 #info-card {
@@ -79,6 +83,7 @@ main {
   order: 4;
   width: 100%;
   height: 350px;
+  margin-bottom: 4rem;
 }
 
 #video {
@@ -87,6 +92,7 @@ main {
 
 #nav-bar {
   height: 65px;
+  padding: 0 1rem;
 }
 
 @media screen and (min-width: 764px) {
@@ -94,8 +100,20 @@ main {
     max-width: 900px;
   }
 
+  .column-thirty {
+    width: 20%;
+  }
+
+  .column-list-description {
+    width: 60%;
+  }
+
+  .column-sub-info {
+    width: 40%;
+  }
+
   .column-seventy {
-    flex-basis: 70%;
+    flex-basis: 80%;
   }
 
   .direction-column {
@@ -122,9 +140,10 @@ main {
     height: 220px;
   }
 
-  #cover-art {
+  #detail-art-container {
     order: 1;
     width: 35%;
+    height: 25rem;
   }
 
   #info-card {
@@ -141,6 +160,5 @@ main {
     order: 2;
     width: 35%;
     height: 200px;
-    margin-bottom: 3rem;
   }
 }

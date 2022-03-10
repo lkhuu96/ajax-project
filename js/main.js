@@ -19,7 +19,7 @@ var $airDate = document.querySelector('#air-date');
 var $episodes = document.querySelector('#episodes');
 var $genre = document.querySelector('#genre');
 var $synopsis = document.querySelector('.synopsis-text');
-var $art = document.querySelector('#art');
+var $art = document.querySelector('#detail-art');
 var $detailTitle = document.querySelector('#detail-title');
 var $details = document.querySelector('#details');
 var $video = document.querySelector('#video');
@@ -56,9 +56,9 @@ $homeButton.addEventListener('click', function (event) {
 
 $ul.addEventListener('click', function (event) {
   var idNum = event.target.closest('li').getAttribute('id');
-  var anchorEdit = event.target.closest('a').getAttribute('class', 'edit-button');
+  var anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
   animeId = parseInt(idNum);
-  if (anchorEdit === 'dark-blue absolute edit-button') {
+  if (anchorEdit === 'dark-blue absolute trash-button') {
     event.preventDefault();
     $modalBg.classList.remove('hidden');
     $body.classList.add('overflow');
@@ -83,7 +83,7 @@ $favListButton.addEventListener('click', function (event) {
   animeList = [];
   for (var i = 0; i < data.favorites.length; i++) {
     $ul.appendChild(createList(data.favorites[i]));
-    var $editButton = document.querySelectorAll('.edit-button');
+    var $editButton = document.querySelectorAll('.trash-button');
     $editButton[i].classList.remove('hidden');
   }
 });
@@ -223,11 +223,21 @@ function loadDetails(animeId, select) {
   $detailTitle.textContent = select.title;
   $art.setAttribute('src', select.images.jpg.image_url);
   $art.setAttribute('alt', select.title);
-  $ranking.textContent = 'Ranking: #' + select.rank;
-  $popularity.textContent = 'Popularity: #' + select.popularity;
-  $airDate.textContent = 'Air Date: ' + select.aired.string;
-  $episodes.textContent = 'Episodes: ' + select.episodes;
-  $genre.textContent = 'Genre: ' + genres.join(', ');
+  var rank = document.createTextNode(select.rank);
+  $ranking.removeChild($ranking.lastChild);
+  $ranking.appendChild(rank);
+  var popularity = document.createTextNode(select.popularity);
+  $popularity.removeChild($popularity.lastChild);
+  $popularity.appendChild(popularity);
+  var date = document.createTextNode(select.aired.string);
+  $airDate.removeChild($airDate.lastChild);
+  $airDate.appendChild(date);
+  var episodes = document.createTextNode(select.episodes);
+  $episodes.removeChild($episodes.lastChild);
+  $episodes.appendChild(episodes);
+  var genre = document.createTextNode(genres.join(', '));
+  $genre.removeChild($genre.lastChild);
+  $genre.appendChild(genre);
   $synopsis.textContent = select.synopsis;
   $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
   $video.setAttribute('title', select.title);
@@ -296,7 +306,7 @@ function createCarousel(anime) {
   }
   createTitle.className = 'recommended-title absolute text-center';
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
-  createEmptyDiv.className = 'shadow hw-100 absolute';
+  createEmptyDiv.className = 'recommended-shadow hw-100 absolute';
   createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
   createDiv.appendChild(createEmptyDiv);
   createDiv.appendChild(createImg);
@@ -324,6 +334,9 @@ function createList(anime) {
   var createLi = document.createElement('li');
   var createImgAnchor = document.createElement('a');
   var createTitleAnchor = document.createElement('a');
+  var createScoreSpan = document.createElement('span');
+  var createDateSpan = document.createElement('span');
+  var createGenreSpan = document.createElement('span');
   var createListRow = document.createElement('div');
   var createImgRow = document.createElement('div');
   var createImg = document.createElement('img');
@@ -346,34 +359,40 @@ function createList(anime) {
   createTitleAnchor.setAttribute('href', '#');
   createTitleAnchor.className = 'dark-blue';
   createTitle.appendChild(createTitleAnchor);
+  createScoreSpan.textContent = 'Score: ';
+  createDateSpan.textContent = 'Air Date: ';
+  createGenreSpan.textContent = 'Genre: ';
   if (anime.score === null) {
-    createScore.textContent = 'Score: N/A';
+    createScore.textContent = createScoreSpan + 'N/A';
   } else {
-    createScore.textContent = 'Score: ' + anime.score;
+    createScore.textContent = anime.score;
   }
-  createDate.textContent = 'Air Date: ' + anime.aired.string;
+  createScore.prepend(createScoreSpan);
+  createDate.textContent = anime.aired.string;
+  createDate.prepend(createDateSpan);
   var genres = [];
   for (var i = 0; i < anime.genres.length; i++) {
     genres.push(anime.genres[i].name);
   }
-  createGenre.textContent = 'Genre: ' + genres.join(', ');
-  createSyn.textContent = anime.synopsis.slice(0, 240);
-  if (anime.synopsis.length > 240) {
+  createGenre.textContent = genres.join(', ');
+  createGenre.prepend(createGenreSpan);
+  createSyn.textContent = anime.synopsis.slice(0, 280);
+  if (anime.synopsis.length > 280) {
     createSyn.textContent += '...';
   }
   createSyn.setAttribute('id', 'list-description');
   createInfoCol1.appendChild(createTitle);
   createInfoCol1.appendChild(createSyn);
-  createInfoCol1.className = 'column-seventy list-info ';
+  createInfoCol1.className = 'column-list-description list-info ';
   createInfoCol2.appendChild(createScore);
   createInfoCol2.appendChild(createDate);
   createInfoCol2.appendChild(createGenre);
-  createInfoCol2.className = 'column-seventy list-info';
+  createInfoCol2.className = 'column-sub-info list-info';
   createSynRow.appendChild(createInfoCol1);
   createSynRow.appendChild(createInfoCol2);
   createSynRow.className = 'row';
   createCol80.appendChild(createSynRow);
-  createCol80.className = 'column-eighty';
+  createCol80.className = 'column-seventy';
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
   createImg.className = 'object-cover hw-100';
@@ -381,13 +400,13 @@ function createList(anime) {
   createImgRow.className = 'row art-container';
   createImgAnchor.appendChild(createImgRow);
   createImgAnchor.setAttribute('href', '#');
-  createImgAnchor.className = 'column-twenty';
+  createImgAnchor.className = 'column-thirty';
   createListRow.appendChild(createImgAnchor);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
   createTrashIcon.className = 'fa-solid fa-trash-can';
   createEditAnchor.appendChild(createTrashIcon);
-  createEditAnchor.className = 'dark-blue absolute hidden edit-button';
+  createEditAnchor.className = 'dark-blue absolute hidden trash-button';
   createLi.appendChild(createEditAnchor);
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);

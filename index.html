@@ -20,10 +20,10 @@
     <div class="container ">
       <div id="nav-bar" class="row space-between align-center">
         <a href="#"><i class="light-blue fa-solid fa-house-chimney font-size-2"></i></a>
-        <div class="column-eighty search-bar padding-half white-bg">
+        <div class="column-seventy search-bar padding-half white-bg">
           <form action="submit">
-            <div class="row space-between">
-              <input type="text" class="column-eighty" name="search" placeholder="Search Anime">
+            <div class="row space-between no-wrap">
+              <input type="text" class="column-full" name="search" placeholder="Search Anime">
               <button type="submit"><i class="font-size-1dot5 dark-blue fa-solid fa-magnifying-glass"></i></button>
             </div>
           </form>
@@ -50,32 +50,34 @@
         <div class="column-full">
           <h1 id="detail-title" class="dark-blue text-center font-size-2"></h1>
         </div>
-        <div class="row space-between direction-column align-center details padding-1rem wrap">
-          <div id="cover-art">
-            <img id="art" class="object-cover hw-100" src="" alt="">
+        <div class="row space-between direction-column details padding-1rem wrap">
+          <div id="detail-art-container">
+            <img id="detail-art" class="object-cover hw-100" src="" alt="">
           </div>
           <div id="video-container" class="">
             <h3 class="dark-blue text-center padding-helf">Trailer</h3>
             <iframe class="hw-100" allow="fullscreen" id="video" src="" title=""></iframe>
           </div>
-          <div id="info-card" class="row  relative">
-            <div class="rating-card text-center">
-              <h4 class="dark-blue-bg white-color padding-half margin-zero font-size-1dot5">Rating</h4>
-              <h3 id="rating-number" class="font-size-2"></h3>
+          <div id="info-card" class="relative">
+            <div class="row">
+              <div class="rating-card text-center column-thirty">
+                <h4 class="dark-blue-bg white-color padding-half margin-zero">Rating</h4>
+                <h3 id="rating-number" class="font-size-2"></h3>
+              </div>
+              <div class="column-seventy hw-100 rating">
+                <p id="ranking"><span>Ranking: </span>N/A</p>
+                <p id="popularity"><span>Popularity: </span>N/A</p>
+                <p id="air-date"><span>Air Date: </span>N/A</p>
+                <p id="episodes"><span>Episodes: </span>N/A</p>
+                <p id="genre"><span>Genre: </span>N/A</p>
+              </div>
             </div>
-            <div class="column-full rating">
-              <p id="ranking"></p>
-              <p id="popularity"></p>
-              <p id="air-date"></p>
-              <p id="episodes"></p>
-              <p id="genre"></p>
-            </div>
-            <div class="row space-evenly white-color absolute favorite-button green-bg">
+            <div class="row space-evenly white-color absolute align-center favorite-button green-bg">
               <i class="fa-solid fa fa-check fav-icon-margin"></i>
               <p class="margin-zero">In Favorites</p>
             </div>
             <a href="" mal_id="" class="absolute add-button dark-blue-bg white-color">
-              <div class="row space-evenly">
+              <div class="row space-evenly align-center">
                 <i class="fa-solid fa fa-plus fav-icon-margin"></i>
                 <p class="margin-zero">Add Favorite</p>
               </div>
@@ -83,7 +85,7 @@
           </div>
           <div id="synopsis" class="">
             <h3 class="dark-blue text-center padding-half">Synopsis</h3>
-            <p class="synopsis-text font-size-1"></p>
+            <p class="synopsis-text "></p>
           </div>
         </div>
         <div class="column-full padding-1rem">
@@ -101,10 +103,10 @@
           <h3 class="dark-blue">Remove From Favorites?</h3>
           <div class="row space-between">
             <a href="">
-              <p id="cancel-button" class="dark-blue font-size-1 margin-zero">Cancel</p>
+              <p id="cancel-button" class="dark-blue  margin-zero">Cancel</p>
             </a>
             <a href="">
-              <p id="remove-button" class="font-size-1 margin-zero">Remove</p>
+              <p id="remove-button" class=" margin-zero">Remove</p>
             </a>
           </div>
         </div>
