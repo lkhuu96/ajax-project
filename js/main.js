@@ -98,13 +98,13 @@ $carousel.addEventListener('click', function (event) {
       if (firstCarouselItem < 0) {
         firstCarouselItem = (recommendedList.length) + firstCarouselItem;
       }
-      redisplayCarousel();
+      loopCarousel();
     } else if (event.target.getAttribute('id') === 'next') {
       firstCarouselItem += 4;
       if (firstCarouselItem > recommendedList.length - 1) {
         firstCarouselItem = firstCarouselItem - (recommendedList.length);
       }
-      redisplayCarousel();
+      loopCarousel();
     }
   } else if (id) {
     animeId = id;
@@ -210,37 +210,37 @@ function getDetailsById(id, callback, saveWhere) {
   xmlObject.send();
 }
 
-function loadDetails(animeId, select) {
+function loadDetails(animeId, saved) {
   var genres = [];
-  for (var x = 0; x < select.genres.length; x++) {
-    genres.push(select.genres[x].name);
+  for (var x = 0; x < saved.genres.length; x++) {
+    genres.push(saved.genres[x].name);
   }
-  if (select.score === null) {
+  if (saved.score === null) {
     $ratingNumber.textContent = 'N/A';
   } else {
-    $ratingNumber.textContent = select.score;
+    $ratingNumber.textContent = saved.score;
   }
-  $detailTitle.textContent = select.title;
-  $art.setAttribute('src', select.images.jpg.image_url);
-  $art.setAttribute('alt', select.title);
-  var rank = document.createTextNode(select.rank);
+  $detailTitle.textContent = saved.title;
+  $art.setAttribute('src', saved.images.jpg.image_url);
+  $art.setAttribute('alt', saved.title);
+  var rank = document.createTextNode(saved.rank);
   $ranking.removeChild($ranking.lastChild);
   $ranking.appendChild(rank);
-  var popularity = document.createTextNode(select.popularity);
+  var popularity = document.createTextNode(saved.popularity);
   $popularity.removeChild($popularity.lastChild);
   $popularity.appendChild(popularity);
-  var date = document.createTextNode(select.aired.string);
+  var date = document.createTextNode(saved.aired.string);
   $airDate.removeChild($airDate.lastChild);
   $airDate.appendChild(date);
-  var episodes = document.createTextNode(select.episodes);
+  var episodes = document.createTextNode(saved.episodes);
   $episodes.removeChild($episodes.lastChild);
   $episodes.appendChild(episodes);
   var genre = document.createTextNode(genres.join(', '));
   $genre.removeChild($genre.lastChild);
   $genre.appendChild(genre);
-  $synopsis.textContent = select.synopsis;
-  $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
-  $video.setAttribute('title', select.title);
+  $synopsis.textContent = saved.synopsis;
+  $video.setAttribute('src', 'https://www.youtube.com/embed/' + saved.trailer.youtube_id + '?autoplay=0');
+  $video.setAttribute('title', saved.title);
   getRecommendedList(animeId);
   $addButton.setAttribute('mal_id', animeId);
   $addButton.classList.remove('hidden');
@@ -320,7 +320,7 @@ function createCarousel(anime) {
   return createAnchor;
 }
 
-function redisplayCarousel() {
+function loopCarousel() {
   var start = firstCarouselItem;
   for (var y = 0; y < 5; y++) {
     if (start === recommendedList.length) {
