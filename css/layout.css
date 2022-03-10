@@ -14,26 +14,39 @@ main {
   margin: 0 auto;
 }
 
+.search-bar {
+  max-width: 70%;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
 }
 
+.no-wrap {
+  flex-wrap: nowrap;
+}
+
 .column-full {
-  width: 100%;
+  flex-basis: 100%;
   margin: auto;
 }
 
-.column-seventy {
+.column-list-description,
+.column-sub-info {
   width: 100%;
 }
 
-.column-twenty {
-  width: 20%;
+.column-thirty {
+  width: 30%;
 }
 
-.column-eighty {
-  flex-basis: 80%;
+.column-seventy {
+  flex-basis: 70%;
+}
+
+.column-carousel {
+  flex-basis: calc(100% / 6);
 }
 
 .height-100 {
@@ -45,14 +58,15 @@ main {
   width: 100%;
 }
 
-.column-carousel {
-  flex-basis: calc(100% / 6);
-  margin-bottom: 2rem;
+.art-container {
+  height: 10rem;
+  display: block;
 }
 
-#cover-art {
+#detail-art-container {
   order: 1;
   flex-basis: 48%;
+  height: 25rem;
 }
 
 #info-card {
@@ -69,10 +83,16 @@ main {
   order: 4;
   width: 100%;
   height: 350px;
+  margin-bottom: 4rem;
 }
 
 #video {
   border: none;
+}
+
+#nav-bar {
+  height: 65px;
+  padding: 0 1rem;
 }
 
 @media screen and (min-width: 764px) {
@@ -80,11 +100,23 @@ main {
     max-width: 900px;
   }
 
-  .column-seventy {
-    flex-basis: 70%;
+  .column-thirty {
+    width: 20%;
   }
 
-  .column {
+  .column-list-description {
+    width: 60%;
+  }
+
+  .column-sub-info {
+    width: 40%;
+  }
+
+  .column-seventy {
+    flex-basis: 80%;
+  }
+
+  .direction-column {
     flex-direction: column;
   }
 
@@ -92,27 +124,40 @@ main {
     flex-wrap: nowrap;
   }
 
-  .flex-wrap {
-    flex-wrap: wrap-reverse;
+  .wrap {
+    flex-wrap: wrap;
   }
 
-  #cover-art {
-    order: 3;
+  .search-bar {
+    max-width: 50%;
+  }
+
+  .details {
+    max-height: 800px;
+  }
+
+  .art-container {
+    height: 220px;
+  }
+
+  #detail-art-container {
+    order: 1;
     width: 35%;
+    height: 25rem;
   }
 
   #info-card {
-    order: 1;
-    width: 60%;
-  }
-
-  #synopsis {
     order: 2;
     width: 60%;
   }
 
+  #synopsis {
+    order: 3;
+    width: 60%;
+  }
+
   #video-container {
-    order: 4;
+    order: 2;
     width: 35%;
     height: 200px;
   }

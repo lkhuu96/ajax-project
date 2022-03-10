@@ -19,7 +19,7 @@ var $airDate = document.querySelector('#air-date');
 var $episodes = document.querySelector('#episodes');
 var $genre = document.querySelector('#genre');
 var $synopsis = document.querySelector('.synopsis-text');
-var $art = document.querySelector('#art');
+var $art = document.querySelector('#detail-art');
 var $detailTitle = document.querySelector('#detail-title');
 var $details = document.querySelector('#details');
 var $video = document.querySelector('#video');
@@ -30,7 +30,7 @@ var $recommendedList = document.querySelector('#recommended-list');
 var $addButton = document.querySelector('.add-button');
 var $favListButton = document.querySelector('.fa-list');
 var $cancel = document.querySelector('#cancel-button');
-var $modalBg = document.querySelector('.modal-bg');
+var $modalBg = document.querySelector('.modal-shadow');
 var $remove = document.querySelector('#remove-button');
 
 $form.addEventListener('submit', function (event) {
@@ -56,9 +56,9 @@ $homeButton.addEventListener('click', function (event) {
 
 $ul.addEventListener('click', function (event) {
   var idNum = event.target.closest('li').getAttribute('id');
-  var anchorEdit = event.target.closest('a').getAttribute('class', 'edit-button');
+  var anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
   animeId = parseInt(idNum);
-  if (anchorEdit === 'dark-blue absolute edit-button') {
+  if (anchorEdit === 'dark-blue absolute trash-button') {
     event.preventDefault();
     $modalBg.classList.remove('hidden');
     $body.classList.add('overflow');
@@ -83,7 +83,7 @@ $favListButton.addEventListener('click', function (event) {
   animeList = [];
   for (var i = 0; i < data.favorites.length; i++) {
     $ul.appendChild(createList(data.favorites[i]));
-    var $editButton = document.querySelectorAll('.edit-button');
+    var $editButton = document.querySelectorAll('.trash-button');
     $editButton[i].classList.remove('hidden');
   }
 });
@@ -98,13 +98,13 @@ $carousel.addEventListener('click', function (event) {
       if (firstCarouselItem < 0) {
         firstCarouselItem = (recommendedList.length) + firstCarouselItem;
       }
-      redisplayCarousel();
+      loopCarousel();
     } else if (event.target.getAttribute('id') === 'next') {
       firstCarouselItem += 4;
       if (firstCarouselItem > recommendedList.length - 1) {
         firstCarouselItem = firstCarouselItem - (recommendedList.length);
       }
-      redisplayCarousel();
+      loopCarousel();
     }
   } else if (id) {
     animeId = id;
@@ -155,6 +155,9 @@ function loadXML(search) {
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     animeList = xmlObject.response.data;
+    if (animeList.length === 0) {
+      $message.textContent = `No Results for "${search}"`;
+    }
     if (animeList.length < stop) {
       stop = animeList.length;
     }
@@ -207,27 +210,37 @@ function getDetailsById(id, callback, saveWhere) {
   xmlObject.send();
 }
 
-function loadDetails(animeId, select) {
+function loadDetails(animeId, saved) {
   var genres = [];
-  for (var x = 0; x < select.genres.length; x++) {
-    genres.push(select.genres[x].name);
+  for (var x = 0; x < saved.genres.length; x++) {
+    genres.push(saved.genres[x].name);
   }
-  if (select.score === null) {
+  if (saved.score === null) {
     $ratingNumber.textContent = 'N/A';
   } else {
-    $ratingNumber.textContent = select.score;
+    $ratingNumber.textContent = saved.score;
   }
-  $detailTitle.textContent = select.title;
-  $art.setAttribute('src', select.images.jpg.image_url);
-  $art.setAttribute('alt', select.title);
-  $ranking.textContent = 'Ranking: #' + select.rank;
-  $popularity.textContent = 'Popularity: #' + select.popularity;
-  $airDate.textContent = 'Air Date: ' + select.aired.string;
-  $episodes.textContent = 'Episodes: ' + select.episodes;
-  $genre.textContent = 'Genre: ' + genres.join(', ');
-  $synopsis.textContent = select.synopsis;
-  $video.setAttribute('src', 'https://www.youtube.com/embed/' + select.trailer.youtube_id + '?autoplay=0');
-  $video.setAttribute('title', select.title);
+  $detailTitle.textContent = saved.title;
+  $art.setAttribute('src', saved.images.jpg.image_url);
+  $art.setAttribute('alt', saved.title);
+  var rank = document.createTextNode(saved.rank);
+  $ranking.removeChild($ranking.lastChild);
+  $ranking.appendChild(rank);
+  var popularity = document.createTextNode(saved.popularity);
+  $popularity.removeChild($popularity.lastChild);
+  $popularity.appendChild(popularity);
+  var date = document.createTextNode(saved.aired.string);
+  $airDate.removeChild($airDate.lastChild);
+  $airDate.appendChild(date);
+  var episodes = document.createTextNode(saved.episodes);
+  $episodes.removeChild($episodes.lastChild);
+  $episodes.appendChild(episodes);
+  var genre = document.createTextNode(genres.join(', '));
+  $genre.removeChild($genre.lastChild);
+  $genre.appendChild(genre);
+  $synopsis.textContent = saved.synopsis;
+  $video.setAttribute('src', 'https://www.youtube.com/embed/' + saved.trailer.youtube_id + '?autoplay=0');
+  $video.setAttribute('title', saved.title);
   getRecommendedList(animeId);
   $addButton.setAttribute('mal_id', animeId);
   $addButton.classList.remove('hidden');
@@ -281,7 +294,7 @@ function createCarousel(anime) {
   var createDiv = document.createElement('div');
   var createEmptyDiv = document.createElement('div');
   var createImg = document.createElement('img');
-  var createTitle = document.createElement('h3');
+  var createTitle = document.createElement('p');
   var createAnchor = document.createElement('a');
   createImg.setAttribute('src', anime.entry.images.jpg.image_url);
   createImg.setAttribute('alt', anime.entry.title);
@@ -291,21 +304,23 @@ function createCarousel(anime) {
   } else {
     createTitle.textContent = anime.entry.title;
   }
-  createTitle.className = 'recommended-title';
+  createTitle.className = 'recommended-title absolute text-center';
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
-  createEmptyDiv.className = 'shadow hw-100';
+  createEmptyDiv.className = 'recommended-shadow hw-100 absolute';
   createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
-  createAnchor.appendChild(createEmptyDiv);
-  createAnchor.appendChild(createImg);
+  createDiv.appendChild(createEmptyDiv);
+  createDiv.appendChild(createImg);
+  createAnchor.setAttribute('mal_id', anime.entry.mal_id);
+  createAnchor.className = 'column-carousel relative';
+  createDiv.className = ' art-container';
   createAnchor.setAttribute('href', '#');
-  createDiv.appendChild(createAnchor);
-  createDiv.appendChild(createTitle);
-  createDiv.setAttribute('mal_id', anime.entry.mal_id);
-  createDiv.className = 'column-carousel art-container relative';
-  return createDiv;
+  createAnchor.appendChild(createDiv);
+  createAnchor.appendChild(createTitle);
+
+  return createAnchor;
 }
 
-function redisplayCarousel() {
+function loopCarousel() {
   var start = firstCarouselItem;
   for (var y = 0; y < 5; y++) {
     if (start === recommendedList.length) {
@@ -319,8 +334,10 @@ function createList(anime) {
   var createLi = document.createElement('li');
   var createImgAnchor = document.createElement('a');
   var createTitleAnchor = document.createElement('a');
+  var createScoreSpan = document.createElement('span');
+  var createDateSpan = document.createElement('span');
+  var createGenreSpan = document.createElement('span');
   var createListRow = document.createElement('div');
-  var createImgCol = document.createElement('div');
   var createImgRow = document.createElement('div');
   var createImg = document.createElement('img');
   var createInfoCol1 = document.createElement('div');
@@ -342,49 +359,54 @@ function createList(anime) {
   createTitleAnchor.setAttribute('href', '#');
   createTitleAnchor.className = 'dark-blue';
   createTitle.appendChild(createTitleAnchor);
+  createScoreSpan.textContent = 'Score: ';
+  createDateSpan.textContent = 'Air Date: ';
+  createGenreSpan.textContent = 'Genre: ';
   if (anime.score === null) {
-    createScore.textContent = 'Score: N/A';
+    createScore.textContent = createScoreSpan + 'N/A';
   } else {
-    createScore.textContent = 'Score: ' + anime.score;
+    createScore.textContent = anime.score;
   }
-  createDate.textContent = 'Air Date: ' + anime.aired.string;
+  createScore.prepend(createScoreSpan);
+  createDate.textContent = anime.aired.string;
+  createDate.prepend(createDateSpan);
   var genres = [];
   for (var i = 0; i < anime.genres.length; i++) {
     genres.push(anime.genres[i].name);
   }
-  createGenre.textContent = 'Genre: ' + genres.join(', ');
-  createSyn.textContent = anime.synopsis.slice(0, 240);
-  if (anime.synopsis.length > 240) {
+  createGenre.textContent = genres.join(', ');
+  createGenre.prepend(createGenreSpan);
+  createSyn.textContent = anime.synopsis.slice(0, 280);
+  if (anime.synopsis.length > 280) {
     createSyn.textContent += '...';
   }
   createSyn.setAttribute('id', 'list-description');
   createInfoCol1.appendChild(createTitle);
   createInfoCol1.appendChild(createSyn);
-  createInfoCol1.className = 'column-seventy list-info ';
+  createInfoCol1.className = 'column-list-description list-info ';
   createInfoCol2.appendChild(createScore);
   createInfoCol2.appendChild(createDate);
   createInfoCol2.appendChild(createGenre);
-  createInfoCol2.className = 'column-seventy list-info';
+  createInfoCol2.className = 'column-sub-info list-info';
   createSynRow.appendChild(createInfoCol1);
   createSynRow.appendChild(createInfoCol2);
   createSynRow.className = 'row';
   createCol80.appendChild(createSynRow);
-  createCol80.className = 'column-eighty';
+  createCol80.className = 'column-seventy';
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
   createImg.className = 'object-cover hw-100';
-  createImgAnchor.appendChild(createImg);
-  createImgAnchor.setAttribute('href', '#');
-  createImgRow.appendChild(createImgAnchor);
+  createImgRow.appendChild(createImg);
   createImgRow.className = 'row art-container';
-  createImgCol.appendChild(createImgRow);
-  createImgCol.className = 'column-twenty';
-  createListRow.appendChild(createImgCol);
+  createImgAnchor.appendChild(createImgRow);
+  createImgAnchor.setAttribute('href', '#');
+  createImgAnchor.className = 'column-thirty';
+  createListRow.appendChild(createImgAnchor);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';
   createTrashIcon.className = 'fa-solid fa-trash-can';
   createEditAnchor.appendChild(createTrashIcon);
-  createEditAnchor.className = 'dark-blue absolute hidden edit-button';
+  createEditAnchor.className = 'dark-blue absolute hidden trash-button';
   createLi.appendChild(createEditAnchor);
   createLi.appendChild(createListRow);
   createLi.setAttribute('id', anime.mal_id);
