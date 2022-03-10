@@ -14,6 +14,10 @@ main {
   margin: 0 auto;
 }
 
+.search-bar {
+  max-width: 70%;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -33,7 +37,7 @@ main {
 }
 
 .column-eighty {
-  width: 80%;
+  flex-basis: 80%;
 }
 
 .height-100 {
@@ -47,12 +51,18 @@ main {
 
 .column-carousel {
   flex-basis: calc(100% / 6);
-  margin-bottom: 2rem;
+}
+
+.art-container {
+  height: 145px;
+  width: 100%;
+  display: block;
 }
 
 #cover-art {
   order: 1;
   flex-basis: 48%;
+  min-height: 25rem;
 }
 
 #info-card {
@@ -62,7 +72,7 @@ main {
 
 #synopsis {
   order: 3;
-  width: 100%;
+  flex-basis: 100%;
 }
 
 #video-container {
@@ -73,6 +83,10 @@ main {
 
 #video {
   border: none;
+}
+
+#nav-bar {
+  height: 65px;
 }
 
 @media screen and (min-width: 764px) {
@@ -96,6 +110,19 @@ main {
     flex-wrap: wrap-reverse;
   }
 
+  .search-bar {
+    max-width: 50%;
+  }
+
+  .details {
+    max-height: 800px;
+  }
+
+  .art-container {
+    height: 220px;
+    width: 100%;
+  }
+
   #cover-art {
     order: 3;
     width: 35%;
@@ -109,6 +136,7 @@ main {
   #synopsis {
     order: 2;
     width: 60%;
+    min-height: 500px;
   }
 
   #video-container {

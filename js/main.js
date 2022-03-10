@@ -284,7 +284,7 @@ function createCarousel(anime) {
   var createDiv = document.createElement('div');
   var createEmptyDiv = document.createElement('div');
   var createImg = document.createElement('img');
-  var createTitle = document.createElement('h3');
+  var createTitle = document.createElement('p');
   var createAnchor = document.createElement('a');
   createImg.setAttribute('src', anime.entry.images.jpg.image_url);
   createImg.setAttribute('alt', anime.entry.title);
@@ -294,9 +294,9 @@ function createCarousel(anime) {
   } else {
     createTitle.textContent = anime.entry.title;
   }
-  createTitle.className = 'recommended-title';
+  createTitle.className = 'recommended-title absolute text-center';
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
-  createEmptyDiv.className = 'shadow hw-100';
+  createEmptyDiv.className = 'shadow hw-100 absolute';
   createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
   createDiv.appendChild(createEmptyDiv);
   createDiv.appendChild(createImg);

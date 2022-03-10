@@ -25,7 +25,6 @@ h2 {
 }
 
 h2:hover {
-  color: #0b5a82;
   text-decoration: underline;
 }
 
@@ -68,23 +67,13 @@ div.modal > h3 {
   color: rgb(53, 53, 53);
 }
 
-.object-cover {
-  object-fit: cover;
-}
-
 .list-info {
   margin: 0 1rem;
 }
 
 .search-bar {
-  max-width: 70%;
-  padding: 0.4rem;
   margin: auto 0.5rem;
   border-radius: 5px;
-}
-
-.synopsis-text {
-  font-size: 0.9rem;
 }
 
 .rating-card {
@@ -92,18 +81,12 @@ div.modal > h3 {
   width: 40%;
 }
 
-.art-container {
-  height: 145px;
-  width: 100%;
-  display: block;
-}
-
-.chevron {
-  color: #0b5a82;
-}
-
 .details {
   margin-bottom: 3rem;
+}
+
+.object-cover {
+  object-fit: cover;
 }
 
 .dark-blue {
@@ -146,16 +129,12 @@ div.modal > h3 {
   font-size: 1rem;
 }
 
-.font-size-2 {
-  font-size: 2rem;
-}
-
 .font-size-1dot5 {
   font-size: 1.5rem;
 }
 
-.font-400 {
-  font-weight: 400;
+.font-size-2 {
+  font-size: 2rem;
 }
 
 .space-between {
@@ -202,14 +181,11 @@ div.modal > h3 {
   background-color: #9ad0ec;
 }
 
-.icon-margin {
+.fav-icon-margin {
   margin-right: 0.3rem;
 }
 
 .recommended-title {
-  font-size: 0.8rem;
-  position: absolute;
-  text-align: center;
   bottom: 0;
   margin-bottom: 1rem;
   color: white;
@@ -217,7 +193,6 @@ div.modal > h3 {
 }
 
 .shadow {
-  position: absolute;
   background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.637));
 }
 
@@ -252,8 +227,6 @@ div.modal > h3 {
 #cancel-button {
   border: solid 1px #0b5a82;
   padding: 0 1rem;
-  font-size: 1rem;
-  margin: 0;
 }
 
 #remove-button {
@@ -261,9 +234,6 @@ div.modal > h3 {
   border: solid 1px rgb(202, 0, 0);
   color: white;
   padding: 0 1rem;
-  font-size: 1rem;
-  margin: 0;
-  font-weight: 400;
 }
 
 .fa-trash-can:hover {
@@ -289,23 +259,12 @@ div.modal > h3 {
     height: 14rem;
   }
 
-  div#synopsis > h3,
-  div#video-container > h3 {
-    font-size: 1.5rem;
-    margin: 1rem 0;
-  }
-
   div.rating > p {
-    margin: 0.5rem 0;
-  }
-
-  .search-bar {
-    max-width: 50%;
+    margin: 0.3rem 0;
   }
 
   #list-description {
     display: contents;
-    font-weight: 500;
   }
 
   .list-info {
@@ -314,24 +273,8 @@ div.modal > h3 {
   }
 
   .rating-card {
-    width: 30%;
+    width: 20%;
     margin-right: 1rem;
-  }
-
-  .details {
-    max-height: 900px;
-  }
-
-  .art-container {
-    height: 220px;
-    width: 100%;
-  }
-
-  .synopsis-text {
-    font-weight: 500;
-    margin: auto;
-    padding-right: 1rem;
-    min-height: 30rem;
   }
 
   .chevron {
