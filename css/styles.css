@@ -85,6 +85,69 @@ div.modal > h3 {
   margin-bottom: 3rem;
 }
 
+.favorite-button,
+.add-button {
+  top: 0;
+  right: 0;
+  padding: 0.2rem 0;
+  width: 100px;
+}
+
+.add-button:hover {
+  background-color: #9ad0ec;
+}
+
+.fav-icon-margin {
+  margin-right: 0.3rem;
+}
+
+.recommended-title {
+  bottom: 0;
+  margin-bottom: 1rem;
+  color: white;
+  width: 100%;
+}
+
+.shadow {
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.637));
+}
+
+.edit-button {
+  right: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.modal-shadow {
+  background-color: rgba(0, 0, 0, 0.459);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.modal {
+  background-color: #b0b0b0;
+  padding: 2.5rem;
+}
+
+#cancel-button {
+  border: solid 1px #0b5a82;
+  padding: 0 1rem;
+}
+
+#remove-button {
+  background-color: rgb(202, 0, 0);
+  border: solid 1px rgb(202, 0, 0);
+  color: white;
+  padding: 0 1rem;
+}
+
+.fa-trash-can:hover {
+  color: #9ad0ec;
+}
+
 .object-cover {
   object-fit: cover;
 }
@@ -169,75 +232,12 @@ div.modal > h3 {
   position: absolute;
 }
 
-.favorite-button,
-.add-button {
-  top: 0;
-  right: 0;
-  padding: 0.2rem 0;
-  width: 100px;
-}
-
-.add-button:hover {
-  background-color: #9ad0ec;
-}
-
-.fav-icon-margin {
-  margin-right: 0.3rem;
-}
-
-.recommended-title {
-  bottom: 0;
-  margin-bottom: 1rem;
-  color: white;
-  width: 100%;
-}
-
-.shadow {
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.637));
-}
-
-#list-description {
-  display: none;
-}
-
-.edit-button {
-  right: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.modal-shadow {
-  background-color: rgba(0, 0, 0, 0.459);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
-
 .overflow {
   overflow: hidden;
 }
 
-.modal {
-  background-color: #b0b0b0;
-  padding: 2.5rem;
-}
-
-#cancel-button {
-  border: solid 1px #0b5a82;
-  padding: 0 1rem;
-}
-
-#remove-button {
-  background-color: rgb(202, 0, 0);
-  border: solid 1px rgb(202, 0, 0);
-  color: white;
-  padding: 0 1rem;
-}
-
-.fa-trash-can:hover {
-  color: #9ad0ec;
+#list-description {
+  display: none;
 }
 
 @media screen and (min-width: 764px) {
@@ -247,7 +247,7 @@ div.modal > h3 {
 
   p {
     margin: 1.5rem auto;
-    line-height: 1.4em;
+    line-height: 1.5rem;
   }
 
   h2 {
@@ -263,10 +263,6 @@ div.modal > h3 {
     margin: 0.3rem 0;
   }
 
-  #list-description {
-    display: contents;
-  }
-
   .list-info {
     max-height: 30em;
     margin-left: 1.5rem;
@@ -280,5 +276,9 @@ div.modal > h3 {
   .chevron {
     color: #0b5a82;
     font-size: 3rem;
+  }
+
+  #list-description {
+    display: contents;
   }
 }
