@@ -377,11 +377,11 @@ function createList(anime) {
   createImg.setAttribute('src', anime.images.webp.image_url);
   createImg.setAttribute('alt', anime.title);
   createImg.className = 'object-cover hw-100';
-  createImgAnchor.appendChild(createImg);
+  createImgRow.appendChild(createImg);
+  createImgRow.className = 'row art-container';
+  createImgAnchor.appendChild(createImgRow);
   createImgAnchor.setAttribute('href', '#');
   createImgAnchor.className = 'column-twenty';
-  createImgRow.appendChild(createImgAnchor);
-  createImgRow.className = 'row art-container';
   createListRow.appendChild(createImgAnchor);
   createListRow.appendChild(createCol80);
   createListRow.className = 'row white-bg align-center';

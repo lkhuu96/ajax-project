@@ -16,15 +16,15 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body >
-  <header id="nav-bar" class="dark-blue-bg">
+  <header class="dark-blue-bg">
     <div class="container padding-1rem">
       <div class="row space-between align-center">
-        <a href="#"><i class="home-button light-blue fa-solid fa-house-chimney font-size-2"></i></a>
-        <div class="column-full search-bar">
+        <a href="#"><i class="light-blue fa-solid fa-house-chimney font-size-2"></i></a>
+        <div class="column-eighty search-bar white-bg">
           <form action="submit">
             <div class="row align-center space-between">
               <input type="text" class="column-eighty" name="search" placeholder="Search Anime">
-              <button type="submit"><i class="font-size-1dot3 home-button dark-blue fa-solid fa-magnifying-glass"></i></button>
+              <button type="submit"><i class="font-size-1dot5 dark-blue fa-solid fa-magnifying-glass"></i></button>
             </div>
           </form>
         </div>
@@ -32,11 +32,11 @@
       </div>
     </div>
   </header>
-  <main class="full-height">
+  <main>
     <div class="container height-100 white-bg">
       <div class="welcome text-center dark-blue font-size-2">
         <h1 class=""">Welcome!</h1>
-        <h3 class="font-400 font-size-1dot3">Please search for anime above</h3>
+        <h3\ class="font-400 font-size-1dot5">Please search for anime above</h3>
       </div>
       <h3 class="message dark-blue text-center hidden font-size-2">Search Results for </h3>
       <div class="column-full">
@@ -47,10 +47,10 @@
         </a>
       </div>
       <div id="details" class="hidden white-bg">
-        <div class="column-full font-size-1dot3">
+        <div class="column-full">
           <h1 id="detail-title" class="dark-blue text-center font-size-2"></h1>
         </div>
-        <div class="row flex-wrap column space-between details padding-1rem">
+        <div class="row wrap-reverse direction-column space-between details padding-1rem">
           <div id="cover-art" class="">
             <img id="art" class="object-cover hw-100" src="" alt="">
           </div>
@@ -61,8 +61,8 @@
           <div id="info-card" class="relative">
             <div class="row align-center">
               <div class="rating-card text-center">
-                <h4 class="dark-blue-bg white-color margin-zero">Rating</h4>
-                <h3 id="rating-number" class=""></h3>
+                <h4 class="dark-blue-bg white-color padding-half margin-zero font-size-1dot5">Rating</h4>
+                <h3 id="rating-number" class="font-size-2"></h3>
               </div>
               <div class="column-full rating">
                 <p id="ranking"></p>
@@ -90,11 +90,11 @@
         </div>
         <div class="column-full padding-1rem">
           <div class="row padding-1rem justify-center">
-            <h3 id="recommended-list" class="dark-blue margin-zero font-size-1dot3">Recommended</h3>
+            <h3 id="recommended-list" class="dark-blue margin-zero font-size-1dot5">Recommended</h3>
           </div>
           <div id="carousel" class="row align-center padding-1rem space-between">
-            <a id="left" href="" class=""><i id="prev" class="fa-solid fa-chevron-left chevron"></i></a>
-            <a id="right" href="" class=""><i id="next" class="fa-solid fa-chevron-right chevron"></i></a>
+            <a href="" class=""><i id="prev" class="fa-solid fa-chevron-left chevron font-size-2"></i></a>
+            <a id="right" href="" class=""><i id="next" class="fa-solid fa-chevron-right chevron font-size-2"></i></a>
           </div>
         </div>
       </div>

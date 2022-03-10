@@ -33,7 +33,7 @@ main {
 }
 
 .column-eighty {
-  flex-basis: 80%;
+  width: 80%;
 }
 
 .height-100 {
@@ -62,7 +62,7 @@ main {
 
 #synopsis {
   order: 3;
-  flex-basis: 100%;
+  width: 100%;
 }
 
 #video-container {
@@ -84,7 +84,7 @@ main {
     flex-basis: 70%;
   }
 
-  .column {
+  .direction-column {
     flex-direction: column;
   }
 
@@ -92,7 +92,7 @@ main {
     flex-wrap: nowrap;
   }
 
-  .flex-wrap {
+  .wrap-reverse {
     flex-wrap: wrap-reverse;
   }
 
