@@ -32,9 +32,11 @@ var $favListButton = document.querySelector('.fa-list');
 var $cancel = document.querySelector('#cancel-button');
 var $modalBg = document.querySelector('.modal-shadow');
 var $remove = document.querySelector('#remove-button');
+var $ring = document.querySelector('.lds-ring');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
+  $ring.classList.remove('hidden');
   var search = $form.elements.search.value;
   if (search < 1) {
     return;
@@ -55,6 +57,7 @@ $homeButton.addEventListener('click', function (event) {
 });
 
 $ul.addEventListener('click', function (event) {
+  $ring.classList.remove('hidden');
   var idNum = event.target.closest('li').getAttribute('id');
   var anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
   animeId = parseInt(idNum);
@@ -107,6 +110,8 @@ $carousel.addEventListener('click', function (event) {
       loopCarousel();
     }
   } else if (id) {
+    hideDetails();
+    $ring.classList.remove('hidden');
     animeId = id;
     clearLists();
     getDetailsById(id, loadDetails, animeDetails);
@@ -115,6 +120,7 @@ $carousel.addEventListener('click', function (event) {
 
 $viewMore.addEventListener('click', function (event) {
   event.preventDefault();
+  $ring.classList.remove('hidden');
   if (animeList.length < searchView + 6) {
     $viewMore.classList.add('hidden');
     for (var i = searchView; i < animeList.length; i++) {
@@ -126,6 +132,7 @@ $viewMore.addEventListener('click', function (event) {
     }
   }
   searchView += 6;
+  $ring.classList.add('hidden');
 });
 
 $cancel.addEventListener('click', function (event) {
@@ -164,6 +171,7 @@ function loadXML(search) {
     for (var i = 0; i < stop; i++) {
       $ul.appendChild(createList(animeList[i]));
     }
+    $ring.classList.add('hidden');
     if (animeList.length > 6) {
       $viewMore.classList.remove('hidden');
     }
@@ -206,6 +214,7 @@ function getDetailsById(id, callback, saveWhere) {
   xmlObject.addEventListener('load', function () {
     saveWhere = xmlObject.response.data;
     callback(id, saveWhere);
+    $ring.classList.add('hidden');
   });
   xmlObject.send();
 }
