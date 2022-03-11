@@ -57,7 +57,6 @@ $homeButton.addEventListener('click', function (event) {
 });
 
 $ul.addEventListener('click', function (event) {
-  $ring.classList.remove('hidden');
   var idNum = event.target.closest('li').getAttribute('id');
   var anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
   animeId = parseInt(idNum);
@@ -66,6 +65,9 @@ $ul.addEventListener('click', function (event) {
     $modalBg.classList.remove('hidden');
     $body.classList.add('overflow');
   } else if (event.target.tagName === 'A' || event.target.tagName === 'IMG') {
+    $ring.classList.remove('hidden');
+    clearLists();
+    $viewMore.classList.add('hidden');
     getDetailsById(animeId, loadDetails, animeDetails);
   }
 });
