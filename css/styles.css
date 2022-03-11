@@ -55,6 +55,9 @@ button {
 li {
   margin-top: 1rem;
   flex-wrap: nowrap;
+  border: solid #0b5a82 3px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 div.modal > h3 {
@@ -95,19 +98,36 @@ div.modal > h3 {
   background-color: #9ad0ec;
 }
 
+.column-carousel {
+  border-radius: 10px;
+  overflow: hidden;
+  border: solid 2px #0b5a82;
+  transition: height 0.3s, padding-bottom 0.3s, transform 0.3s;
+}
+
+.column-carousel:hover {
+  transform: scale(1.5);
+  padding-bottom: 1.5rem;
+  position: relative;
+  z-index: 10;
+  background-color: #0b5a82;
+}
+
 .fav-icon-margin {
   margin-right: 0.3rem;
 }
 
-.recommended-title {
-  bottom: 0;
-  margin-bottom: 1rem;
-  color: white;
-  width: 100%;
+#recommended {
+  padding-bottom: 3rem;
 }
 
-.recommended-shadow {
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.637));
+.recommended-title {
+  font-size: 0.5rem;
+  text-align: center;
+  margin: 0;
+  height: 100%;
+  color: white;
+  width: 100%;
 }
 
 .trash-button {
@@ -284,7 +304,7 @@ div.modal > h3 {
   display: none;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   div.rating > p {
     font-size: 0.8rem;
     line-height: 1rem;
@@ -300,6 +320,10 @@ div.modal > h3 {
 
   a.column-carousel > p {
     font-size: 0.7rem;
+  }
+
+  .list-info {
+    font-size: 0.5rem;
   }
 }
 
@@ -320,6 +344,10 @@ div.modal > h3 {
 
   div.rating > p {
     margin: 0.3rem 0;
+  }
+
+  .recommended-title {
+    font-size: 0.7rem;
   }
 
   .list-info {

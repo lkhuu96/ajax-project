@@ -311,31 +311,26 @@ function loopLists(nodeList, target) {
 
 function createCarousel(anime) {
   var createDiv = document.createElement('div');
-  var createEmptyDiv = document.createElement('div');
   var createImg = document.createElement('img');
-  var createTitle = document.createElement('p');
+  var createTitle = document.createElement('h3');
   var createAnchor = document.createElement('a');
   createImg.setAttribute('src', anime.entry.images.jpg.image_url);
   createImg.setAttribute('alt', anime.entry.title);
+  createImg.setAttribute('mal_id', anime.entry.mal_id);
   createImg.className = 'object-cover hw-100';
   if (anime.entry.title.length > 20) {
     createTitle.textContent = anime.entry.title.slice(0, 20) + '...';
   } else {
     createTitle.textContent = anime.entry.title;
   }
-  createTitle.className = 'recommended-title absolute text-center';
+  createTitle.className = 'recommended-title';
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
-  createEmptyDiv.className = 'recommended-shadow hw-100 absolute';
-  createEmptyDiv.setAttribute('mal_id', anime.entry.mal_id);
-  createDiv.appendChild(createEmptyDiv);
   createDiv.appendChild(createImg);
-  createAnchor.setAttribute('mal_id', anime.entry.mal_id);
-  createAnchor.className = 'column-carousel relative';
+  createDiv.appendChild(createTitle);
+  createAnchor.className = 'column-carousel relative ';
   createDiv.className = ' art-container';
   createAnchor.setAttribute('href', '#');
   createAnchor.appendChild(createDiv);
-  createAnchor.appendChild(createTitle);
-
   return createAnchor;
 }
 
