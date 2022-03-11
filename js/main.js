@@ -185,7 +185,7 @@ function loadXML(search) {
 }
 
 function loadTimeout() {
-  $message.textContent = 'Sorry! Something went wrong.  Please try again later.';
+  $message.textContent = 'Sorry, there was an error connecting to the network!  Please check your internet connection and try again.';
   $ring.classList.add('hidden');
 }
 
