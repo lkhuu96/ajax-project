@@ -79,7 +79,8 @@ div.modal > h3 {
 }
 
 .rating-card {
-  border: solid 1px #0b5a82;
+  border-right: solid 3px #0b5a82;
+  border-bottom: solid 3px #0b5a82;
   width: 45%;
   max-width: 80px;
 }
@@ -118,7 +119,7 @@ div.modal > h3 {
 }
 
 #recommended {
-  padding-bottom: 3rem;
+  padding-bottom: 5rem;
 }
 
 .recommended-title {
@@ -132,6 +133,7 @@ div.modal > h3 {
 
 .trash-button {
   right: 0;
+  margin: 1rem;
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -160,6 +162,16 @@ div.modal > h3 {
   border: solid 1px rgb(202, 0, 0);
   color: white;
   padding: 0 1rem;
+}
+
+#info-card {
+  border: solid 3px #0b5a82;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#list-description {
+  display: none;
 }
 
 .fa-trash-can:hover {
@@ -300,10 +312,6 @@ div.modal > h3 {
   }
 }
 
-#list-description {
-  display: none;
-}
-
 @media screen and (max-width: 450px) {
   div.rating > p {
     font-size: 0.8rem;
@@ -324,6 +332,11 @@ div.modal > h3 {
 
   .list-info {
     font-size: 0.5rem;
+  }
+
+  .trash-button {
+    margin: 0.5rem;
+    font-size: 1rem;
   }
 }
 
@@ -360,6 +373,7 @@ div.modal > h3 {
     max-width: 200px;
     margin-right: 1rem;
     font-size: 1.5rem;
+    border-bottom: none;
   }
 
   .chevron {
@@ -375,5 +389,4 @@ div.modal > h3 {
   #list-description {
     display: contents;
   }
-}
 }
