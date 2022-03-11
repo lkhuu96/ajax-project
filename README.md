@@ -1,3 +1,3 @@
 # anime-search
 
-A dynamic HTML, CSS, and JavaScript solo project.
+A web application for people who want to search for anime
