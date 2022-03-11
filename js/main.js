@@ -159,11 +159,13 @@ $remove.addEventListener('click', function (event) {
 function loadXML(search) {
   var xmlObject = new XMLHttpRequest();
   var stop = 6;
+  var notLoading = setTimeout(loadTimeout, 5000);
   $viewMore.classList.add('hidden');
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     animeList = xmlObject.response.data;
+
     if (animeList.length === 0) {
       $message.textContent = `No Results for "${search}"`;
     }
@@ -174,11 +176,17 @@ function loadXML(search) {
       $ul.appendChild(createList(animeList[i]));
     }
     $ring.classList.add('hidden');
+    clearTimeout(notLoading);
     if (animeList.length > 6) {
       $viewMore.classList.remove('hidden');
     }
   });
   xmlObject.send();
+}
+
+function loadTimeout() {
+  $message.textContent = 'Sorry! Something went wrong.  Please try again later.';
+  $ring.classList.add('hidden');
 }
 
 function getRecommendedList(id) {
