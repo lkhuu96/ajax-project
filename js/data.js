@@ -4,12 +4,12 @@ var data = {
   favoriteDetails: {}
 };
 
-var previousDataJSON = localStorage.getItem('ajax-project-anime-favorites');
+var previousDataJSON = localStorage.getItem('anime-search-favorites');
 if (previousDataJSON !== null) {
   data = JSON.parse(previousDataJSON);
 }
 
 window.addEventListener('beforeunload', function (events) {
   var dataJSON = JSON.stringify(data);
-  localStorage.setItem('ajax-project-anime-favorites', dataJSON);
+  localStorage.setItem('anime-search-favorites', dataJSON);
 });
