@@ -14,7 +14,7 @@ ul {
   font-size: 0.5rem;
 }
 
-h1,
+.welcome,
 .message {
   margin-top: 0;
   padding: 2rem 0 0;
@@ -55,11 +55,18 @@ button {
 li {
   margin-top: 1rem;
   flex-wrap: nowrap;
+  border: solid #0b5a82 3px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 div.modal > h3 {
   margin-top: 0;
   margin-bottom: 3rem;
+}
+
+hr {
+  height: 3px;
 }
 
 ::placeholder {
@@ -76,7 +83,8 @@ div.modal > h3 {
 }
 
 .rating-card {
-  border: solid 1px #0b5a82;
+  border-right: solid 3px #0b5a82;
+  border-bottom: solid 3px #0b5a82;
   width: 45%;
   max-width: 80px;
 }
@@ -95,23 +103,41 @@ div.modal > h3 {
   background-color: #9ad0ec;
 }
 
+.column-carousel {
+  border-radius: 10px;
+  overflow: hidden;
+  border: solid 2px #0b5a82;
+  transition: height 0.3s, padding-bottom 0.3s, transform 0.3s;
+}
+
+.column-carousel:hover {
+  transform: scale(1.5);
+  padding-bottom: 1.5rem;
+  position: relative;
+  z-index: 10;
+  background-color: #0b5a82;
+}
+
 .fav-icon-margin {
   margin-right: 0.3rem;
 }
 
+#recommended {
+  padding-bottom: 5rem;
+}
+
 .recommended-title {
-  bottom: 0;
-  margin-bottom: 1rem;
+  font-size: 0.5rem;
+  text-align: center;
+  margin: 0;
+  height: 100%;
   color: white;
   width: 100%;
 }
 
-.recommended-shadow {
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.637));
-}
-
 .trash-button {
   right: 0;
+  margin: 1rem;
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -142,6 +168,21 @@ div.modal > h3 {
   padding: 0 1rem;
 }
 
+#info-card {
+  border: solid 3px #0b5a82;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#list-description {
+  display: none;
+}
+
+#detail-title-english {
+  color: lightslategray;
+  padding-top: 0.5rem;
+}
+
 .fa-trash-can:hover {
   color: #9ad0ec;
 }
@@ -160,6 +201,10 @@ div.modal > h3 {
 
 .light-blue {
   color: #9ad0ec;
+}
+
+.light-blue-bg {
+  background-color: #9ad0ec;
 }
 
 .green-bg {
@@ -280,11 +325,7 @@ div.modal > h3 {
   }
 }
 
-#list-description {
-  display: none;
-}
-
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   div.rating > p {
     font-size: 0.8rem;
     line-height: 1rem;
@@ -300,6 +341,15 @@ div.modal > h3 {
 
   a.column-carousel > p {
     font-size: 0.7rem;
+  }
+
+  .list-info {
+    font-size: 0.5rem;
+  }
+
+  .trash-button {
+    margin: 0.5rem;
+    font-size: 1rem;
   }
 }
 
@@ -322,6 +372,10 @@ div.modal > h3 {
     margin: 0.3rem 0;
   }
 
+  .recommended-title {
+    font-size: 0.7rem;
+  }
+
   .list-info {
     max-height: 30em;
     margin-left: 1.5rem;
@@ -332,6 +386,7 @@ div.modal > h3 {
     max-width: 200px;
     margin-right: 1rem;
     font-size: 1.5rem;
+    border-bottom: none;
   }
 
   .chevron {
@@ -347,5 +402,4 @@ div.modal > h3 {
   #list-description {
     display: contents;
   }
-}
 }
