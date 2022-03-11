@@ -27,6 +27,10 @@ main {
   flex-wrap: nowrap;
 }
 
+.rating {
+  width: 100%;
+}
+
 .column-full {
   flex-basis: 100%;
   margin: auto;
@@ -99,9 +103,13 @@ main {
   padding: 0 1rem;
 }
 
-@media screen and (min-width: 764px) {
+@media screen and (min-width: 768px) {
   .container {
     max-width: 900px;
+  }
+
+  .rating {
+    width: 80%;
   }
 
   .column-list-description {

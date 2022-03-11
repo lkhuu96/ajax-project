@@ -78,7 +78,7 @@ div.modal > h3 {
 .rating-card {
   border: solid 1px #0b5a82;
   width: 45%;
-  max-width: 70px;
+  max-width: 80px;
 }
 
 .favorite-button,
@@ -257,7 +257,7 @@ div.modal > h3 {
   }
 }
 
-@media screen and (min-width: 764px) {
+@media screen and (min-width: 768px) {
   body {
     background-color: #b0b0b0;
   }
