@@ -21,6 +21,7 @@ var $genre = document.querySelector('#genre');
 var $synopsis = document.querySelector('.synopsis-text');
 var $art = document.querySelector('#detail-art');
 var $detailTitle = document.querySelector('#detail-title');
+var $detailTitleEnglish = document.querySelector('#detail-title-english');
 var $details = document.querySelector('#details');
 var $video = document.querySelector('#video');
 var $chevron = document.querySelectorAll('.chevron');
@@ -240,6 +241,7 @@ function loadDetails(animeId, saved) {
     $ratingNumber.textContent = saved.score;
   }
   $detailTitle.textContent = saved.title;
+  $detailTitleEnglish.textContent = saved.title_english;
   $art.setAttribute('src', saved.images.jpg.image_url);
   $art.setAttribute('alt', saved.title);
   var rank = document.createTextNode(saved.rank);

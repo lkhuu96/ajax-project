@@ -14,7 +14,7 @@ ul {
   font-size: 0.5rem;
 }
 
-h1,
+.welcome,
 .message {
   margin-top: 0;
   padding: 2rem 0 0;
@@ -63,6 +63,10 @@ li {
 div.modal > h3 {
   margin-top: 0;
   margin-bottom: 3rem;
+}
+
+hr {
+  height: 3px;
 }
 
 ::placeholder {
@@ -174,6 +178,11 @@ div.modal > h3 {
   display: none;
 }
 
+#detail-title-english {
+  color: lightslategray;
+  padding-top: 0.5rem;
+}
+
 .fa-trash-can:hover {
   color: #9ad0ec;
 }
@@ -192,6 +201,10 @@ div.modal > h3 {
 
 .light-blue {
   color: #9ad0ec;
+}
+
+.light-blue-bg {
+  background-color: #9ad0ec;
 }
 
 .green-bg {
