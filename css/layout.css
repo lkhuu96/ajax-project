@@ -15,7 +15,7 @@ main {
 }
 
 .search-bar {
-  max-width: 70%;
+  width: 50%;
 }
 
 .row {
@@ -37,12 +37,12 @@ main {
   width: 100%;
 }
 
-.column-thirty {
-  width: 30%;
+.column-twenty {
+  flex-basis: 20%;
 }
 
-.column-seventy {
-  flex-basis: 70%;
+.column-eighty {
+  flex-basis: 80%;
 }
 
 .column-carousel {
@@ -60,13 +60,17 @@ main {
 
 .art-container {
   height: 10rem;
+  max-width: 150px;
   display: block;
 }
 
 #detail-art-container {
   order: 1;
   flex-basis: 48%;
-  height: 25rem;
+}
+
+#detail-art {
+  width: 100%;
 }
 
 #info-card {
@@ -100,20 +104,12 @@ main {
     max-width: 900px;
   }
 
-  .column-thirty {
-    width: 20%;
-  }
-
   .column-list-description {
     width: 60%;
   }
 
   .column-sub-info {
     width: 40%;
-  }
-
-  .column-seventy {
-    flex-basis: 80%;
   }
 
   .direction-column {
@@ -126,10 +122,6 @@ main {
 
   .wrap {
     flex-wrap: wrap;
-  }
-
-  .search-bar {
-    max-width: 50%;
   }
 
   .details {
