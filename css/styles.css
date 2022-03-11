@@ -5,6 +5,7 @@ body {
 input {
   border: none;
   outline: none;
+  min-width: 1rem;
 }
 
 ul {
@@ -16,7 +17,7 @@ ul {
 h1,
 .message {
   margin-top: 0;
-  padding: 3rem 0 0;
+  padding: 2rem 0 0;
 }
 
 h2 {
@@ -53,10 +54,7 @@ button {
 
 li {
   margin-top: 1rem;
-}
-
-li > div {
-  height: 10rem;
+  flex-wrap: nowrap;
 }
 
 div.modal > h3 {
@@ -80,6 +78,7 @@ div.modal > h3 {
 .rating-card {
   border: solid 1px #0b5a82;
   width: 45%;
+  max-width: 80px;
 }
 
 .favorite-button,
@@ -87,7 +86,8 @@ div.modal > h3 {
   top: 0;
   right: 0;
   padding: 0.2rem 0;
-  width: 100px;
+  max-width: 100px;
+  width: 50%;
   font-size: 0.8rem;
 }
 
@@ -234,11 +234,76 @@ div.modal > h3 {
   overflow: hidden;
 }
 
+.lds-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: 2rem;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #0b5a82;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #0b5a82 transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 #list-description {
   display: none;
 }
 
-@media screen and (min-width: 764px) {
+@media screen and (max-width: 400px) {
+  div.rating > p {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
+
+  div.rating-card > h4 {
+    padding: 0.1rem 0;
+  }
+
+  a.column-carousel > .art-container {
+    height: 8rem;
+  }
+
+  a.column-carousel > p {
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
   body {
     background-color: #b0b0b0;
   }
@@ -253,10 +318,6 @@ div.modal > h3 {
     position: relative;
   }
 
-  li > div {
-    height: 14rem;
-  }
-
   div.rating > p {
     margin: 0.3rem 0;
   }
@@ -268,6 +329,7 @@ div.modal > h3 {
 
   .rating-card {
     width: 20%;
+    max-width: 200px;
     margin-right: 1rem;
     font-size: 1.5rem;
   }
@@ -285,4 +347,5 @@ div.modal > h3 {
   #list-description {
     display: contents;
   }
+}
 }
