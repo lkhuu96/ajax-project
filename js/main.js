@@ -37,6 +37,7 @@ var $ring = document.querySelector('.lds-ring');
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
+  data.view = 'list-view';
   $ring.classList.remove('hidden');
   var search = $form.elements.search.value;
   if (search < 1) {
@@ -51,6 +52,7 @@ $form.addEventListener('submit', function (event) {
 });
 
 $homeButton.addEventListener('click', function (event) {
+  data.view = 'home-page';
   clearLists();
   hideList();
   $welcome.classList.remove('hidden');
@@ -60,6 +62,7 @@ $homeButton.addEventListener('click', function (event) {
 $ul.addEventListener('click', function (event) {
   var idNum = event.target.closest('li').getAttribute('id');
   var anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
+  data.view = 'detail-view';
   animeId = parseInt(idNum);
   if (anchorEdit === 'dark-blue absolute trash-button') {
     event.preventDefault();
@@ -81,6 +84,7 @@ $addButton.addEventListener('click', function (event) {
 });
 
 $favListButton.addEventListener('click', function (event) {
+  data.view = 'favorite-view';
   clearLists();
   hideHome();
   $viewMore.classList.add('hidden');
@@ -160,34 +164,35 @@ $remove.addEventListener('click', function (event) {
 function loadXML(search) {
   var xmlObject = new XMLHttpRequest();
   var stop = 6;
-  var notLoading = setTimeout(loadTimeout, 5000);
   $viewMore.classList.add('hidden');
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     animeList = xmlObject.response.data;
-
+    if (xmlObject.status === 404) {
+      $message.textContent = '404 Error.  This resource was not found.';
+      return;
+    } else if (xmlObject.status === 400) {
+      $message.textContent = 'Error 400.  There was an invalid request from this website.';
+      return;
+    }
     if (animeList.length === 0) {
       $message.textContent = `No Results for "${search}"`;
     }
     if (animeList.length < stop) {
       stop = animeList.length;
     }
-    for (var i = 0; i < stop; i++) {
-      $ul.appendChild(createList(animeList[i]));
+    if (data.view === 'list-view') {
+      for (var i = 0; i < stop; i++) {
+        $ul.appendChild(createList(animeList[i]));
+      }
+      if (animeList.length > 6) {
+        $viewMore.classList.remove('hidden');
+      }
     }
     $ring.classList.add('hidden');
-    clearTimeout(notLoading);
-    if (animeList.length > 6) {
-      $viewMore.classList.remove('hidden');
-    }
   });
   xmlObject.send();
-}
-
-function loadTimeout() {
-  $message.textContent = 'Sorry, there was an error connecting to the network!  Please check your internet connection and try again.';
-  $ring.classList.add('hidden');
 }
 
 function getRecommendedList(id) {
