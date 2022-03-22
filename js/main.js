@@ -167,7 +167,7 @@ $remove.addEventListener('click', event => {
   }
 });
 
-function loadXML(search) {
+const loadXML = search => {
   const xmlObject = new XMLHttpRequest();
   let stop = 6;
   $viewMore.classList.add('hidden');
@@ -200,9 +200,9 @@ function loadXML(search) {
     $ring.classList.add('hidden');
   });
   xmlObject.send();
-}
+};
 
-function getRecommendedList(id) {
+const getRecommendedList = id => {
   const xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', `https://api.jikan.moe/v4/anime/${id}/recommendations`);
   xmlObject.responseType = 'json';
@@ -228,7 +228,7 @@ function getRecommendedList(id) {
     }
   });
   xmlObject.send();
-}
+};
 
 function getDetailsById(id, callback, saveWhere) {
   const xmlObject = new XMLHttpRequest();
