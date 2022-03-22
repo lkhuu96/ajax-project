@@ -36,7 +36,7 @@ const $remove = document.querySelector('#remove-button');
 const $ring = document.querySelector('.lds-ring');
 let canSubmit = true;
 
-$form.addEventListener('submit', function (event) {
+$form.addEventListener('submit', event => {
   event.preventDefault();
   if (canSubmit === true) {
     canSubmit = false;
@@ -55,7 +55,7 @@ $form.addEventListener('submit', function (event) {
   }
 });
 
-$homeButton.addEventListener('click', function (event) {
+$homeButton.addEventListener('click', event => {
   $ring.classList.add('hidden');
   data.view = 'home-page';
   clearLists();
@@ -64,7 +64,7 @@ $homeButton.addEventListener('click', function (event) {
   hideDetails();
 });
 
-$ul.addEventListener('click', function (event) {
+$ul.addEventListener('click', event => {
   const idNum = event.target.closest('li').getAttribute('id');
   const anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
   data.view = 'detail-view';
@@ -81,14 +81,14 @@ $ul.addEventListener('click', function (event) {
   }
 });
 
-$addButton.addEventListener('click', function (event) {
+$addButton.addEventListener('click', event => {
   event.preventDefault();
   const idNum = event.target.closest('.add-button').getAttribute('mal_id');
   $addButton.classList.add('hidden');
   getDetailsById(idNum, addToFavList, data.favoriteDetails);
 });
 
-$favListButton.addEventListener('click', function (event) {
+$favListButton.addEventListener('click', event => {
   data.view = 'favorite-view';
   $ring.classList.add('hidden');
   clearLists();
@@ -104,7 +104,7 @@ $favListButton.addEventListener('click', function (event) {
   }
 });
 
-$carousel.addEventListener('click', function (event) {
+$carousel.addEventListener('click', event => {
   const id = event.target.getAttribute('mal_id');
   if (event.target.tagName === 'I') {
     event.preventDefault();
@@ -131,7 +131,7 @@ $carousel.addEventListener('click', function (event) {
   }
 });
 
-$viewMore.addEventListener('click', function (event) {
+$viewMore.addEventListener('click', event => {
   event.preventDefault();
   $ring.classList.remove('hidden');
   if (animeList.length < searchView + 6) {
@@ -148,13 +148,13 @@ $viewMore.addEventListener('click', function (event) {
   $ring.classList.add('hidden');
 });
 
-$cancel.addEventListener('click', function (event) {
+$cancel.addEventListener('click', event => {
   event.preventDefault();
   $modalBg.classList.add('hidden');
   $body.classList.remove('overflow');
 });
 
-$remove.addEventListener('click', function (event) {
+$remove.addEventListener('click', event => {
   event.preventDefault();
   for (let i = 0; i < data.favorites.length; i++) {
     if (data.favorites[i].mal_id === animeId) {
