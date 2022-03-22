@@ -1,56 +1,63 @@
 /* global data */
-var searchView = 6;
-var animeList = [];
-var animeId = null;
-var animeDetails = {};
-var firstCarouselItem = 0;
-var recommendedList = [];
-var $body = document.querySelector('body');
-var $ul = document.querySelector('ul');
-var $form = document.querySelector('form');
-var $message = document.querySelector('.message');
-var $welcome = document.querySelector('.welcome');
-var $viewMore = document.querySelector('#view-more');
-var $homeButton = document.querySelector('.fa-house-chimney');
-var $ratingNumber = document.querySelector('#rating-number');
-var $ranking = document.querySelector('#ranking');
-var $popularity = document.querySelector('#popularity');
-var $airDate = document.querySelector('#air-date');
-var $episodes = document.querySelector('#episodes');
-var $genre = document.querySelector('#genre');
-var $synopsis = document.querySelector('.synopsis-text');
-var $art = document.querySelector('#detail-art');
-var $detailTitle = document.querySelector('#detail-title');
-var $detailTitleEnglish = document.querySelector('#detail-title-english');
-var $details = document.querySelector('#details');
-var $video = document.querySelector('#video');
-var $chevron = document.querySelectorAll('.chevron');
-var $carousel = document.querySelector('#carousel');
-var $right = document.querySelector('#right');
-var $recommendedList = document.querySelector('#recommended-list');
-var $addButton = document.querySelector('.add-button');
-var $favListButton = document.querySelector('.fa-list');
-var $cancel = document.querySelector('#cancel-button');
-var $modalBg = document.querySelector('.modal-shadow');
-var $remove = document.querySelector('#remove-button');
-var $ring = document.querySelector('.lds-ring');
+let searchView = 6;
+let animeList = [];
+let animeId = null;
+const animeDetails = {};
+let firstCarouselItem = 0;
+let recommendedList = [];
+const $body = document.querySelector('body');
+const $ul = document.querySelector('ul');
+const $form = document.querySelector('form');
+const $message = document.querySelector('.message');
+const $welcome = document.querySelector('.welcome');
+const $viewMore = document.querySelector('#view-more');
+const $homeButton = document.querySelector('.fa-house-chimney');
+const $ratingNumber = document.querySelector('#rating-number');
+const $ranking = document.querySelector('#ranking');
+const $popularity = document.querySelector('#popularity');
+const $airDate = document.querySelector('#air-date');
+const $episodes = document.querySelector('#episodes');
+const $genre = document.querySelector('#genre');
+const $synopsis = document.querySelector('.synopsis-text');
+const $art = document.querySelector('#detail-art');
+const $detailTitle = document.querySelector('#detail-title');
+const $detailTitleEnglish = document.querySelector('#detail-title-english');
+const $details = document.querySelector('#details');
+const $video = document.querySelector('#video');
+const $chevron = document.querySelectorAll('.chevron');
+const $carousel = document.querySelector('#carousel');
+const $right = document.querySelector('#right');
+const $recommendedList = document.querySelector('#recommended-list');
+const $addButton = document.querySelector('.add-button');
+const $favListButton = document.querySelector('.fa-list');
+const $cancel = document.querySelector('#cancel-button');
+const $modalBg = document.querySelector('.modal-shadow');
+const $remove = document.querySelector('#remove-button');
+const $ring = document.querySelector('.lds-ring');
+let canSubmit = true;
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
-  $ring.classList.remove('hidden');
-  var search = $form.elements.search.value;
-  if (search < 1) {
-    return;
+  if (canSubmit === true) {
+    canSubmit = false;
+    data.view = 'list-view';
+    $ring.classList.remove('hidden');
+    const search = $form.elements.search.value;
+    if (search < 1) {
+      return;
+    }
+    hideHome(search);
+    clearLists();
+    loadXML(search);
+    hideDetails();
+    searchView = 6;
+    $form.reset();
   }
-  hideHome(search);
-  clearLists();
-  loadXML(search);
-  hideDetails();
-  searchView = 6;
-  $form.reset();
 });
 
 $homeButton.addEventListener('click', function (event) {
+  $ring.classList.add('hidden');
+  data.view = 'home-page';
   clearLists();
   hideList();
   $welcome.classList.remove('hidden');
@@ -58,8 +65,9 @@ $homeButton.addEventListener('click', function (event) {
 });
 
 $ul.addEventListener('click', function (event) {
-  var idNum = event.target.closest('li').getAttribute('id');
-  var anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
+  const idNum = event.target.closest('li').getAttribute('id');
+  const anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
+  data.view = 'detail-view';
   animeId = parseInt(idNum);
   if (anchorEdit === 'dark-blue absolute trash-button') {
     event.preventDefault();
@@ -75,27 +83,29 @@ $ul.addEventListener('click', function (event) {
 
 $addButton.addEventListener('click', function (event) {
   event.preventDefault();
-  var idNum = event.target.closest('.add-button').getAttribute('mal_id');
+  const idNum = event.target.closest('.add-button').getAttribute('mal_id');
   $addButton.classList.add('hidden');
   getDetailsById(idNum, addToFavList, data.favoriteDetails);
 });
 
 $favListButton.addEventListener('click', function (event) {
+  data.view = 'favorite-view';
+  $ring.classList.add('hidden');
   clearLists();
   hideHome();
   $viewMore.classList.add('hidden');
   hideDetails();
   $message.textContent = 'Favorite List';
   animeList = [];
-  for (var i = 0; i < data.favorites.length; i++) {
+  for (let i = 0; i < data.favorites.length; i++) {
     $ul.appendChild(createList(data.favorites[i]));
-    var $editButton = document.querySelectorAll('.trash-button');
+    const $editButton = document.querySelectorAll('.trash-button');
     $editButton[i].classList.remove('hidden');
   }
 });
 
 $carousel.addEventListener('click', function (event) {
-  var id = event.target.getAttribute('mal_id');
+  const id = event.target.getAttribute('mal_id');
   if (event.target.tagName === 'I') {
     event.preventDefault();
     clearLists();
@@ -126,11 +136,11 @@ $viewMore.addEventListener('click', function (event) {
   $ring.classList.remove('hidden');
   if (animeList.length < searchView + 6) {
     $viewMore.classList.add('hidden');
-    for (var i = searchView; i < animeList.length; i++) {
+    for (let i = searchView; i < animeList.length; i++) {
       $ul.appendChild(createList(animeList[i]));
     }
   } else {
-    for (var x = searchView; x < searchView + 6; x++) {
+    for (let x = searchView; x < searchView + 6; x++) {
       $ul.appendChild(createList(animeList[x]));
     }
   }
@@ -146,9 +156,9 @@ $cancel.addEventListener('click', function (event) {
 
 $remove.addEventListener('click', function (event) {
   event.preventDefault();
-  for (var i = 0; i < data.favorites.length; i++) {
+  for (let i = 0; i < data.favorites.length; i++) {
     if (data.favorites[i].mal_id === animeId) {
-      var $li = document.querySelectorAll('li');
+      const $li = document.querySelectorAll('li');
       $ul.removeChild($li[i]);
       data.favorites.splice(i, 1);
       $modalBg.classList.add('hidden');
@@ -158,40 +168,42 @@ $remove.addEventListener('click', function (event) {
 });
 
 function loadXML(search) {
-  var xmlObject = new XMLHttpRequest();
-  var stop = 6;
-  var notLoading = setTimeout(loadTimeout, 5000);
+  const xmlObject = new XMLHttpRequest();
+  let stop = 6;
   $viewMore.classList.add('hidden');
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     animeList = xmlObject.response.data;
-
+    canSubmit = true;
+    if (xmlObject.status === 404) {
+      $message.textContent = '404 Error.  This resource was not found.';
+      return;
+    } else if (xmlObject.status === 400) {
+      $message.textContent = 'Error 400.  There was an invalid request from this website.';
+      return;
+    }
     if (animeList.length === 0) {
       $message.textContent = `No Results for "${search}"`;
     }
     if (animeList.length < stop) {
       stop = animeList.length;
     }
-    for (var i = 0; i < stop; i++) {
-      $ul.appendChild(createList(animeList[i]));
+    if (data.view === 'list-view') {
+      for (let i = 0; i < stop; i++) {
+        $ul.appendChild(createList(animeList[i]));
+      }
+      if (animeList.length > 6) {
+        $viewMore.classList.remove('hidden');
+      }
     }
     $ring.classList.add('hidden');
-    clearTimeout(notLoading);
-    if (animeList.length > 6) {
-      $viewMore.classList.remove('hidden');
-    }
   });
   xmlObject.send();
 }
 
-function loadTimeout() {
-  $message.textContent = 'Sorry, there was an error connecting to the network!  Please check your internet connection and try again.';
-  $ring.classList.add('hidden');
-}
-
 function getRecommendedList(id) {
-  var xmlObject = new XMLHttpRequest();
+  const xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
@@ -204,13 +216,13 @@ function getRecommendedList(id) {
     } else if (recommendedList.length < 6) {
       $chevron[0].classList.add('hidden');
       $chevron[1].classList.add('hidden');
-      for (var y = 0; y < recommendedList.length; y++) {
+      for (let y = 0; y < recommendedList.length; y++) {
         $carousel.insertBefore(createCarousel(recommendedList[y]), $right);
       }
     } else {
       $chevron[0].classList.remove('hidden');
       $chevron[1].classList.remove('hidden');
-      for (var z = 0; z < 5; z++) {
+      for (let z = 0; z < 5; z++) {
         $carousel.insertBefore(createCarousel(recommendedList[z]), $right);
       }
     }
@@ -219,20 +231,22 @@ function getRecommendedList(id) {
 }
 
 function getDetailsById(id, callback, saveWhere) {
-  var xmlObject = new XMLHttpRequest();
+  const xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     saveWhere = xmlObject.response.data;
-    callback(id, saveWhere);
+    if (data.view === 'detail-view') {
+      callback(id, saveWhere);
+    }
     $ring.classList.add('hidden');
   });
   xmlObject.send();
 }
 
 function loadDetails(animeId, saved) {
-  var genres = [];
-  for (var x = 0; x < saved.genres.length; x++) {
+  const genres = [];
+  for (let x = 0; x < saved.genres.length; x++) {
     genres.push(saved.genres[x].name);
   }
   if (saved.score === null) {
@@ -244,19 +258,19 @@ function loadDetails(animeId, saved) {
   $detailTitleEnglish.textContent = saved.title_english;
   $art.setAttribute('src', saved.images.jpg.image_url);
   $art.setAttribute('alt', saved.title);
-  var rank = document.createTextNode(saved.rank);
+  const rank = document.createTextNode(saved.rank);
   $ranking.removeChild($ranking.lastChild);
   $ranking.appendChild(rank);
-  var popularity = document.createTextNode(saved.popularity);
+  const popularity = document.createTextNode(saved.popularity);
   $popularity.removeChild($popularity.lastChild);
   $popularity.appendChild(popularity);
-  var date = document.createTextNode(saved.aired.string);
+  const date = document.createTextNode(saved.aired.string);
   $airDate.removeChild($airDate.lastChild);
   $airDate.appendChild(date);
-  var episodes = document.createTextNode(saved.episodes);
+  const episodes = document.createTextNode(saved.episodes);
   $episodes.removeChild($episodes.lastChild);
   $episodes.appendChild(episodes);
-  var genre = document.createTextNode(genres.join(', '));
+  const genre = document.createTextNode(genres.join(', '));
   $genre.removeChild($genre.lastChild);
   $genre.appendChild(genre);
   $synopsis.textContent = saved.synopsis;
@@ -265,7 +279,7 @@ function loadDetails(animeId, saved) {
   getRecommendedList(animeId);
   $addButton.setAttribute('mal_id', animeId);
   $addButton.classList.remove('hidden');
-  for (var i = 0; i < data.favorites.length; i++) {
+  for (let i = 0; i < data.favorites.length; i++) {
     if (data.favorites[i].mal_id === parseInt(animeId)) {
       $addButton.classList.add('hidden');
     }
@@ -297,25 +311,25 @@ function hideDetails() {
 }
 
 function clearLists() {
-  var $allLi = document.querySelectorAll('li');
+  const $allLi = document.querySelectorAll('li');
   loopLists($allLi, $ul);
-  var $columnCarousel = document.querySelectorAll('.column-carousel');
+  const $columnCarousel = document.querySelectorAll('.column-carousel');
   loopLists($columnCarousel, $carousel);
 }
 
 function loopLists(nodeList, target) {
   if (nodeList.length > 0) {
-    for (var i = 0; i < nodeList.length; i++) {
+    for (let i = 0; i < nodeList.length; i++) {
       target.removeChild(nodeList[i]);
     }
   }
 }
 
 function createCarousel(anime) {
-  var createDiv = document.createElement('div');
-  var createImg = document.createElement('img');
-  var createTitle = document.createElement('h3');
-  var createAnchor = document.createElement('a');
+  const createDiv = document.createElement('div');
+  const createImg = document.createElement('img');
+  const createTitle = document.createElement('h3');
+  const createAnchor = document.createElement('a');
   createImg.setAttribute('src', anime.entry.images.jpg.image_url);
   createImg.setAttribute('alt', anime.entry.title);
   createImg.setAttribute('mal_id', anime.entry.mal_id);
@@ -337,8 +351,8 @@ function createCarousel(anime) {
 }
 
 function loopCarousel() {
-  var start = firstCarouselItem;
-  for (var y = 0; y < 5; y++) {
+  let start = firstCarouselItem;
+  for (let y = 0; y < 5; y++) {
     if (start === recommendedList.length) {
       start = 0;
     }
@@ -347,26 +361,26 @@ function loopCarousel() {
 }
 
 function createList(anime) {
-  var createLi = document.createElement('li');
-  var createImgAnchor = document.createElement('a');
-  var createTitleAnchor = document.createElement('a');
-  var createScoreSpan = document.createElement('span');
-  var createDateSpan = document.createElement('span');
-  var createGenreSpan = document.createElement('span');
-  var createListRow = document.createElement('div');
-  var createImgRow = document.createElement('div');
-  var createImg = document.createElement('img');
-  var createInfoCol1 = document.createElement('div');
-  var createInfoCol2 = document.createElement('div');
-  var createCol80 = document.createElement('div');
-  var createSynRow = document.createElement('div');
-  var createTitle = document.createElement('h2');
-  var createScore = document.createElement('p');
-  var createDate = document.createElement('p');
-  var createGenre = document.createElement('p');
-  var createSyn = document.createElement('p');
-  var createEditAnchor = document.createElement('a');
-  var createTrashIcon = document.createElement('i');
+  const createLi = document.createElement('li');
+  const createImgAnchor = document.createElement('a');
+  const createTitleAnchor = document.createElement('a');
+  const createScoreSpan = document.createElement('span');
+  const createDateSpan = document.createElement('span');
+  const createGenreSpan = document.createElement('span');
+  const createListRow = document.createElement('div');
+  const createImgRow = document.createElement('div');
+  const createImg = document.createElement('img');
+  const createInfoCol1 = document.createElement('div');
+  const createInfoCol2 = document.createElement('div');
+  const createCol80 = document.createElement('div');
+  const createSynRow = document.createElement('div');
+  const createTitle = document.createElement('h2');
+  const createScore = document.createElement('p');
+  const createDate = document.createElement('p');
+  const createGenre = document.createElement('p');
+  const createSyn = document.createElement('p');
+  const createEditAnchor = document.createElement('a');
+  const createTrashIcon = document.createElement('i');
   if (anime.title.length > 40) {
     createTitleAnchor.textContent = anime.title.slice(0, 40) + '...';
   } else {
@@ -386,8 +400,8 @@ function createList(anime) {
   createScore.prepend(createScoreSpan);
   createDate.textContent = anime.aired.string;
   createDate.prepend(createDateSpan);
-  var genres = [];
-  for (var i = 0; i < anime.genres.length; i++) {
+  const genres = [];
+  for (let i = 0; i < anime.genres.length; i++) {
     genres.push(anime.genres[i].name);
   }
   createGenre.textContent = genres.join(', ');

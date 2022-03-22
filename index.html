@@ -42,7 +42,7 @@
   </header>
   <main>
     <div class="container height-100 white-bg">
-      <div class="welcome text-center dark-blue font-size-2">
+      <div view="home-page" class="welcome text-center dark-blue font-size-2">
         <h1 class=""">Welcome!</h1>
         <p class=" font-size-1dot5">Please search for anime above</p>
       </div>
@@ -55,14 +55,14 @@
           <div></div>
         </div>
       </div>
-      <div class="column-full">
+      <div id="list-view" view="list-view" class="column-full">
         <ul class="white-bg margin-zero">
         </ul>
         <a id="view-more" class="hidden" href="#">
           <h4 class="dark-blue text-center white-bg margin-zero padding-1rem">View More</h4>
         </a>
       </div>
-      <div id="details" class="hidden white-bg">
+      <div id="details" view="detail-view" class="hidden white-bg">
         <div class="column-full light-blue-bg text-center padding-1rem">
           <h1 id="detail-title" class="dark-blue font-size-2 margin-zero"></h1>
           <h3 id="detail-title-english" class="margin-zero"></h3>
