@@ -171,7 +171,7 @@ function loadXML(search) {
   const xmlObject = new XMLHttpRequest();
   let stop = 6;
   $viewMore.classList.add('hidden');
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
+  xmlObject.open('GET', `https://api.jikan.moe/v4/anime?q=${search}&sfw`);
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     animeList = xmlObject.response.data;
@@ -204,7 +204,7 @@ function loadXML(search) {
 
 function getRecommendedList(id) {
   const xmlObject = new XMLHttpRequest();
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
+  xmlObject.open('GET', `https://api.jikan.moe/v4/anime/${id}/recommendations`);
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     recommendedList = xmlObject.response.data;
@@ -232,7 +232,7 @@ function getRecommendedList(id) {
 
 function getDetailsById(id, callback, saveWhere) {
   const xmlObject = new XMLHttpRequest();
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
+  xmlObject.open('GET', `https://api.jikan.moe/v4/anime/${id}`);
   xmlObject.responseType = 'json';
   xmlObject.addEventListener('load', function () {
     saveWhere = xmlObject.response.data;
@@ -274,7 +274,7 @@ function loadDetails(animeId, saved) {
   $genre.removeChild($genre.lastChild);
   $genre.appendChild(genre);
   $synopsis.textContent = saved.synopsis;
-  $video.setAttribute('src', 'https://www.youtube.com/embed/' + saved.trailer.youtube_id + '?autoplay=0');
+  $video.setAttribute('src', `https://www.youtube.com/embed/${saved.trailer.youtube_id}?autoplay=0`);
   $video.setAttribute('title', saved.title);
   getRecommendedList(animeId);
   $addButton.setAttribute('mal_id', animeId);
@@ -382,7 +382,7 @@ function createList(anime) {
   const createEditAnchor = document.createElement('a');
   const createTrashIcon = document.createElement('i');
   if (anime.title.length > 40) {
-    createTitleAnchor.textContent = anime.title.slice(0, 40) + '...';
+    createTitleAnchor.textContent = `${anime.title.slice(0, 40)} ...`;
   } else {
     createTitleAnchor.textContent = anime.title;
   }
@@ -393,7 +393,7 @@ function createList(anime) {
   createDateSpan.textContent = 'Air Date: ';
   createGenreSpan.textContent = 'Genre: ';
   if (anime.score === null) {
-    createScore.textContent = createScoreSpan + 'N/A';
+    createScore.textContent = 'createScoreSpan';
   } else {
     createScore.textContent = anime.score;
   }
