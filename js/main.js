@@ -173,7 +173,7 @@ const loadXML = search => {
   $viewMore.classList.add('hidden');
   xmlObject.open('GET', `https://api.jikan.moe/v4/anime?q=${search}&sfw`);
   xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
+  xmlObject.addEventListener('load', () => {
     animeList = xmlObject.response.data;
     canSubmit = true;
     if (xmlObject.status === 404) {
@@ -206,7 +206,7 @@ const getRecommendedList = id => {
   const xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', `https://api.jikan.moe/v4/anime/${id}/recommendations`);
   xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
+  xmlObject.addEventListener('load', () => {
     recommendedList = xmlObject.response.data;
     $recommendedList.textContent = 'Recommended';
     $carousel.classList.remove('hidden');
@@ -230,11 +230,11 @@ const getRecommendedList = id => {
   xmlObject.send();
 };
 
-function getDetailsById(id, callback, saveWhere) {
+const getDetailsById = (id, callback, saveWhere) => {
   const xmlObject = new XMLHttpRequest();
   xmlObject.open('GET', `https://api.jikan.moe/v4/anime/${id}`);
   xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
+  xmlObject.addEventListener('load', () => {
     saveWhere = xmlObject.response.data;
     if (data.view === 'detail-view') {
       callback(id, saveWhere);
@@ -242,9 +242,9 @@ function getDetailsById(id, callback, saveWhere) {
     $ring.classList.add('hidden');
   });
   xmlObject.send();
-}
+};
 
-function loadDetails(animeId, saved) {
+const loadDetails = (animeId, saved) => {
   const genres = [];
   for (let x = 0; x < saved.genres.length; x++) {
     genres.push(saved.genres[x].name);
@@ -286,46 +286,46 @@ function loadDetails(animeId, saved) {
   }
   hideList();
   $details.classList.remove('hidden');
-}
+};
 
-function addToFavList(id, favList) {
+const addToFavList = (id, favList) => {
   data.favorites.push(favList);
-}
+};
 
-function hideHome(search) {
+const hideHome = search => {
   $welcome.classList.add('hidden');
   $message.classList.remove('hidden');
   $message.textContent = `Search Results for "${search}"`;
   $ul.classList.remove('hidden');
-}
+};
 
-function hideList() {
+const hideList = () => {
   $message.classList.add('hidden');
   $viewMore.classList.add('hidden');
   $ul.classList.add('hidden');
-}
+};
 
-function hideDetails() {
+const hideDetails = () => {
   $details.classList.add('hidden');
   $video.setAttribute('src', '');
-}
+};
 
-function clearLists() {
+const clearLists = () => {
   const $allLi = document.querySelectorAll('li');
   loopLists($allLi, $ul);
   const $columnCarousel = document.querySelectorAll('.column-carousel');
   loopLists($columnCarousel, $carousel);
-}
+};
 
-function loopLists(nodeList, target) {
+const loopLists = (nodeList, target) => {
   if (nodeList.length > 0) {
     for (let i = 0; i < nodeList.length; i++) {
       target.removeChild(nodeList[i]);
     }
   }
-}
+};
 
-function createCarousel(anime) {
+const createCarousel = anime => {
   const createDiv = document.createElement('div');
   const createImg = document.createElement('img');
   const createTitle = document.createElement('h3');
@@ -348,9 +348,9 @@ function createCarousel(anime) {
   createAnchor.setAttribute('href', '#');
   createAnchor.appendChild(createDiv);
   return createAnchor;
-}
+};
 
-function loopCarousel() {
+const loopCarousel = () => {
   let start = firstCarouselItem;
   for (let y = 0; y < 5; y++) {
     if (start === recommendedList.length) {
@@ -358,9 +358,9 @@ function loopCarousel() {
     }
     $carousel.insertBefore(createCarousel(recommendedList[start++]), $right);
   }
-}
+};
 
-function createList(anime) {
+const createList = anime => {
   const createLi = document.createElement('li');
   const createImgAnchor = document.createElement('a');
   const createTitleAnchor = document.createElement('a');
@@ -442,4 +442,4 @@ function createList(anime) {
   createLi.setAttribute('id', anime.mal_id);
   createLi.setAttribute('class', 'relative');
   return createLi;
-}
+};
