@@ -84,7 +84,6 @@ main {
 
 #synopsis {
   order: 3;
-  flex-basis: 100%;
 }
 
 #video-container {
@@ -119,7 +118,7 @@ main {
   }
 
   .rating {
-    width: 80%;
+    flex-basis: 60%;
   }
 
   .column-list-description {

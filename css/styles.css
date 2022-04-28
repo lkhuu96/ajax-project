@@ -85,8 +85,7 @@ hr {
 .rating-card {
   border-right: solid 3px #0b5a82;
   border-bottom: solid 3px #0b5a82;
-  width: 45%;
-  max-width: 80px;
+  width: 40%;
 }
 
 .favorite-button,
@@ -312,6 +311,10 @@ hr {
   animation-delay: -0.15s;
 }
 
+#rating-number {
+  font-size: 2rem;
+}
+
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);
@@ -379,11 +382,10 @@ hr {
   }
 
   .rating-card {
-    width: 20%;
-    max-width: 200px;
     margin-right: 1rem;
     font-size: 1.5rem;
     border-bottom: none;
+    width: 20%;
   }
 
   .chevron {
