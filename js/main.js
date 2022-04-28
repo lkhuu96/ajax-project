@@ -393,7 +393,7 @@ const createList = anime => {
   createDateSpan.textContent = 'Air Date: ';
   createGenreSpan.textContent = 'Genre: ';
   if (anime.score === null) {
-    createScore.textContent = 'createScoreSpan';
+    createScore.textContent = 'N/A';
   } else {
     createScore.textContent = anime.score;
   }
