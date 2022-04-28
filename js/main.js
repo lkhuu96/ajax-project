@@ -406,9 +406,9 @@ const createList = anime => {
   }
   createGenre.textContent = genres.join(', ');
   createGenre.prepend(createGenreSpan);
-  createSyn.textContent = anime.synopsis.slice(0, 280);
-  if (anime.synopsis.length > 280) {
-    createSyn.textContent += '...';
+  createSyn.textContent = anime.synopsis;
+  if (createSyn.textContent.length > 280) {
+    createSyn.textContent = createSyn.textContent.slice(0, 280) + '...';
   }
   createSyn.setAttribute('id', 'list-description');
   createInfoCol1.appendChild(createTitle);
