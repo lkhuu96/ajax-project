@@ -36,11 +36,6 @@ main {
   margin: auto;
 }
 
-.column-list-description,
-.column-sub-info {
-  width: 100%;
-}
-
 .column-twenty {
   flex-basis: 20%;
 }
@@ -62,19 +57,24 @@ main {
   width: 100%;
 }
 
+.width-100 {
+  width: 100%;
+}
+
 .art-container {
   height: 10rem;
   max-width: 150px;
   display: block;
 }
 
+.synopsis-text {
+  overflow: auto;
+  max-height: 450px;
+}
+
 #detail-art-container {
   order: 1;
   flex-basis: 48%;
-}
-
-#detail-art {
-  width: 100%;
 }
 
 #info-card {

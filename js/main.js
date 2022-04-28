@@ -339,7 +339,7 @@ const createCarousel = anime => {
   } else {
     createTitle.textContent = anime.entry.title;
   }
-  createTitle.className = 'recommended-title';
+  createTitle.className = 'recommended-title margin-zero hw-100';
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
   createDiv.appendChild(createImg);
   createDiv.appendChild(createTitle);
@@ -413,11 +413,11 @@ const createList = anime => {
   createSyn.setAttribute('id', 'list-description');
   createInfoCol1.appendChild(createTitle);
   createInfoCol1.appendChild(createSyn);
-  createInfoCol1.className = 'column-list-description list-info ';
+  createInfoCol1.className = 'column-list-description list-info width-100';
   createInfoCol2.appendChild(createScore);
   createInfoCol2.appendChild(createDate);
   createInfoCol2.appendChild(createGenre);
-  createInfoCol2.className = 'column-sub-info list-info';
+  createInfoCol2.className = 'column-sub-info list-info width-100';
   createSynRow.appendChild(createInfoCol1);
   createSynRow.appendChild(createInfoCol2);
   createSynRow.className = 'row';
