@@ -210,7 +210,7 @@ const getRecommendedList = id => {
     recommendedList = xmlObject.response.data;
     $recommendedList.textContent = 'Recommended';
     $carousel.classList.remove('hidden');
-    if (recommendedList.length === 0) {
+    if (Object.keys(recommendedList).length === 0) {
       $recommendedList.textContent = 'No Recommended Anime to Display';
       $carousel.classList.add('hidden');
     } else if (recommendedList.length < 6) {
@@ -339,7 +339,7 @@ const createCarousel = anime => {
   } else {
     createTitle.textContent = anime.entry.title;
   }
-  createTitle.className = 'recommended-title';
+  createTitle.className = 'recommended-title margin-zero hw-100';
   createTitle.setAttribute('mal_id', anime.entry.mal_id);
   createDiv.appendChild(createImg);
   createDiv.appendChild(createTitle);
@@ -406,18 +406,18 @@ const createList = anime => {
   }
   createGenre.textContent = genres.join(', ');
   createGenre.prepend(createGenreSpan);
-  createSyn.textContent = anime.synopsis.slice(0, 280);
-  if (anime.synopsis.length > 280) {
-    createSyn.textContent += '...';
+  createSyn.textContent = anime.synopsis;
+  if (createSyn.textContent.length > 280) {
+    createSyn.textContent = createSyn.textContent.slice(0, 280) + '...';
   }
   createSyn.setAttribute('id', 'list-description');
   createInfoCol1.appendChild(createTitle);
   createInfoCol1.appendChild(createSyn);
-  createInfoCol1.className = 'column-list-description list-info ';
+  createInfoCol1.className = 'column-list-description list-info width-100';
   createInfoCol2.appendChild(createScore);
   createInfoCol2.appendChild(createDate);
   createInfoCol2.appendChild(createGenre);
-  createInfoCol2.className = 'column-sub-info list-info';
+  createInfoCol2.className = 'column-sub-info list-info width-100';
   createSynRow.appendChild(createInfoCol1);
   createSynRow.appendChild(createInfoCol2);
   createSynRow.className = 'row';
