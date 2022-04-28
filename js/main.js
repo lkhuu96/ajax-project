@@ -36,7 +36,7 @@ const $remove = document.querySelector('#remove-button');
 const $ring = document.querySelector('.lds-ring');
 let canSubmit = true;
 
-$form.addEventListener('submit', function (event) {
+$form.addEventListener('submit', event => {
   event.preventDefault();
   if (canSubmit === true) {
     canSubmit = false;
@@ -55,7 +55,7 @@ $form.addEventListener('submit', function (event) {
   }
 });
 
-$homeButton.addEventListener('click', function (event) {
+$homeButton.addEventListener('click', event => {
   $ring.classList.add('hidden');
   data.view = 'home-page';
   clearLists();
@@ -64,7 +64,7 @@ $homeButton.addEventListener('click', function (event) {
   hideDetails();
 });
 
-$ul.addEventListener('click', function (event) {
+$ul.addEventListener('click', event => {
   const idNum = event.target.closest('li').getAttribute('id');
   const anchorEdit = event.target.closest('a').getAttribute('class', 'trash-button');
   data.view = 'detail-view';
@@ -81,14 +81,14 @@ $ul.addEventListener('click', function (event) {
   }
 });
 
-$addButton.addEventListener('click', function (event) {
+$addButton.addEventListener('click', event => {
   event.preventDefault();
   const idNum = event.target.closest('.add-button').getAttribute('mal_id');
   $addButton.classList.add('hidden');
   getDetailsById(idNum, addToFavList, data.favoriteDetails);
 });
 
-$favListButton.addEventListener('click', function (event) {
+$favListButton.addEventListener('click', event => {
   data.view = 'favorite-view';
   $ring.classList.add('hidden');
   clearLists();
@@ -104,7 +104,7 @@ $favListButton.addEventListener('click', function (event) {
   }
 });
 
-$carousel.addEventListener('click', function (event) {
+$carousel.addEventListener('click', event => {
   const id = event.target.getAttribute('mal_id');
   if (event.target.tagName === 'I') {
     event.preventDefault();
@@ -131,7 +131,7 @@ $carousel.addEventListener('click', function (event) {
   }
 });
 
-$viewMore.addEventListener('click', function (event) {
+$viewMore.addEventListener('click', event => {
   event.preventDefault();
   $ring.classList.remove('hidden');
   if (animeList.length < searchView + 6) {
@@ -148,13 +148,13 @@ $viewMore.addEventListener('click', function (event) {
   $ring.classList.add('hidden');
 });
 
-$cancel.addEventListener('click', function (event) {
+$cancel.addEventListener('click', event => {
   event.preventDefault();
   $modalBg.classList.add('hidden');
   $body.classList.remove('overflow');
 });
 
-$remove.addEventListener('click', function (event) {
+$remove.addEventListener('click', event => {
   event.preventDefault();
   for (let i = 0; i < data.favorites.length; i++) {
     if (data.favorites[i].mal_id === animeId) {
@@ -167,13 +167,13 @@ $remove.addEventListener('click', function (event) {
   }
 });
 
-function loadXML(search) {
+const loadXML = search => {
   const xmlObject = new XMLHttpRequest();
   let stop = 6;
   $viewMore.classList.add('hidden');
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw');
+  xmlObject.open('GET', `https://api.jikan.moe/v4/anime?q=${search}&sfw`);
   xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
+  xmlObject.addEventListener('load', () => {
     animeList = xmlObject.response.data;
     canSubmit = true;
     if (xmlObject.status === 404) {
@@ -200,13 +200,13 @@ function loadXML(search) {
     $ring.classList.add('hidden');
   });
   xmlObject.send();
-}
+};
 
-function getRecommendedList(id) {
+const getRecommendedList = id => {
   const xmlObject = new XMLHttpRequest();
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id + '/recommendations');
+  xmlObject.open('GET', `https://api.jikan.moe/v4/anime/${id}/recommendations`);
   xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
+  xmlObject.addEventListener('load', () => {
     recommendedList = xmlObject.response.data;
     $recommendedList.textContent = 'Recommended';
     $carousel.classList.remove('hidden');
@@ -228,13 +228,13 @@ function getRecommendedList(id) {
     }
   });
   xmlObject.send();
-}
+};
 
-function getDetailsById(id, callback, saveWhere) {
+const getDetailsById = (id, callback, saveWhere) => {
   const xmlObject = new XMLHttpRequest();
-  xmlObject.open('GET', 'https://api.jikan.moe/v4/anime/' + id);
+  xmlObject.open('GET', `https://api.jikan.moe/v4/anime/${id}`);
   xmlObject.responseType = 'json';
-  xmlObject.addEventListener('load', function () {
+  xmlObject.addEventListener('load', () => {
     saveWhere = xmlObject.response.data;
     if (data.view === 'detail-view') {
       callback(id, saveWhere);
@@ -242,9 +242,9 @@ function getDetailsById(id, callback, saveWhere) {
     $ring.classList.add('hidden');
   });
   xmlObject.send();
-}
+};
 
-function loadDetails(animeId, saved) {
+const loadDetails = (animeId, saved) => {
   const genres = [];
   for (let x = 0; x < saved.genres.length; x++) {
     genres.push(saved.genres[x].name);
@@ -274,7 +274,7 @@ function loadDetails(animeId, saved) {
   $genre.removeChild($genre.lastChild);
   $genre.appendChild(genre);
   $synopsis.textContent = saved.synopsis;
-  $video.setAttribute('src', 'https://www.youtube.com/embed/' + saved.trailer.youtube_id + '?autoplay=0');
+  $video.setAttribute('src', `https://www.youtube.com/embed/${saved.trailer.youtube_id}?autoplay=0`);
   $video.setAttribute('title', saved.title);
   getRecommendedList(animeId);
   $addButton.setAttribute('mal_id', animeId);
@@ -286,46 +286,46 @@ function loadDetails(animeId, saved) {
   }
   hideList();
   $details.classList.remove('hidden');
-}
+};
 
-function addToFavList(id, favList) {
+const addToFavList = (id, favList) => {
   data.favorites.push(favList);
-}
+};
 
-function hideHome(search) {
+const hideHome = search => {
   $welcome.classList.add('hidden');
   $message.classList.remove('hidden');
   $message.textContent = `Search Results for "${search}"`;
   $ul.classList.remove('hidden');
-}
+};
 
-function hideList() {
+const hideList = () => {
   $message.classList.add('hidden');
   $viewMore.classList.add('hidden');
   $ul.classList.add('hidden');
-}
+};
 
-function hideDetails() {
+const hideDetails = () => {
   $details.classList.add('hidden');
   $video.setAttribute('src', '');
-}
+};
 
-function clearLists() {
+const clearLists = () => {
   const $allLi = document.querySelectorAll('li');
   loopLists($allLi, $ul);
   const $columnCarousel = document.querySelectorAll('.column-carousel');
   loopLists($columnCarousel, $carousel);
-}
+};
 
-function loopLists(nodeList, target) {
+const loopLists = (nodeList, target) => {
   if (nodeList.length > 0) {
     for (let i = 0; i < nodeList.length; i++) {
       target.removeChild(nodeList[i]);
     }
   }
-}
+};
 
-function createCarousel(anime) {
+const createCarousel = anime => {
   const createDiv = document.createElement('div');
   const createImg = document.createElement('img');
   const createTitle = document.createElement('h3');
@@ -348,9 +348,9 @@ function createCarousel(anime) {
   createAnchor.setAttribute('href', '#');
   createAnchor.appendChild(createDiv);
   return createAnchor;
-}
+};
 
-function loopCarousel() {
+const loopCarousel = () => {
   let start = firstCarouselItem;
   for (let y = 0; y < 5; y++) {
     if (start === recommendedList.length) {
@@ -358,9 +358,9 @@ function loopCarousel() {
     }
     $carousel.insertBefore(createCarousel(recommendedList[start++]), $right);
   }
-}
+};
 
-function createList(anime) {
+const createList = anime => {
   const createLi = document.createElement('li');
   const createImgAnchor = document.createElement('a');
   const createTitleAnchor = document.createElement('a');
@@ -382,7 +382,7 @@ function createList(anime) {
   const createEditAnchor = document.createElement('a');
   const createTrashIcon = document.createElement('i');
   if (anime.title.length > 40) {
-    createTitleAnchor.textContent = anime.title.slice(0, 40) + '...';
+    createTitleAnchor.textContent = `${anime.title.slice(0, 40)} ...`;
   } else {
     createTitleAnchor.textContent = anime.title;
   }
@@ -393,7 +393,7 @@ function createList(anime) {
   createDateSpan.textContent = 'Air Date: ';
   createGenreSpan.textContent = 'Genre: ';
   if (anime.score === null) {
-    createScore.textContent = createScoreSpan + 'N/A';
+    createScore.textContent = 'N/A';
   } else {
     createScore.textContent = anime.score;
   }
@@ -442,4 +442,4 @@ function createList(anime) {
   createLi.setAttribute('id', anime.mal_id);
   createLi.setAttribute('class', 'relative');
   return createLi;
-}
+};
