@@ -210,7 +210,7 @@ const getRecommendedList = id => {
     recommendedList = xmlObject.response.data;
     $recommendedList.textContent = 'Recommended';
     $carousel.classList.remove('hidden');
-    if (recommendedList.length === 0) {
+    if (Object.keys(recommendedList).length === 0) {
       $recommendedList.textContent = 'No Recommended Anime to Display';
       $carousel.classList.add('hidden');
     } else if (recommendedList.length < 6) {
