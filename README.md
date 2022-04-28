@@ -7,7 +7,7 @@ A web application for people who want to search for anime
 - JavaScript
 
 ## Live Demo
-Try the Application live at [luc-ky-khuu.github.io/anime-search/](luc-ky-khuu.github.io/anime-search/)
+Try the Application live at [luc-ky-khuu.github.io/anime-search/](https://luc-ky-khuu.github.io/anime-search/)
 
 ## Features
 - User can view a list of searched anime 
